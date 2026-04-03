@@ -333,25 +333,22 @@
       const uuid = getUUID();
       const version = uuid[14];
 
-      if (index === 12) return 'VERSION (defines UUID type)';
+      if (index === 12) return 'version (defines UUID type)';
 
       if (version === '1') {
-        if (index < 8) return 'v1: time_low (timestamp)';
-        if (index < 12) return 'v1: time_mid';
-        if (index < 16) return 'v1: time_hi + version';
-        if (index < 20) return 'v1: clock_seq + variant';
-        return 'v1: node (MAC/random)';
+        if (index < 16) return 'timestamp';
+        if (index === 16) return 'variant'
+        if (index < 20) return 'clock_seq';
+        return 'node (MAC/random)';
       }
 
       if (version === '7') {
-        if (index < 8) return 'v7: unix timestamp (ms, high)';
-        if (index < 12) return 'v7: unix timestamp (ms, low)';
-        if (index < 16) return 'v7: version + random';
-        if (index < 20) return 'v7: random + variant';
-        return 'v7: random tail';
+        if (index < 12) return 'unix timestamp (ms)';
+        if (index === 16) return 'variant'
+        return 'random bits';
       }
 
-      return 'mostly random bits';
+      return 'random bits';
     }
 
     function toBits(hex) {
@@ -361,18 +358,23 @@
       let groupBoundaries;
       let colors;
 
+      const green = '#22c55e';
+      const purple = '#a855f7';
+      const orange = '#f59e0b';
+      const red = '#ef4444';
+
       if (version === '1') {
         // v1: time_low | time_mid | time_hi+version | clock_seq | node
-        groupBoundaries = [8,12,16,20,32];
-        colors = ['#22c55e','#3b82f6','#f59e0b','#ef4444','#a855f7'];
+        groupBoundaries = [12,13,16,17,20,32];
+        colors = [green,orange,green,orange,red,purple];
       } else if (version === '7') {
         // v7: unix_ts_ms | rand_a | version+rand | rand_b | rand_c
-        groupBoundaries = [8,12,16,20,32];
-        colors = ['#22c55e','#3b82f6','#f59e0b','#ef4444','#a855f7'];
+        groupBoundaries = [12,13,16,17,32];
+        colors = [green,orange,purple,orange,purple];
       } else {
         // default (v4 etc): random structure
         groupBoundaries = [8,12,13,20,32];
-        colors = ['#a855f7','#a855f7','#f59e0b','#a855f7','#a855f7'];
+        colors = [purple,purple,orange,purple,purple];
       }
 
       return hex.split('').map((h, i) => {
