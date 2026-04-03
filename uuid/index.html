@@ -330,17 +330,50 @@
     }
 
     function explainBit(index) {
+      const uuid = getUUID();
+      const version = uuid[14];
+
       if (index === 12) return 'VERSION (defines UUID type)';
-      if (index < 8) return 'time_low (timestamp part)';
-      if (index < 12) return 'time_mid';
-      if (index < 16) return 'time_hi + version';
-      if (index < 20) return 'clock sequence + variant';
-      return 'node (usually random or MAC)';
+
+      if (version === '1') {
+        if (index < 8) return 'v1: time_low (timestamp)';
+        if (index < 12) return 'v1: time_mid';
+        if (index < 16) return 'v1: time_hi + version';
+        if (index < 20) return 'v1: clock_seq + variant';
+        return 'v1: node (MAC/random)';
+      }
+
+      if (version === '7') {
+        if (index < 8) return 'v7: unix timestamp (ms, high)';
+        if (index < 12) return 'v7: unix timestamp (ms, low)';
+        if (index < 16) return 'v7: version + random';
+        if (index < 20) return 'v7: random + variant';
+        return 'v7: random tail';
+      }
+
+      return 'v4/random UUID: mostly random bits';
     }
 
     function toBits(hex) {
-      const groupBoundaries = [8,12,16,20,32];
-      const colors = ['#10b981','#3b82f6','#f59e0b','#ef4444','#8b5cf6'];
+      const version = hex[12];
+
+      // group boundaries differ by version semantics
+      let groupBoundaries;
+      let colors;
+
+      if (version === '1') {
+        // v1: time_low | time_mid | time_hi+version | clock_seq | node
+        groupBoundaries = [8,12,16,20,32];
+        colors = ['#22c55e','#3b82f6','#f59e0b','#ef4444','#a855f7'];
+      } else if (version === '7') {
+        // v7: unix_ts_ms | rand_a | version+rand | rand_b | rand_c
+        groupBoundaries = [8,12,16,20,32];
+        colors = ['#22c55e','#3b82f6','#f59e0b','#ef4444','#a855f7'];
+      } else {
+        // default (v4 etc): random structure
+        groupBoundaries = [8,12,13,20,32];
+        colors = ['#a855f7','#a855f7','#f59e0b','#a855f7','#a855f7'];
+      }
 
       return hex.split('').map((h, i) => {
         const bits = parseInt(h,16).toString(2).padStart(4,'0');
@@ -372,6 +405,24 @@
       return new Date(ms).toISOString();
     }
 
+    function parseUUIDv1(hex) {
+      if (hex.length !== 32) return 'Invalid UUID';
+      
+      // Разбиваем на компоненты времени
+      const timeLow = BigInt('0x' + hex.substring(0,8));
+      const timeMid = BigInt('0x' + hex.substring(8,12));
+      const timeHi = BigInt('0x' + hex.substring(12,16) & 0x0fff); // убираем version биты
+
+      // Собираем timestamp в 100-нс интервалах с UUID Epoch (15 окт 1582)
+      const timestamp100ns = (timeHi << 48n) | (timeMid << 32n) | timeLow;
+
+      // Конвертируем в миллисекунды с 1970-01-01
+      const UUID_EPOCH = 122192928000000000n; // 100-ns ticks от 1582 до 1970
+      const msSince1970 = Number((timestamp100ns - UUID_EPOCH) / 10000n);
+
+      return new Date(msSince1970).toISOString();
+    }
+
     function analyzeUUID() {
       const uuid = getUUID();
       const result = document.getElementById('result');
@@ -386,6 +437,7 @@
 
       let timestamp = 'N/A';
       if (version === '7') timestamp = parseUUIDv7(clean);
+      if (version === '1') timestamp = parseUUIDv1(clean);
 
       result.innerHTML = `
         <div class="block"><span class="label">UUID:</span> ${uuid}</div>
