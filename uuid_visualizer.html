@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UUID Visualizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    .uuid-input {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .uuid-input input {
+      width: 24px;
+      height: 36px;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      color: white;
+      text-transform: lowercase;
+    }
+
+    .group-0 { background: #10b981; }
+    .group-1 { background: #3b82f6; }
+    .group-2 { background: #f59e0b; }
+    .group-3 { background: #ef4444; }
+    .group-4 { background: #8b5cf6; }
+
+    .bit {
+      display: inline-block;
+      padding: 2px 4px;
+      margin: 1px;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #000;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .bit:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 6px rgba(255,255,255,0.5);
+    }
+
+    .version-bit {
+      outline: 2px solid #fff;
+      outline-offset: 1px;
+    }
+
+    .dash {
+      display: flex;
+      align-items: center;
+      color: #64748b;
+      font-weight: bold;
+    }
+
+    button, select {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .copy-success {
+      color: #22c55e;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .tooltip {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #e2e8f0;
+      background: #1e293b;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .result { margin-top: 30px; max-width: 700px; width: 100%; }
+
+    .block {
+      background: #1e293b;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .label { font-weight: bold; color: #38bdf8; }
+
+    .bits {
+      font-family: monospace;
+      word-break: break-all;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>UUID Visualizer</h1>
+
+  <div class="uuid-input" id="uuidInputs"></div>
+
+  <div>
+    <select id="versionSelect">
+      <option value="4">UUID v4 (random)</option>
+      <option value="1">UUID v1 (time-based)</option>
+      <option value="7">UUID v7 (modern time-based)</option>
+    </select>
+    <button onclick="generateUUID()">Generate</button>
+    <button onclick="copyUUID()">Copy to clipboard</button>
+  </div>
+
+  <div id="copyStatus" class="copy-success"></div>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const groups = [8,4,4,4,12];
+    let container;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      container = document.getElementById('uuidInputs');
+      createInputs();
+      runTests();
+    });
+
+    function isValidHex(char) {
+      return /^[0-9a-fA-F]$/.test(char);
+    }
+
+    function createInputs() {
+      if (!container) return;
+
+      groups.forEach((size, gIndex) => {
+        for (let i = 0; i < size; i++) {
+          const input = document.createElement('input');
+          input.maxLength = 1;
+          input.classList.add('group-' + gIndex);
+
+          input.addEventListener('input', (e) => {
+            let val = e.target.value;
+
+            if (!isValidHex(val)) {
+              e.target.value = '';
+              return;
+            }
+
+            e.target.value = val.toLowerCase();
+
+            if (val) focusNext(input);
+            analyzeUUID();
+          });
+
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !input.value) focusPrev(input);
+            setTimeout(analyzeUUID, 0);
+          });
+
+          container.appendChild(input);
+        }
+
+        if (gIndex < groups.length - 1) {
+          const dash = document.createElement('div');
+          dash.textContent = '-';
+          dash.className = 'dash';
+          container.appendChild(dash);
+        }
+      });
+
+      container.addEventListener('paste', handlePaste);
+    }
+
+    function focusNext(el) {
+      const inputs = getInputs();
+      const idx = inputs.indexOf(el);
+      if (idx !== -1 && idx < inputs.length - 1) inputs[idx+1].focus();
+    }
+
+    function focusPrev(el) {
+      const inputs = getInputs();
+      const idx = inputs.indexOf(el);
+      if (idx > 0) inputs[idx-1].focus();
+    }
+
+    function getInputs() {
+      if (!container) return [];
+      return Array.from(container.querySelectorAll('input'));
+    }
+
+    function handlePaste(e) {
+      e.preventDefault();
+      const text = e.clipboardData.getData('text').replace(/[^a-fA-F0-9]/g, '').toLowerCase();
+      const inputs = getInputs();
+      text.split('').forEach((ch, i) => {
+        if (inputs[i]) inputs[i].value = ch;
+      });
+      analyzeUUID();
+    }
+
+    function getUUID() {
+      const inputs = getInputs();
+      if (!inputs.length) return '';
+
+      let idx = 0;
+      return groups.map(size => {
+        const part = inputs
+          .slice(idx, idx + size)
+          .map(i => (i.value || '').toLowerCase())
+          .join('');
+        idx += size;
+        return part;
+      }).join('-');
+    }
+
+    function setUUID(uuid) {
+      const clean = uuid.replace(/-/g,'').toLowerCase();
+      const inputs = getInputs();
+
+      if (inputs.length === 0) return;
+
+      clean.split('').forEach((c,i)=> {
+        if (inputs[i]) inputs[i].value = c;
+      });
+    }
+
+    async function copyUUID() {
+      const inputs = getInputs();
+      const status = document.getElementById('copyStatus');
+
+      if (!inputs.length) {
+        status.textContent = 'No inputs';
+        return;
+      }
+
+      const uuid = getUUID();
+
+      if (!uuid || uuid.length !== 36) {
+        status.textContent = 'Invalid UUID';
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(uuid);
+        status.textContent = 'Copied!';
+      } catch (err) {
+        const textarea = document.createElement('textarea');
+        textarea.value = uuid;
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        status.textContent = 'Copied (fallback)!';
+      }
+
+      setTimeout(() => status.textContent = '', 1500);
+    }
+
+    function generateUUID() {
+      const version = document.getElementById('versionSelect').value;
+
+      if (version === '4') setUUID(crypto.randomUUID());
+
+      if (version === '7') {
+        const ms = Date.now();
+        const msHex = ms.toString(16).padStart(12,'0');
+        const rand = crypto.getRandomValues(new Uint8Array(10));
+        const randHex = Array.from(rand).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,20);
+        const uuid = `${msHex.substring(0,8)}-${msHex.substring(8,12)}-7${randHex.substring(0,3)}-a${randHex.substring(3,6)}-${randHex.substring(6)}`;
+        setUUID(uuid);
+      }
+
+      analyzeUUID();
+    }
+
+    function explainBit(index) {
+      if (index === 12) return 'VERSION (defines UUID type)';
+      if (index < 8) return 'time_low (timestamp part)';
+      if (index < 12) return 'time_mid';
+      if (index < 16) return 'time_hi + version';
+      if (index < 20) return 'clock sequence + variant';
+      return 'node (usually random or MAC)';
+    }
+
+    function toBits(hex) {
+      const groupBoundaries = [8,12,16,20,32];
+      const colors = ['#10b981','#3b82f6','#f59e0b','#ef4444','#8b5cf6'];
+
+      return hex.split('').map((h, i) => {
+        const bits = parseInt(h,16).toString(2).padStart(4,'0');
+
+        let groupIndex = 0;
+        for (let g = 0; g < groupBoundaries.length; g++) {
+          if (i < groupBoundaries[g]) {
+            groupIndex = g;
+            break;
+          }
+        }
+
+        const isVersion = i === 12;
+
+        return `<span class="bit ${isVersion ? 'version-bit' : ''}" 
+          style="background:${colors[groupIndex]}" 
+          onmouseover="showExplanation(${i})">${bits}</span>`;
+      }).join(' ');
+    }
+
+    function showExplanation(index) {
+      const el = document.getElementById('bitExplanation');
+      if (el) el.textContent = explainBit(index);
+    }
+
+    function parseUUIDv7(hex) {
+      const msHex = hex.substring(0,12);
+      const ms = parseInt(msHex,16);
+      return new Date(ms).toISOString();
+    }
+
+    function analyzeUUID() {
+      const uuid = getUUID();
+      const result = document.getElementById('result');
+
+      if (!uuid || uuid.length !== 36) {
+        result.innerHTML = '<div class="block">Invalid UUID</div>';
+        return;
+      }
+
+      const clean = uuid.replace(/-/g,'');
+      const version = uuid[14];
+
+      let timestamp = 'N/A';
+      if (version === '7') timestamp = parseUUIDv7(clean);
+
+      result.innerHTML = `
+        <div class="block"><span class="label">UUID:</span> ${uuid}</div>
+        <div class="block"><span class="label">Version:</span> ${version}</div>
+        <div class="block"><span class="label">Timestamp:</span> ${timestamp}</div>
+
+        <div class="block">
+          <span class="label">Binary view (hover bits):</span>
+          <div class="bits">${toBits(clean)}</div>
+          <div id="bitExplanation" class="tooltip">Hover bits to see explanation</div>
+        </div>
+      `;
+    }
+
+    function runTests() {
+      console.assert(getInputs().length === 32, 'Should create 32 input cells');
+
+      const testUUID = '123e4567-e89b-12d3-a456-426614174000';
+      setUUID(testUUID);
+      console.assert(getUUID() === testUUID, 'UUID set/get should match');
+
+      const inputs = getInputs();
+      inputs[0].value = 'g';
+      inputs[0].dispatchEvent(new Event('input'));
+      console.assert(inputs[0].value === '', 'Invalid hex should be rejected');
+
+      // New test: partial UUID should still reflect current input
+      inputs[0].value = 'a';
+      inputs[1].value = 'b';
+      console.assert(getUUID().startsWith('ab'), 'Partial UUID should reflect current inputs');
+
+      // New test: ensure no syntax/runtime error when building UUID
+      try {
+        const val = getUUID();
+        console.assert(typeof val === 'string', 'getUUID should return string');
+      } catch (e) {
+        console.error('getUUID threw error', e);
+      }
+
+      console.log('Tests passed');
+    }
+  </script>
+</body>
+</html>
