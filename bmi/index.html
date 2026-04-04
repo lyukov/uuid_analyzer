@@ -14,184 +14,168 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 15px;
     }
 
     .container {
       background: #111827;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       width: 100%;
-      max-width: 380px;
+      max-width: 360px;
       text-align: center;
       margin-bottom: 20px;
     }
 
-    h1 {
-      margin-bottom: 25px;
-      font-size: 26px;
-    }
+    h1 { font-size: 22px; margin-bottom: 20px; }
 
     input {
       width: 100%;
-      padding: 18px;
-      margin-bottom: 18px;
-      font-size: 20px;
-      border-radius: 12px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 10px;
+      margin-bottom: 12px;
+      font-size: 18px;
+      border-radius: 10px;
       border: none;
-      outline: none;
       background: #1f2937;
       color: white;
     }
 
     button {
       width: 100%;
-      padding: 16px;
+      padding: 14px;
       font-size: 18px;
-      border-radius: 12px;
+      border-radius: 10px;
       border: none;
-      cursor: pointer;
       background: #3b82f6;
       color: white;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #2563eb;
-    }
-
-    .result {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .category {
-      margin-top: 8px;
-      font-size: 16px;
-      opacity: 0.9;
     }
 
     canvas {
       width: 100% !important;
-      max-width: 500px;
+      max-width: 600px;
       height: 700px !important;
       background: #111827;
-      padding: 15px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      border-radius: 16px;
+      padding: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Калькулятор ИМТ</h1>
+<div class="container">
+  <h1>Калькулятор ИМТ</h1>
+  <input id="weight" type="number" placeholder="Вес (кг)">
+  <input id="height" type="number" placeholder="Рост (см)">
+  <button onclick="calculateBMI()">Рассчитать</button>
+  <div id="result"></div>
+  <div id="category"></div>
+</div>
 
-    <input id="weight" type="number" placeholder="Вес (кг)">
-    <input id="height" type="number" placeholder="Рост (см)">
+<canvas id="chart"></canvas>
 
-    <button onclick="calculateBMI()">Рассчитать</button>
+<script>
+let chart;
 
-    <div class="result" id="result"></div>
-    <div class="category" id="category"></div>
-  </div>
+function generateData(bmi) {
+  const data = [];
+  for (let h = 140; h <= 200; h += 2) {
+    const hm = h / 100;
+    data.push({ x: h, y: bmi * hm * hm });
+  }
+  return data;
+}
 
-  <canvas id="chart"></canvas>
+function generateConstantData(value) {
+  const data = [];
+  for (let h = 140; h <= 200; h += 2) {
+    data.push({ x: h, y: value });
+  }
+  return data;
+}
 
-  <script>
-    let chart;
+function initChart() {
+  const ctx = document.getElementById('chart').getContext('2d');
 
-    function generateData(bmi) {
-      const data = [];
-      for (let h = 150; h <= 210; h += 1) {
-        const hm = h / 100;
-        const weight = bmi * hm * hm;
-        data.push({ x: h, y: weight });
-      }
-      return data;
-    }
-
-    function initChart() {
-      const ctx = document.getElementById('chart').getContext('2d');
-
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'Нижняя граница нормы (BMI 18.5)',
-              data: generateData(18.5),
-              borderWidth: 2
-            },
-            {
-              label: 'Верхняя граница нормы (BMI 25)',
-              data: generateData(25),
-              borderWidth: 2
-            },
-            {
-              label: 'Граница ожирения (BMI 30)',
-              data: generateData(30),
-              borderWidth: 2
-            },
-            {
-              label: 'Вы',
-              data: [],
-              type: 'scatter',
-              pointRadius: 6
-            }
-          ]
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          data: generateData(18.5),
+          fill: 'origin',
+          backgroundColor: 'rgba(0,0,255,0.25)',
+          borderWidth: 0,
+          pointRadius: 0
         },
-        options: {
-          parsing: false,
-          responsive: true,
-          maintainAspectRatio: true,
-          scales: {
-            x: {
-              type: 'linear',
-              title: { display: true, text: 'Рост (см)' }
-            },
-            y: {
-              title: { display: true, text: 'Вес (кг)' }
-            }
-          }
+        {
+          data: generateData(25),
+          fill: '-1',
+          backgroundColor: 'rgba(0,255,0,0.25)',
+          borderWidth: 0,
+          pointRadius: 0
+        },
+        {
+          data: generateData(30),
+          fill: '-1',
+          backgroundColor: 'rgba(255,165,0,0.3)',
+          borderWidth: 0,
+          pointRadius: 0
+        },
+        {
+          data: generateConstantData(125),
+          fill: '-1',
+          backgroundColor: 'rgba(255,0,0,0.25)',
+          borderWidth: 0,
+          pointRadius: 0
+        },
+        {
+          label: 'Вы',
+          data: [],
+          type: 'scatter',
+          pointRadius: 7,
+          backgroundColor: 'white'
         }
-      });
-    }
-
-    function calculateBMI() {
-      const weight = parseFloat(document.getElementById('weight').value);
-      const heightCm = parseFloat(document.getElementById('height').value);
-
-      if (!weight || !heightCm) {
-        document.getElementById('result').innerText = 'Введите корректные данные';
-        document.getElementById('category').innerText = '';
-        return;
+      ]
+    },
+    options: {
+      parsing: false,
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { type: 'linear', title: { display: true, text: 'Рост (см)' } },
+        y: { title: { display: true, text: 'Вес (кг)' } }
       }
-
-      const heightM = heightCm / 100;
-      const bmi = weight / (heightM * heightM);
-
-      let category = '';
-
-      if (bmi < 18.5) category = 'Недостаточный вес';
-      else if (bmi < 25) category = 'Нормальный вес';
-      else if (bmi < 30) category = 'Избыточный вес';
-      else category = 'Ожирение';
-
-      document.getElementById('result').innerText = 'ИМТ: ' + bmi.toFixed(1);
-      document.getElementById('category').innerText = category;
-
-      chart.data.datasets[3].data = [{ x: heightCm, y: weight }];
-      chart.update();
     }
+  });
+}
 
-    initChart();
-  </script>
+function calculateBMI() {
+  const w = parseFloat(document.getElementById('weight').value);
+  const h = parseFloat(document.getElementById('height').value);
+  if (!w || !h) return;
+
+  const m = h/100;
+  const bmi = w/(m*m);
+
+  let cat = '';
+  if (bmi < 18.5) cat = 'Дефицит';
+  else if (bmi < 25) cat = 'Норма';
+  else if (bmi < 30) cat = 'Выше нормы';
+  else cat = 'Ожирение';
+
+  document.getElementById('result').innerText = 'ИМТ: ' + bmi.toFixed(1);
+  document.getElementById('category').innerText = cat;
+
+  chart.data.datasets[4].data = [{ x: h, y: w }];
+  chart.update();
+}
+
+initChart();
+</script>
 
 </body>
 </html>
