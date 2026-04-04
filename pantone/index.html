@@ -42,9 +42,8 @@
       width: 120px;
       height: 120px;
       display: none;
+      background: #000;
     }
-
-    .result { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -68,7 +67,7 @@
   </div>
 </div>
 
-<div class="result">
+<div>
   RGB: <span id="rgb">-</span><br>
   HEX: <span id="hex">-</span><br>
   Pantone: <span id="pantone">-</span>
@@ -92,6 +91,14 @@ const pantoneBox = document.getElementById('pantoneBox');
 
 let img = new Image();
 
+// === НАСТРОЙКИ ЛУПЫ ===
+const ZOOM = 6;
+const SIZE = 20;
+
+// 🔥 ВАЖНО: синхронизация реального размера canvas
+loupeCanvas.width = SIZE * ZOOM;
+loupeCanvas.height = SIZE * ZOOM;
+
 upload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   const reader = new FileReader();
@@ -109,9 +116,6 @@ upload.addEventListener('change', (e) => {
 });
 
 // === ЛУПА ===
-const ZOOM = 6;
-const SIZE = 20;
-
 canvas.addEventListener('mousemove', (e) => {
   const rect = canvas.getBoundingClientRect();
 
@@ -122,8 +126,8 @@ canvas.addEventListener('mousemove', (e) => {
   loupeCanvas.style.left = (e.clientX - rect.left + 20) + 'px';
   loupeCanvas.style.top = (e.clientY - rect.top + 20) + 'px';
 
-  const sx = x - SIZE/2;
-  const sy = y - SIZE/2;
+  const sx = x - SIZE / 2;
+  const sy = y - SIZE / 2;
 
   loupeCtx.imageSmoothingEnabled = false;
   loupeCtx.clearRect(0, 0, loupeCanvas.width, loupeCanvas.height);
@@ -131,23 +135,23 @@ canvas.addEventListener('mousemove', (e) => {
   loupeCtx.drawImage(
     canvas,
     sx, sy, SIZE, SIZE,
-    0, 0, SIZE * ZOOM, SIZE * ZOOM
+    0, 0, loupeCanvas.width, loupeCanvas.height
   );
 
-  // крестик
+  // === КРЕСТИК ===
   loupeCtx.strokeStyle = 'red';
   loupeCtx.lineWidth = 1;
 
-  const center = (SIZE * ZOOM) / 2;
+  const center = loupeCanvas.width / 2;
 
   loupeCtx.beginPath();
   loupeCtx.moveTo(center, 0);
-  loupeCtx.lineTo(center, SIZE * ZOOM);
+  loupeCtx.lineTo(center, loupeCanvas.height);
   loupeCtx.stroke();
 
   loupeCtx.beginPath();
   loupeCtx.moveTo(0, center);
-  loupeCtx.lineTo(SIZE * ZOOM, center);
+  loupeCtx.lineTo(loupeCanvas.width, center);
   loupeCtx.stroke();
 });
 
