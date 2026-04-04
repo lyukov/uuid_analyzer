@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Image Color Picker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,18 +17,19 @@
       border: 1px solid #334155;
       cursor: crosshair;
       max-width: 100%;
+      touch-action: none; /* 🔥 важно для мобильных */
     }
 
     .colors {
       display: flex;
       justify-content: center;
-      gap: 40px;
+      gap: 30px;
       margin: 20px 0;
     }
 
     .color-box {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 12px;
       border: 2px solid #fff;
     }
@@ -48,7 +49,7 @@
 </head>
 <body>
 
-<h1>Выбор цвета</h1>
+<h2>Выбор цвета</h2>
 <input type="file" id="upload"><br><br>
 
 <div style="position: relative; display: inline-block;">
@@ -91,14 +92,117 @@ const pantoneBox = document.getElementById('pantoneBox');
 
 let img = new Image();
 
-// === НАСТРОЙКИ ЛУПЫ ===
+// === ЛУПА ===
 const ZOOM = 6;
 const SIZE = 20;
 
-// 🔥 ВАЖНО: синхронизация реального размера canvas
 loupeCanvas.width = SIZE * ZOOM;
 loupeCanvas.height = SIZE * ZOOM;
 
+function getCoords(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+
+  return {
+    x: Math.floor((clientX - rect.left) * (canvas.width / rect.width)),
+    y: Math.floor((clientY - rect.top) * (canvas.height / rect.height)),
+    screenX: clientX - rect.left,
+    screenY: clientY - rect.top
+  };
+}
+
+function updateLoupe(clientX, clientY) {
+  const { x, y, screenX, screenY } = getCoords(clientX, clientY);
+
+  loupeCanvas.style.display = 'block';
+  loupeCanvas.style.left = (screenX + 20) + 'px';
+  loupeCanvas.style.top = (screenY + 20) + 'px';
+
+  const sx = x - SIZE / 2;
+  const sy = y - SIZE / 2;
+
+  loupeCtx.imageSmoothingEnabled = false;
+  loupeCtx.clearRect(0, 0, loupeCanvas.width, loupeCanvas.height);
+
+  loupeCtx.drawImage(
+    canvas,
+    sx, sy, SIZE, SIZE,
+    0, 0, loupeCanvas.width, loupeCanvas.height
+  );
+
+  // крестик
+  const center = loupeCanvas.width / 2;
+
+  loupeCtx.strokeStyle = 'red';
+  loupeCtx.lineWidth = 1;
+
+  loupeCtx.beginPath();
+  loupeCtx.moveTo(center, 0);
+  loupeCtx.lineTo(center, loupeCanvas.height);
+  loupeCtx.stroke();
+
+  loupeCtx.beginPath();
+  loupeCtx.moveTo(0, center);
+  loupeCtx.lineTo(loupeCanvas.width, center);
+  loupeCtx.stroke();
+}
+
+function pickColor(clientX, clientY) {
+  const { x, y } = getCoords(clientX, clientY);
+
+  const pixel = ctx.getImageData(x, y, 1, 1).data;
+
+  const r = pixel[0];
+  const g = pixel[1];
+  const b = pixel[2];
+
+  const rgb = `rgb(${r}, ${g}, ${b})`;
+  const hex = rgbToHex(r, g, b);
+
+  rgbText.textContent = rgb;
+  hexText.textContent = hex;
+  colorBox.style.background = rgb;
+
+  const pantone = findClosestPantone(r, g, b);
+
+  if (pantone) {
+    pantoneText.textContent = pantone.name + ' (' + pantone.hex + ')';
+    pantoneBox.style.background = pantone.hex;
+  }
+}
+
+// === МЫШЬ ===
+canvas.addEventListener('mousemove', (e) => {
+  updateLoupe(e.clientX, e.clientY);
+});
+
+canvas.addEventListener('click', (e) => {
+  pickColor(e.clientX, e.clientY);
+});
+
+canvas.addEventListener('mouseleave', () => {
+  loupeCanvas.style.display = 'none';
+});
+
+// === TOUCH (🔥 главное) ===
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  updateLoupe(touch.clientX, touch.clientY);
+  pickColor(touch.clientX, touch.clientY);
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  updateLoupe(touch.clientX, touch.clientY);
+  pickColor(touch.clientX, touch.clientY);
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => {
+  loupeCanvas.style.display = 'none';
+});
+
+// === IMAGE LOAD ===
 upload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   const reader = new FileReader();
@@ -115,79 +219,7 @@ upload.addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
-// === ЛУПА ===
-canvas.addEventListener('mousemove', (e) => {
-  const rect = canvas.getBoundingClientRect();
-
-  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
-  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
-
-  loupeCanvas.style.display = 'block';
-  loupeCanvas.style.left = (e.clientX - rect.left + 20) + 'px';
-  loupeCanvas.style.top = (e.clientY - rect.top + 20) + 'px';
-
-  const sx = x - SIZE / 2;
-  const sy = y - SIZE / 2;
-
-  loupeCtx.imageSmoothingEnabled = false;
-  loupeCtx.clearRect(0, 0, loupeCanvas.width, loupeCanvas.height);
-
-  loupeCtx.drawImage(
-    canvas,
-    sx, sy, SIZE, SIZE,
-    0, 0, loupeCanvas.width, loupeCanvas.height
-  );
-
-  // === КРЕСТИК ===
-  loupeCtx.strokeStyle = 'red';
-  loupeCtx.lineWidth = 1;
-
-  const center = loupeCanvas.width / 2;
-
-  loupeCtx.beginPath();
-  loupeCtx.moveTo(center, 0);
-  loupeCtx.lineTo(center, loupeCanvas.height);
-  loupeCtx.stroke();
-
-  loupeCtx.beginPath();
-  loupeCtx.moveTo(0, center);
-  loupeCtx.lineTo(loupeCanvas.width, center);
-  loupeCtx.stroke();
-});
-
-canvas.addEventListener('mouseleave', () => {
-  loupeCanvas.style.display = 'none';
-});
-
-// === ВЫБОР ЦВЕТА ===
-canvas.addEventListener('click', (e) => {
-  const rect = canvas.getBoundingClientRect();
-
-  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
-  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
-
-  const pixel = ctx.getImageData(x, y, 1, 1).data;
-
-  const r = pixel[0];
-  const g = pixel[1];
-  const b = pixel[2];
-
-  const rgb = `rgb(${r}, ${g}, ${b})`;
-  const hex = rgbToHex(r, g, b);
-
-  rgbText.textContent = rgb;
-  hexText.textContent = hex;
-
-  colorBox.style.background = rgb;
-
-  const pantone = findClosestPantone(r, g, b);
-
-  if (pantone) {
-    pantoneText.textContent = pantone.name + ' (' + pantone.hex + ')';
-    pantoneBox.style.background = pantone.hex;
-  }
-});
-
+// === HELPERS ===
 function rgbToHex(r, g, b) {
   return '#' + [r,g,b].map(x => {
     const h = x.toString(16);
@@ -195,7 +227,6 @@ function rgbToHex(r, g, b) {
   }).join('');
 }
 
-// === PANTONE ===
 let pantoneColors = [];
 
 fetch('pantone.json')
