@@ -13,8 +13,6 @@
       padding: 20px;
     }
 
-    h1 { margin-bottom: 20px; }
-
     canvas {
       border: 1px solid #334155;
       cursor: crosshair;
@@ -28,49 +26,61 @@
       margin: 20px 0;
     }
 
-    .color-block {
-      text-align: center;
-    }
-
     .color-box {
       width: 100px;
       height: 100px;
       border-radius: 12px;
       border: 2px solid #fff;
-      margin-bottom: 10px;
     }
 
-    .result { margin-top: 20px; font-size: 18px; }
+    .loupe {
+      position: absolute;
+      pointer-events: none;
+      border: 2px solid white;
+      border-radius: 50%;
+      overflow: hidden;
+      width: 120px;
+      height: 120px;
+      display: none;
+    }
+
+    .result { margin-top: 20px; }
   </style>
 </head>
 <body>
 
-<h1>Выбор цвета с изображения</h1>
-<input type="file" id="upload" accept="image/*">
-<br>
-<canvas id="canvas"></canvas>
+<h1>Выбор цвета</h1>
+<input type="file" id="upload"><br><br>
+
+<div style="position: relative; display: inline-block;">
+  <canvas id="canvas"></canvas>
+  <canvas id="loupeCanvas" class="loupe"></canvas>
+</div>
 
 <div class="colors">
-  <div class="color-block">
+  <div>
     <div class="color-box" id="colorBox"></div>
-    <div>Выбранный цвет</div>
+    <div>Выбранный</div>
   </div>
-
-  <div class="color-block">
+  <div>
     <div class="color-box" id="pantoneBox"></div>
     <div>Pantone</div>
   </div>
 </div>
 
 <div class="result">
-  <div>RGB: <span id="rgb">-</span></div>
-  <div>HEX: <span id="hex">-</span></div>
-  <div>Pantone (ближайший): <span id="pantone">-</span></div>
+  RGB: <span id="rgb">-</span><br>
+  HEX: <span id="hex">-</span><br>
+  Pantone: <span id="pantone">-</span>
 </div>
 
 <script>
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
+const loupeCanvas = document.getElementById('loupeCanvas');
+const loupeCtx = loupeCanvas.getContext('2d');
+
 const upload = document.getElementById('upload');
 
 const rgbText = document.getElementById('rgb');
@@ -84,37 +94,87 @@ let img = new Image();
 
 upload.addEventListener('change', (e) => {
   const file = e.target.files[0];
-  if (!file) return;
-
   const reader = new FileReader();
-  reader.onload = function(event) {
+
+  reader.onload = (ev) => {
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
     };
-    img.src = event.target.result;
+    img.src = ev.target.result;
   };
+
   reader.readAsDataURL(file);
 });
 
+// === ЛУПА ===
+const ZOOM = 6;
+const SIZE = 20;
+
+canvas.addEventListener('mousemove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+
+  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
+  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
+
+  loupeCanvas.style.display = 'block';
+  loupeCanvas.style.left = (e.clientX - rect.left + 20) + 'px';
+  loupeCanvas.style.top = (e.clientY - rect.top + 20) + 'px';
+
+  const sx = x - SIZE/2;
+  const sy = y - SIZE/2;
+
+  loupeCtx.imageSmoothingEnabled = false;
+  loupeCtx.clearRect(0, 0, loupeCanvas.width, loupeCanvas.height);
+
+  loupeCtx.drawImage(
+    canvas,
+    sx, sy, SIZE, SIZE,
+    0, 0, SIZE * ZOOM, SIZE * ZOOM
+  );
+
+  // крестик
+  loupeCtx.strokeStyle = 'red';
+  loupeCtx.lineWidth = 1;
+
+  const center = (SIZE * ZOOM) / 2;
+
+  loupeCtx.beginPath();
+  loupeCtx.moveTo(center, 0);
+  loupeCtx.lineTo(center, SIZE * ZOOM);
+  loupeCtx.stroke();
+
+  loupeCtx.beginPath();
+  loupeCtx.moveTo(0, center);
+  loupeCtx.lineTo(SIZE * ZOOM, center);
+  loupeCtx.stroke();
+});
+
+canvas.addEventListener('mouseleave', () => {
+  loupeCanvas.style.display = 'none';
+});
+
+// === ВЫБОР ЦВЕТА ===
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
+
   const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
   const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
 
   const pixel = ctx.getImageData(x, y, 1, 1).data;
+
   const r = pixel[0];
   const g = pixel[1];
   const b = pixel[2];
 
-  const rgbString = `rgb(${r}, ${g}, ${b})`;
-  rgbText.textContent = rgbString;
-
+  const rgb = `rgb(${r}, ${g}, ${b})`;
   const hex = rgbToHex(r, g, b);
+
+  rgbText.textContent = rgb;
   hexText.textContent = hex;
 
-  colorBox.style.background = rgbString;
+  colorBox.style.background = rgb;
 
   const pantone = findClosestPantone(r, g, b);
 
@@ -125,45 +185,47 @@ canvas.addEventListener('click', (e) => {
 });
 
 function rgbToHex(r, g, b) {
-  return '#' + [r, g, b].map(x => {
-    const hex = x.toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
+  return '#' + [r,g,b].map(x => {
+    const h = x.toString(16);
+    return h.length === 1 ? '0'+h : h;
   }).join('');
 }
 
+// === PANTONE ===
 let pantoneColors = [];
+
 fetch('pantone.json')
   .then(res => res.json())
   .then(data => pantoneColors = data);
 
 function hexToRgb(hex) {
-  const bigint = parseInt(hex.slice(1), 16);
+  const num = parseInt(hex.slice(1), 16);
   return {
-    r: (bigint >> 16) & 255,
-    g: (bigint >> 8) & 255,
-    b: bigint & 255
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255
   };
 }
 
 function findClosestPantone(r, g, b) {
-  let closest = null;
-  let minDist = Infinity;
+  let best = null;
+  let min = Infinity;
 
   pantoneColors.forEach(p => {
-    const prgb = hexToRgb(p.hex);
-    const dr = r - prgb.r;
-    const dg = g - prgb.g;
-    const db = b - prgb.b;
+    const c = hexToRgb(p.hex);
 
-    const dist = dr*dr + dg*dg + db*db;
+    const d =
+      (r - c.r) ** 2 +
+      (g - c.g) ** 2 +
+      (b - c.b) ** 2;
 
-    if (dist < minDist) {
-      minDist = dist;
-      closest = p;
+    if (d < min) {
+      min = d;
+      best = p;
     }
   });
 
-  return closest;
+  return best;
 }
 </script>
 
