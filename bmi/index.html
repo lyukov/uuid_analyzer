@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор ИМТ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #111827;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    input {
+      width: 100%;
+      padding: 18px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      background: #1f2937;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 18px;
+      font-size: 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: #3b82f6;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .category {
+      margin-top: 10px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Калькулятор ИМТ</h1>
+
+    <input id="weight" type="number" placeholder="Вес (кг)">
+    <input id="height" type="number" placeholder="Рост (см)">
+
+    <button onclick="calculateBMI()">Рассчитать</button>
+
+    <div class="result" id="result"></div>
+    <div class="category" id="category"></div>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const heightCm = parseFloat(document.getElementById('height').value);
+
+      if (!weight || !heightCm) {
+        document.getElementById('result').innerText = 'Введите корректные данные';
+        document.getElementById('category').innerText = '';
+        return;
+      }
+
+      const heightM = heightCm / 100;
+      const bmi = weight / (heightM * heightM);
+
+      let category = '';
+
+      if (bmi < 18.5) category = 'Недостаточный вес';
+      else if (bmi < 25) category = 'Нормальный вес';
+      else if (bmi < 30) category = 'Избыточный вес';
+      else category = 'Ожирение';
+
+      document.getElementById('result').innerText = 'ИМТ: ' + bmi.toFixed(1);
+      document.getElementById('category').innerText = category;
+    }
+  </script>
+</body>
+</html>
