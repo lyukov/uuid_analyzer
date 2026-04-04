@@ -17,14 +17,24 @@
       border: 1px solid #334155;
       cursor: crosshair;
       max-width: 100%;
-      touch-action: none; /* 🔥 важно для мобильных */
+      touch-action: none;
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.7;
     }
 
     .colors {
       display: flex;
       justify-content: center;
       gap: 30px;
-      margin: 20px 0;
+      margin: 10px 0 10px;
+    }
+
+    .color-wrapper {
+      cursor: pointer;
     }
 
     .color-box {
@@ -32,6 +42,23 @@
       height: 90px;
       border-radius: 12px;
       border: 2px solid #fff;
+      transition: transform 0.1s;
+    }
+
+    .color-wrapper:active .color-box {
+      transform: scale(0.95);
+    }
+
+    .copied {
+      font-size: 12px;
+      margin-top: 6px;
+      color: #22c55e;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .copied.show {
+      opacity: 1;
     }
 
     .loupe {
@@ -57,21 +84,26 @@
   <canvas id="loupeCanvas" class="loupe"></canvas>
 </div>
 
+<div class="hint">Click to copy</div>
+
 <div class="colors">
-  <div>
+  <div class="color-wrapper" onclick="copyColor('selected')">
     <div class="color-box" id="colorBox"></div>
     <div>Выбранный</div>
+    <div class="copied" id="copiedSelected">Copied!</div>
   </div>
-  <div>
+
+  <div class="color-wrapper" onclick="copyColor('pantone')">
     <div class="color-box" id="pantoneBox"></div>
-    <div>Pantone</div>
+    <div>Похожий</div>
+    <div class="copied" id="copiedPantone">Copied!</div>
   </div>
 </div>
 
 <div>
   RGB: <span id="rgb">-</span><br>
   HEX: <span id="hex">-</span><br>
-  Pantone: <span id="pantone">-</span>
+  Похожий: <span id="pantone">-</span>
 </div>
 
 <script>
@@ -89,6 +121,9 @@ const pantoneText = document.getElementById('pantone');
 
 const colorBox = document.getElementById('colorBox');
 const pantoneBox = document.getElementById('pantoneBox');
+
+let selectedHex = null;
+let pantoneHex = null;
 
 let img = new Image();
 
@@ -129,12 +164,9 @@ function updateLoupe(clientX, clientY) {
     0, 0, loupeCanvas.width, loupeCanvas.height
   );
 
-  // крестик
   const center = loupeCanvas.width / 2;
 
   loupeCtx.strokeStyle = 'red';
-  loupeCtx.lineWidth = 1;
-
   loupeCtx.beginPath();
   loupeCtx.moveTo(center, 0);
   loupeCtx.lineTo(center, loupeCanvas.height);
@@ -158,51 +190,60 @@ function pickColor(clientX, clientY) {
   const rgb = `rgb(${r}, ${g}, ${b})`;
   const hex = rgbToHex(r, g, b);
 
+  selectedHex = hex;
+
   rgbText.textContent = rgb;
   hexText.textContent = hex;
   colorBox.style.background = rgb;
 
-  const pantone = findClosestPantone(r, g, b);
+  const pantone = findClosestTone(r, g, b);
 
   if (pantone) {
     pantoneText.textContent = pantone.name + ' (' + pantone.hex + ')';
     pantoneBox.style.background = pantone.hex;
+    pantoneHex = pantone.hex;
   }
 }
 
-// === МЫШЬ ===
-canvas.addEventListener('mousemove', (e) => {
-  updateLoupe(e.clientX, e.clientY);
-});
+// === COPY ===
+function copyColor(type) {
+  let hex = type === 'selected' ? selectedHex : pantoneHex;
+  if (!hex) return;
 
-canvas.addEventListener('click', (e) => {
-  pickColor(e.clientX, e.clientY);
-});
+  navigator.clipboard.writeText(hex);
 
-canvas.addEventListener('mouseleave', () => {
-  loupeCanvas.style.display = 'none';
-});
+  const el = document.getElementById(
+    type === 'selected' ? 'copiedSelected' : 'copiedPantone'
+  );
 
-// === TOUCH (🔥 главное) ===
-canvas.addEventListener('touchstart', (e) => {
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 1000);
+}
+
+// === EVENTS ===
+canvas.addEventListener('mousemove', e => updateLoupe(e.clientX, e.clientY));
+canvas.addEventListener('click', e => pickColor(e.clientX, e.clientY));
+canvas.addEventListener('mouseleave', () => loupeCanvas.style.display = 'none');
+
+canvas.addEventListener('touchstart', e => {
   e.preventDefault();
-  const touch = e.touches[0];
-  updateLoupe(touch.clientX, touch.clientY);
-  pickColor(touch.clientX, touch.clientY);
+  const t = e.touches[0];
+  updateLoupe(t.clientX, t.clientY);
+  pickColor(t.clientX, t.clientY);
 }, { passive: false });
 
-canvas.addEventListener('touchmove', (e) => {
+canvas.addEventListener('touchmove', e => {
   e.preventDefault();
-  const touch = e.touches[0];
-  updateLoupe(touch.clientX, touch.clientY);
-  pickColor(touch.clientX, touch.clientY);
+  const t = e.touches[0];
+  updateLoupe(t.clientX, t.clientY);
+  pickColor(t.clientX, t.clientY);
 }, { passive: false });
 
 canvas.addEventListener('touchend', () => {
   loupeCanvas.style.display = 'none';
 });
 
-// === IMAGE LOAD ===
+// === IMAGE ===
 upload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   const reader = new FileReader();
@@ -227,11 +268,11 @@ function rgbToHex(r, g, b) {
   }).join('');
 }
 
-let pantoneColors = [];
+let yandexColors = [];
 
-fetch('pantone.json')
+fetch('yandex.json')
   .then(res => res.json())
-  .then(data => pantoneColors = data);
+  .then(data => yandexColors = data);
 
 function hexToRgb(hex) {
   const num = parseInt(hex.slice(1), 16);
@@ -242,11 +283,11 @@ function hexToRgb(hex) {
   };
 }
 
-function findClosestPantone(r, g, b) {
+function findClosestTone(r, g, b) {
   let best = null;
   let min = Infinity;
 
-  pantoneColors.forEach(p => {
+  yandexColors.forEach(p => {
     const c = hexToRgb(p.hex);
 
     const d =
