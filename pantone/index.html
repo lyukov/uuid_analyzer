@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Color Picker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    canvas {
+      border: 1px solid #334155;
+      cursor: crosshair;
+      max-width: 100%;
+    }
+
+    .color-box {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border-radius: 12px;
+      border: 2px solid #fff;
+    }
+
+    .result { margin-top: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<h1>Выбор цвета с изображения</h1>
+<input type="file" id="upload" accept="image/*">
+<br>
+<canvas id="canvas"></canvas>
+
+<div class="color-box" id="colorBox"></div>
+
+<div class="result">
+  <div>RGB: <span id="rgb">-</span></div>
+  <div>HEX: <span id="hex">-</span></div>
+  <div>Pantone (ближайший): <span id="pantone">-</span></div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const upload = document.getElementById('upload');
+
+const rgbText = document.getElementById('rgb');
+const hexText = document.getElementById('hex');
+const pantoneText = document.getElementById('pantone');
+const colorBox = document.getElementById('colorBox');
+
+let img = new Image();
+
+upload.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
+  const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
+
+  const pixel = ctx.getImageData(x, y, 1, 1).data;
+  const r = pixel[0];
+  const g = pixel[1];
+  const b = pixel[2];
+
+  const rgbString = `rgb(${r}, ${g}, ${b})`;
+  rgbText.textContent = rgbString;
+
+  const hex = rgbToHex(r, g, b);
+  hexText.textContent = hex;
+
+  colorBox.style.background = rgbString;
+
+  const pantone = findClosestPantone(r, g, b);
+  pantoneText.textContent = pantone.name + ' (' + pantone.hex + ')';
+});
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => {
+    const hex = x.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }).join('');
+}
+
+let pantoneColors = [];
+fetch('pantone.json')
+  .then(res => res.json())
+  .then(data => pantoneColors = data);
+
+function hexToRgb(hex) {
+  const bigint = parseInt(hex.slice(1), 16);
+  return {
+    r: (bigint >> 16) & 255,
+    g: (bigint >> 8) & 255,
+    b: bigint & 255
+  };
+}
+
+function findClosestPantone(r, g, b) {
+  let closest = null;
+  let minDist = Infinity;
+
+  pantoneColors.forEach(p => {
+    const prgb = hexToRgb(p.hex);
+    const dr = r - prgb.r;
+    const dg = g - prgb.g;
+    const db = b - prgb.b;
+
+    const dist = dr*dr + dg*dg + db*db;
+
+    if (dist < minDist) {
+      minDist = dist;
+      closest = p;
+    }
+  });
+
+  return closest;
+}
+</script>
+
+</body>
+</html>

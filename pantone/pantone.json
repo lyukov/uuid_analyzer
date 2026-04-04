@@ -1,0 +1,4002 @@
+[
+  {
+    "name": "Pantone 100 C",
+    "hex": "#097765"
+  },
+  {
+    "name": "Pantone 101 C",
+    "hex": "#24c52a"
+  },
+  {
+    "name": "Pantone 102 C",
+    "hex": "#4f7ddb"
+  },
+  {
+    "name": "Pantone 103 C",
+    "hex": "#a0e02d"
+  },
+  {
+    "name": "Pantone 104 C",
+    "hex": "#7f5bd0"
+  },
+  {
+    "name": "Pantone 105 C",
+    "hex": "#ae5c88"
+  },
+  {
+    "name": "Pantone 106 C",
+    "hex": "#d75f4d"
+  },
+  {
+    "name": "Pantone 107 C",
+    "hex": "#0fb7c7"
+  },
+  {
+    "name": "Pantone 108 C",
+    "hex": "#1c6c68"
+  },
+  {
+    "name": "Pantone 109 C",
+    "hex": "#db108d"
+  },
+  {
+    "name": "Pantone 110 C",
+    "hex": "#520526"
+  },
+  {
+    "name": "Pantone 111 C",
+    "hex": "#b12826"
+  },
+  {
+    "name": "Pantone 112 C",
+    "hex": "#031d61"
+  },
+  {
+    "name": "Pantone 113 C",
+    "hex": "#725de7"
+  },
+  {
+    "name": "Pantone 114 C",
+    "hex": "#c9e87c"
+  },
+  {
+    "name": "Pantone 115 C",
+    "hex": "#f9e567"
+  },
+  {
+    "name": "Pantone 116 C",
+    "hex": "#d994fa"
+  },
+  {
+    "name": "Pantone 117 C",
+    "hex": "#82c883"
+  },
+  {
+    "name": "Pantone 118 C",
+    "hex": "#2793d6"
+  },
+  {
+    "name": "Pantone 119 C",
+    "hex": "#f5dd7c"
+  },
+  {
+    "name": "Pantone 120 C",
+    "hex": "#5745c2"
+  },
+  {
+    "name": "Pantone 121 C",
+    "hex": "#505e20"
+  },
+  {
+    "name": "Pantone 122 C",
+    "hex": "#f882ad"
+  },
+  {
+    "name": "Pantone 123 C",
+    "hex": "#57943d"
+  },
+  {
+    "name": "Pantone 124 C",
+    "hex": "#8e9ebb"
+  },
+  {
+    "name": "Pantone 125 C",
+    "hex": "#84a4da"
+  },
+  {
+    "name": "Pantone 126 C",
+    "hex": "#06f3cf"
+  },
+  {
+    "name": "Pantone 127 C",
+    "hex": "#4487c8"
+  },
+  {
+    "name": "Pantone 128 C",
+    "hex": "#6b76f7"
+  },
+  {
+    "name": "Pantone 129 C",
+    "hex": "#8f767b"
+  },
+  {
+    "name": "Pantone 130 C",
+    "hex": "#a27468"
+  },
+  {
+    "name": "Pantone 131 C",
+    "hex": "#31a092"
+  },
+  {
+    "name": "Pantone 132 C",
+    "hex": "#7d09b7"
+  },
+  {
+    "name": "Pantone 133 C",
+    "hex": "#ea3d93"
+  },
+  {
+    "name": "Pantone 134 C",
+    "hex": "#a91698"
+  },
+  {
+    "name": "Pantone 135 C",
+    "hex": "#66d156"
+  },
+  {
+    "name": "Pantone 136 C",
+    "hex": "#288420"
+  },
+  {
+    "name": "Pantone 137 C",
+    "hex": "#4c9ec9"
+  },
+  {
+    "name": "Pantone 138 C",
+    "hex": "#893628"
+  },
+  {
+    "name": "Pantone 139 C",
+    "hex": "#28545c"
+  },
+  {
+    "name": "Pantone 140 C",
+    "hex": "#e4515f"
+  },
+  {
+    "name": "Pantone 141 C",
+    "hex": "#defce0"
+  },
+  {
+    "name": "Pantone 142 C",
+    "hex": "#97eff7"
+  },
+  {
+    "name": "Pantone 143 C",
+    "hex": "#768d8b"
+  },
+  {
+    "name": "Pantone 144 C",
+    "hex": "#de6f3b"
+  },
+  {
+    "name": "Pantone 145 C",
+    "hex": "#7f8911"
+  },
+  {
+    "name": "Pantone 146 C",
+    "hex": "#dfb936"
+  },
+  {
+    "name": "Pantone 147 C",
+    "hex": "#999a99"
+  },
+  {
+    "name": "Pantone 148 C",
+    "hex": "#287ab9"
+  },
+  {
+    "name": "Pantone 149 C",
+    "hex": "#e5c753"
+  },
+  {
+    "name": "Pantone 150 C",
+    "hex": "#62dfb8"
+  },
+  {
+    "name": "Pantone 151 C",
+    "hex": "#1a52a4"
+  },
+  {
+    "name": "Pantone 152 C",
+    "hex": "#690166"
+  },
+  {
+    "name": "Pantone 153 C",
+    "hex": "#6a9fde"
+  },
+  {
+    "name": "Pantone 154 C",
+    "hex": "#461edb"
+  },
+  {
+    "name": "Pantone 155 C",
+    "hex": "#fbd3f5"
+  },
+  {
+    "name": "Pantone 156 C",
+    "hex": "#c5a9f3"
+  },
+  {
+    "name": "Pantone 157 C",
+    "hex": "#a28da5"
+  },
+  {
+    "name": "Pantone 158 C",
+    "hex": "#d5d7d3"
+  },
+  {
+    "name": "Pantone 159 C",
+    "hex": "#9f878e"
+  },
+  {
+    "name": "Pantone 160 C",
+    "hex": "#a40106"
+  },
+  {
+    "name": "Pantone 161 C",
+    "hex": "#efa536"
+  },
+  {
+    "name": "Pantone 162 C",
+    "hex": "#58e73c"
+  },
+  {
+    "name": "Pantone 163 C",
+    "hex": "#50c64c"
+  },
+  {
+    "name": "Pantone 164 C",
+    "hex": "#6788a2"
+  },
+  {
+    "name": "Pantone 165 C",
+    "hex": "#a01e17"
+  },
+  {
+    "name": "Pantone 166 C",
+    "hex": "#7ecc4e"
+  },
+  {
+    "name": "Pantone 167 C",
+    "hex": "#4214cb"
+  },
+  {
+    "name": "Pantone 168 C",
+    "hex": "#32bcb8"
+  },
+  {
+    "name": "Pantone 169 C",
+    "hex": "#d7f03e"
+  },
+  {
+    "name": "Pantone 170 C",
+    "hex": "#803aa8"
+  },
+  {
+    "name": "Pantone 171 C",
+    "hex": "#b0d48b"
+  },
+  {
+    "name": "Pantone 172 C",
+    "hex": "#80c410"
+  },
+  {
+    "name": "Pantone 173 C",
+    "hex": "#0316bb"
+  },
+  {
+    "name": "Pantone 174 C",
+    "hex": "#968cfa"
+  },
+  {
+    "name": "Pantone 175 C",
+    "hex": "#f7389b"
+  },
+  {
+    "name": "Pantone 176 C",
+    "hex": "#2cde2f"
+  },
+  {
+    "name": "Pantone 177 C",
+    "hex": "#fb30ab"
+  },
+  {
+    "name": "Pantone 178 C",
+    "hex": "#f8b129"
+  },
+  {
+    "name": "Pantone 179 C",
+    "hex": "#8b840a"
+  },
+  {
+    "name": "Pantone 180 C",
+    "hex": "#18b94b"
+  },
+  {
+    "name": "Pantone 181 C",
+    "hex": "#3e9a4c"
+  },
+  {
+    "name": "Pantone 182 C",
+    "hex": "#878417"
+  },
+  {
+    "name": "Pantone 183 C",
+    "hex": "#495e6c"
+  },
+  {
+    "name": "Pantone 184 C",
+    "hex": "#91cb7e"
+  },
+  {
+    "name": "Pantone 185 C",
+    "hex": "#03fb89"
+  },
+  {
+    "name": "Pantone 186 C",
+    "hex": "#4b4a2d"
+  },
+  {
+    "name": "Pantone 187 C",
+    "hex": "#8efa07"
+  },
+  {
+    "name": "Pantone 188 C",
+    "hex": "#82e58f"
+  },
+  {
+    "name": "Pantone 189 C",
+    "hex": "#b2d7e8"
+  },
+  {
+    "name": "Pantone 190 C",
+    "hex": "#3200ab"
+  },
+  {
+    "name": "Pantone 191 C",
+    "hex": "#0699e1"
+  },
+  {
+    "name": "Pantone 192 C",
+    "hex": "#19e787"
+  },
+  {
+    "name": "Pantone 193 C",
+    "hex": "#9cfd82"
+  },
+  {
+    "name": "Pantone 194 C",
+    "hex": "#241ec9"
+  },
+  {
+    "name": "Pantone 195 C",
+    "hex": "#9d43c8"
+  },
+  {
+    "name": "Pantone 196 C",
+    "hex": "#b13457"
+  },
+  {
+    "name": "Pantone 197 C",
+    "hex": "#db40a4"
+  },
+  {
+    "name": "Pantone 198 C",
+    "hex": "#b57b7d"
+  },
+  {
+    "name": "Pantone 199 C",
+    "hex": "#6563e7"
+  },
+  {
+    "name": "Pantone 200 C",
+    "hex": "#ce94e7"
+  },
+  {
+    "name": "Pantone 201 C",
+    "hex": "#bad03f"
+  },
+  {
+    "name": "Pantone 202 C",
+    "hex": "#9c09ff"
+  },
+  {
+    "name": "Pantone 203 C",
+    "hex": "#4dd319"
+  },
+  {
+    "name": "Pantone 204 C",
+    "hex": "#00c468"
+  },
+  {
+    "name": "Pantone 205 C",
+    "hex": "#5a2104"
+  },
+  {
+    "name": "Pantone 206 C",
+    "hex": "#b63e84"
+  },
+  {
+    "name": "Pantone 207 C",
+    "hex": "#c60cfe"
+  },
+  {
+    "name": "Pantone 208 C",
+    "hex": "#6c5765"
+  },
+  {
+    "name": "Pantone 209 C",
+    "hex": "#46bb22"
+  },
+  {
+    "name": "Pantone 210 C",
+    "hex": "#8eacaf"
+  },
+  {
+    "name": "Pantone 211 C",
+    "hex": "#16b10b"
+  },
+  {
+    "name": "Pantone 212 C",
+    "hex": "#9c1321"
+  },
+  {
+    "name": "Pantone 213 C",
+    "hex": "#e435e8"
+  },
+  {
+    "name": "Pantone 214 C",
+    "hex": "#49222f"
+  },
+  {
+    "name": "Pantone 215 C",
+    "hex": "#663bd6"
+  },
+  {
+    "name": "Pantone 216 C",
+    "hex": "#fe65e8"
+  },
+  {
+    "name": "Pantone 217 C",
+    "hex": "#b933d4"
+  },
+  {
+    "name": "Pantone 218 C",
+    "hex": "#222e60"
+  },
+  {
+    "name": "Pantone 219 C",
+    "hex": "#6a667a"
+  },
+  {
+    "name": "Pantone 220 C",
+    "hex": "#56351d"
+  },
+  {
+    "name": "Pantone 221 C",
+    "hex": "#a05b8e"
+  },
+  {
+    "name": "Pantone 222 C",
+    "hex": "#b92e6e"
+  },
+  {
+    "name": "Pantone 223 C",
+    "hex": "#d5e79a"
+  },
+  {
+    "name": "Pantone 224 C",
+    "hex": "#467f85"
+  },
+  {
+    "name": "Pantone 225 C",
+    "hex": "#4922f5"
+  },
+  {
+    "name": "Pantone 226 C",
+    "hex": "#83efd8"
+  },
+  {
+    "name": "Pantone 227 C",
+    "hex": "#d26da4"
+  },
+  {
+    "name": "Pantone 228 C",
+    "hex": "#09db29"
+  },
+  {
+    "name": "Pantone 229 C",
+    "hex": "#4423cd"
+  },
+  {
+    "name": "Pantone 230 C",
+    "hex": "#fd8fb2"
+  },
+  {
+    "name": "Pantone 231 C",
+    "hex": "#74ec54"
+  },
+  {
+    "name": "Pantone 232 C",
+    "hex": "#eaaa83"
+  },
+  {
+    "name": "Pantone 233 C",
+    "hex": "#58c9cd"
+  },
+  {
+    "name": "Pantone 234 C",
+    "hex": "#9ae2cb"
+  },
+  {
+    "name": "Pantone 235 C",
+    "hex": "#1acad7"
+  },
+  {
+    "name": "Pantone 236 C",
+    "hex": "#4f6444"
+  },
+  {
+    "name": "Pantone 237 C",
+    "hex": "#ed6671"
+  },
+  {
+    "name": "Pantone 238 C",
+    "hex": "#a5232a"
+  },
+  {
+    "name": "Pantone 239 C",
+    "hex": "#82b680"
+  },
+  {
+    "name": "Pantone 240 C",
+    "hex": "#cc9897"
+  },
+  {
+    "name": "Pantone 241 C",
+    "hex": "#475a2c"
+  },
+  {
+    "name": "Pantone 242 C",
+    "hex": "#2652c8"
+  },
+  {
+    "name": "Pantone 243 C",
+    "hex": "#05bef2"
+  },
+  {
+    "name": "Pantone 244 C",
+    "hex": "#dc2fa5"
+  },
+  {
+    "name": "Pantone 245 C",
+    "hex": "#3814a6"
+  },
+  {
+    "name": "Pantone 246 C",
+    "hex": "#3598f9"
+  },
+  {
+    "name": "Pantone 247 C",
+    "hex": "#eabe7c"
+  },
+  {
+    "name": "Pantone 248 C",
+    "hex": "#031a25"
+  },
+  {
+    "name": "Pantone 249 C",
+    "hex": "#1e889b"
+  },
+  {
+    "name": "Pantone 250 C",
+    "hex": "#12c593"
+  },
+  {
+    "name": "Pantone 251 C",
+    "hex": "#c7cbd0"
+  },
+  {
+    "name": "Pantone 252 C",
+    "hex": "#7b31b7"
+  },
+  {
+    "name": "Pantone 253 C",
+    "hex": "#5eba76"
+  },
+  {
+    "name": "Pantone 254 C",
+    "hex": "#3b107d"
+  },
+  {
+    "name": "Pantone 255 C",
+    "hex": "#84b02c"
+  },
+  {
+    "name": "Pantone 256 C",
+    "hex": "#eba89f"
+  },
+  {
+    "name": "Pantone 257 C",
+    "hex": "#db5791"
+  },
+  {
+    "name": "Pantone 258 C",
+    "hex": "#7f1c69"
+  },
+  {
+    "name": "Pantone 259 C",
+    "hex": "#bee1b4"
+  },
+  {
+    "name": "Pantone 260 C",
+    "hex": "#812afc"
+  },
+  {
+    "name": "Pantone 261 C",
+    "hex": "#069cb9"
+  },
+  {
+    "name": "Pantone 262 C",
+    "hex": "#7053d9"
+  },
+  {
+    "name": "Pantone 263 C",
+    "hex": "#c01b6f"
+  },
+  {
+    "name": "Pantone 264 C",
+    "hex": "#a32025"
+  },
+  {
+    "name": "Pantone 265 C",
+    "hex": "#05a25a"
+  },
+  {
+    "name": "Pantone 266 C",
+    "hex": "#0757c2"
+  },
+  {
+    "name": "Pantone 267 C",
+    "hex": "#f02bee"
+  },
+  {
+    "name": "Pantone 268 C",
+    "hex": "#fe5192"
+  },
+  {
+    "name": "Pantone 269 C",
+    "hex": "#0e65c5"
+  },
+  {
+    "name": "Pantone 270 C",
+    "hex": "#c78d6e"
+  },
+  {
+    "name": "Pantone 271 C",
+    "hex": "#06642f"
+  },
+  {
+    "name": "Pantone 272 C",
+    "hex": "#c458aa"
+  },
+  {
+    "name": "Pantone 273 C",
+    "hex": "#a56e87"
+  },
+  {
+    "name": "Pantone 274 C",
+    "hex": "#5a11ef"
+  },
+  {
+    "name": "Pantone 275 C",
+    "hex": "#6d1d5d"
+  },
+  {
+    "name": "Pantone 276 C",
+    "hex": "#ac57aa"
+  },
+  {
+    "name": "Pantone 277 C",
+    "hex": "#6ef8e7"
+  },
+  {
+    "name": "Pantone 278 C",
+    "hex": "#d9c13b"
+  },
+  {
+    "name": "Pantone 279 C",
+    "hex": "#2dacd7"
+  },
+  {
+    "name": "Pantone 280 C",
+    "hex": "#84aa12"
+  },
+  {
+    "name": "Pantone 281 C",
+    "hex": "#437505"
+  },
+  {
+    "name": "Pantone 282 C",
+    "hex": "#aaf388"
+  },
+  {
+    "name": "Pantone 283 C",
+    "hex": "#4f3eb1"
+  },
+  {
+    "name": "Pantone 284 C",
+    "hex": "#045b54"
+  },
+  {
+    "name": "Pantone 285 C",
+    "hex": "#994095"
+  },
+  {
+    "name": "Pantone 286 C",
+    "hex": "#6bfaf3"
+  },
+  {
+    "name": "Pantone 287 C",
+    "hex": "#d9b0c0"
+  },
+  {
+    "name": "Pantone 288 C",
+    "hex": "#081fc8"
+  },
+  {
+    "name": "Pantone 289 C",
+    "hex": "#b24188"
+  },
+  {
+    "name": "Pantone 290 C",
+    "hex": "#e92b4b"
+  },
+  {
+    "name": "Pantone 291 C",
+    "hex": "#2c55b0"
+  },
+  {
+    "name": "Pantone 292 C",
+    "hex": "#62e8e7"
+  },
+  {
+    "name": "Pantone 293 C",
+    "hex": "#fa3f27"
+  },
+  {
+    "name": "Pantone 294 C",
+    "hex": "#032b43"
+  },
+  {
+    "name": "Pantone 295 C",
+    "hex": "#e58184"
+  },
+  {
+    "name": "Pantone 296 C",
+    "hex": "#a05e00"
+  },
+  {
+    "name": "Pantone 297 C",
+    "hex": "#3f18dd"
+  },
+  {
+    "name": "Pantone 298 C",
+    "hex": "#118bd8"
+  },
+  {
+    "name": "Pantone 299 C",
+    "hex": "#f381ea"
+  },
+  {
+    "name": "Pantone 300 C",
+    "hex": "#3a9c32"
+  },
+  {
+    "name": "Pantone 301 C",
+    "hex": "#9e9550"
+  },
+  {
+    "name": "Pantone 302 C",
+    "hex": "#4d0a40"
+  },
+  {
+    "name": "Pantone 303 C",
+    "hex": "#5a81f3"
+  },
+  {
+    "name": "Pantone 304 C",
+    "hex": "#9ec0ee"
+  },
+  {
+    "name": "Pantone 305 C",
+    "hex": "#b49202"
+  },
+  {
+    "name": "Pantone 306 C",
+    "hex": "#2c3ed7"
+  },
+  {
+    "name": "Pantone 307 C",
+    "hex": "#6da806"
+  },
+  {
+    "name": "Pantone 308 C",
+    "hex": "#8127fd"
+  },
+  {
+    "name": "Pantone 309 C",
+    "hex": "#13b67d"
+  },
+  {
+    "name": "Pantone 310 C",
+    "hex": "#b3db3c"
+  },
+  {
+    "name": "Pantone 311 C",
+    "hex": "#8fb034"
+  },
+  {
+    "name": "Pantone 312 C",
+    "hex": "#09ac33"
+  },
+  {
+    "name": "Pantone 313 C",
+    "hex": "#57a8be"
+  },
+  {
+    "name": "Pantone 314 C",
+    "hex": "#918a6d"
+  },
+  {
+    "name": "Pantone 315 C",
+    "hex": "#05c265"
+  },
+  {
+    "name": "Pantone 316 C",
+    "hex": "#cd8d9b"
+  },
+  {
+    "name": "Pantone 317 C",
+    "hex": "#407cc5"
+  },
+  {
+    "name": "Pantone 318 C",
+    "hex": "#e885a6"
+  },
+  {
+    "name": "Pantone 319 C",
+    "hex": "#8bfc99"
+  },
+  {
+    "name": "Pantone 320 C",
+    "hex": "#cbaefb"
+  },
+  {
+    "name": "Pantone 321 C",
+    "hex": "#ba5110"
+  },
+  {
+    "name": "Pantone 322 C",
+    "hex": "#e039db"
+  },
+  {
+    "name": "Pantone 323 C",
+    "hex": "#0e20b7"
+  },
+  {
+    "name": "Pantone 324 C",
+    "hex": "#d9bdc7"
+  },
+  {
+    "name": "Pantone 325 C",
+    "hex": "#7397a8"
+  },
+  {
+    "name": "Pantone 326 C",
+    "hex": "#27b30a"
+  },
+  {
+    "name": "Pantone 327 C",
+    "hex": "#f357c8"
+  },
+  {
+    "name": "Pantone 328 C",
+    "hex": "#282e25"
+  },
+  {
+    "name": "Pantone 329 C",
+    "hex": "#8f1235"
+  },
+  {
+    "name": "Pantone 330 C",
+    "hex": "#69dd7a"
+  },
+  {
+    "name": "Pantone 331 C",
+    "hex": "#c7c032"
+  },
+  {
+    "name": "Pantone 332 C",
+    "hex": "#a1b7f7"
+  },
+  {
+    "name": "Pantone 333 C",
+    "hex": "#c4bc6f"
+  },
+  {
+    "name": "Pantone 334 C",
+    "hex": "#967e44"
+  },
+  {
+    "name": "Pantone 335 C",
+    "hex": "#7778ac"
+  },
+  {
+    "name": "Pantone 336 C",
+    "hex": "#c0258d"
+  },
+  {
+    "name": "Pantone 337 C",
+    "hex": "#3a062a"
+  },
+  {
+    "name": "Pantone 338 C",
+    "hex": "#5cb61f"
+  },
+  {
+    "name": "Pantone 339 C",
+    "hex": "#eb1259"
+  },
+  {
+    "name": "Pantone 340 C",
+    "hex": "#bd392a"
+  },
+  {
+    "name": "Pantone 341 C",
+    "hex": "#bdc8ed"
+  },
+  {
+    "name": "Pantone 342 C",
+    "hex": "#423f56"
+  },
+  {
+    "name": "Pantone 343 C",
+    "hex": "#b3d2fb"
+  },
+  {
+    "name": "Pantone 344 C",
+    "hex": "#a30c73"
+  },
+  {
+    "name": "Pantone 345 C",
+    "hex": "#940518"
+  },
+  {
+    "name": "Pantone 346 C",
+    "hex": "#acbb1b"
+  },
+  {
+    "name": "Pantone 347 C",
+    "hex": "#cdaf0c"
+  },
+  {
+    "name": "Pantone 348 C",
+    "hex": "#40f71a"
+  },
+  {
+    "name": "Pantone 349 C",
+    "hex": "#0598b8"
+  },
+  {
+    "name": "Pantone 350 C",
+    "hex": "#2fe899"
+  },
+  {
+    "name": "Pantone 351 C",
+    "hex": "#527090"
+  },
+  {
+    "name": "Pantone 352 C",
+    "hex": "#8e0537"
+  },
+  {
+    "name": "Pantone 353 C",
+    "hex": "#807e40"
+  },
+  {
+    "name": "Pantone 354 C",
+    "hex": "#cdba93"
+  },
+  {
+    "name": "Pantone 355 C",
+    "hex": "#5d7c13"
+  },
+  {
+    "name": "Pantone 356 C",
+    "hex": "#487f72"
+  },
+  {
+    "name": "Pantone 357 C",
+    "hex": "#5467a1"
+  },
+  {
+    "name": "Pantone 358 C",
+    "hex": "#830c60"
+  },
+  {
+    "name": "Pantone 359 C",
+    "hex": "#95ff0f"
+  },
+  {
+    "name": "Pantone 360 C",
+    "hex": "#d8bb81"
+  },
+  {
+    "name": "Pantone 361 C",
+    "hex": "#c65f33"
+  },
+  {
+    "name": "Pantone 362 C",
+    "hex": "#b93b11"
+  },
+  {
+    "name": "Pantone 363 C",
+    "hex": "#6da8f6"
+  },
+  {
+    "name": "Pantone 364 C",
+    "hex": "#5411df"
+  },
+  {
+    "name": "Pantone 365 C",
+    "hex": "#042838"
+  },
+  {
+    "name": "Pantone 366 C",
+    "hex": "#57f388"
+  },
+  {
+    "name": "Pantone 367 C",
+    "hex": "#9f9213"
+  },
+  {
+    "name": "Pantone 368 C",
+    "hex": "#35b84f"
+  },
+  {
+    "name": "Pantone 369 C",
+    "hex": "#f692c0"
+  },
+  {
+    "name": "Pantone 370 C",
+    "hex": "#d3ea5f"
+  },
+  {
+    "name": "Pantone 371 C",
+    "hex": "#3ed2fe"
+  },
+  {
+    "name": "Pantone 372 C",
+    "hex": "#c93de7"
+  },
+  {
+    "name": "Pantone 373 C",
+    "hex": "#f5557c"
+  },
+  {
+    "name": "Pantone 374 C",
+    "hex": "#d09387"
+  },
+  {
+    "name": "Pantone 375 C",
+    "hex": "#7fcc40"
+  },
+  {
+    "name": "Pantone 376 C",
+    "hex": "#9d3cc5"
+  },
+  {
+    "name": "Pantone 377 C",
+    "hex": "#0ae1d1"
+  },
+  {
+    "name": "Pantone 378 C",
+    "hex": "#802b89"
+  },
+  {
+    "name": "Pantone 379 C",
+    "hex": "#2de231"
+  },
+  {
+    "name": "Pantone 380 C",
+    "hex": "#8dc916"
+  },
+  {
+    "name": "Pantone 381 C",
+    "hex": "#5d2e0a"
+  },
+  {
+    "name": "Pantone 382 C",
+    "hex": "#ad7d0e"
+  },
+  {
+    "name": "Pantone 383 C",
+    "hex": "#166492"
+  },
+  {
+    "name": "Pantone 384 C",
+    "hex": "#5bffe4"
+  },
+  {
+    "name": "Pantone 385 C",
+    "hex": "#ba1c2f"
+  },
+  {
+    "name": "Pantone 386 C",
+    "hex": "#479555"
+  },
+  {
+    "name": "Pantone 387 C",
+    "hex": "#4ea21a"
+  },
+  {
+    "name": "Pantone 388 C",
+    "hex": "#760d4a"
+  },
+  {
+    "name": "Pantone 389 C",
+    "hex": "#ed9a50"
+  },
+  {
+    "name": "Pantone 390 C",
+    "hex": "#ef9547"
+  },
+  {
+    "name": "Pantone 391 C",
+    "hex": "#1f60ec"
+  },
+  {
+    "name": "Pantone 392 C",
+    "hex": "#db48f9"
+  },
+  {
+    "name": "Pantone 393 C",
+    "hex": "#2571cd"
+  },
+  {
+    "name": "Pantone 394 C",
+    "hex": "#6ff289"
+  },
+  {
+    "name": "Pantone 395 C",
+    "hex": "#b7eafe"
+  },
+  {
+    "name": "Pantone 396 C",
+    "hex": "#ca0176"
+  },
+  {
+    "name": "Pantone 397 C",
+    "hex": "#086ee3"
+  },
+  {
+    "name": "Pantone 398 C",
+    "hex": "#2c06b8"
+  },
+  {
+    "name": "Pantone 399 C",
+    "hex": "#a66c96"
+  },
+  {
+    "name": "Pantone 400 C",
+    "hex": "#21e267"
+  },
+  {
+    "name": "Pantone 401 C",
+    "hex": "#e30543"
+  },
+  {
+    "name": "Pantone 402 C",
+    "hex": "#69fefd"
+  },
+  {
+    "name": "Pantone 403 C",
+    "hex": "#a344c4"
+  },
+  {
+    "name": "Pantone 404 C",
+    "hex": "#311497"
+  },
+  {
+    "name": "Pantone 405 C",
+    "hex": "#a5bc2e"
+  },
+  {
+    "name": "Pantone 406 C",
+    "hex": "#7e3838"
+  },
+  {
+    "name": "Pantone 407 C",
+    "hex": "#59e703"
+  },
+  {
+    "name": "Pantone 408 C",
+    "hex": "#abad96"
+  },
+  {
+    "name": "Pantone 409 C",
+    "hex": "#c5b41b"
+  },
+  {
+    "name": "Pantone 410 C",
+    "hex": "#00f8b9"
+  },
+  {
+    "name": "Pantone 411 C",
+    "hex": "#8902eb"
+  },
+  {
+    "name": "Pantone 412 C",
+    "hex": "#b2ab56"
+  },
+  {
+    "name": "Pantone 413 C",
+    "hex": "#044346"
+  },
+  {
+    "name": "Pantone 414 C",
+    "hex": "#d44d06"
+  },
+  {
+    "name": "Pantone 415 C",
+    "hex": "#80e104"
+  },
+  {
+    "name": "Pantone 416 C",
+    "hex": "#3aa723"
+  },
+  {
+    "name": "Pantone 417 C",
+    "hex": "#cc1d0a"
+  },
+  {
+    "name": "Pantone 418 C",
+    "hex": "#4b7de7"
+  },
+  {
+    "name": "Pantone 419 C",
+    "hex": "#e0742b"
+  },
+  {
+    "name": "Pantone 420 C",
+    "hex": "#403bfd"
+  },
+  {
+    "name": "Pantone 421 C",
+    "hex": "#0131ec"
+  },
+  {
+    "name": "Pantone 422 C",
+    "hex": "#d08fdb"
+  },
+  {
+    "name": "Pantone 423 C",
+    "hex": "#a8e2e8"
+  },
+  {
+    "name": "Pantone 424 C",
+    "hex": "#715847"
+  },
+  {
+    "name": "Pantone 425 C",
+    "hex": "#0b1ccc"
+  },
+  {
+    "name": "Pantone 426 C",
+    "hex": "#c8f8a1"
+  },
+  {
+    "name": "Pantone 427 C",
+    "hex": "#a85165"
+  },
+  {
+    "name": "Pantone 428 C",
+    "hex": "#42c540"
+  },
+  {
+    "name": "Pantone 429 C",
+    "hex": "#cfdb12"
+  },
+  {
+    "name": "Pantone 430 C",
+    "hex": "#4e89b1"
+  },
+  {
+    "name": "Pantone 431 C",
+    "hex": "#d476cc"
+  },
+  {
+    "name": "Pantone 432 C",
+    "hex": "#ae890e"
+  },
+  {
+    "name": "Pantone 433 C",
+    "hex": "#e2e61d"
+  },
+  {
+    "name": "Pantone 434 C",
+    "hex": "#90f426"
+  },
+  {
+    "name": "Pantone 435 C",
+    "hex": "#a7d45a"
+  },
+  {
+    "name": "Pantone 436 C",
+    "hex": "#008a22"
+  },
+  {
+    "name": "Pantone 437 C",
+    "hex": "#d8c55b"
+  },
+  {
+    "name": "Pantone 438 C",
+    "hex": "#7bd483"
+  },
+  {
+    "name": "Pantone 439 C",
+    "hex": "#ae3255"
+  },
+  {
+    "name": "Pantone 440 C",
+    "hex": "#cb6fff"
+  },
+  {
+    "name": "Pantone 441 C",
+    "hex": "#992e07"
+  },
+  {
+    "name": "Pantone 442 C",
+    "hex": "#8b4f48"
+  },
+  {
+    "name": "Pantone 443 C",
+    "hex": "#5143ec"
+  },
+  {
+    "name": "Pantone 444 C",
+    "hex": "#e73f88"
+  },
+  {
+    "name": "Pantone 445 C",
+    "hex": "#cc918e"
+  },
+  {
+    "name": "Pantone 446 C",
+    "hex": "#47dac2"
+  },
+  {
+    "name": "Pantone 447 C",
+    "hex": "#d5e9aa"
+  },
+  {
+    "name": "Pantone 448 C",
+    "hex": "#b9e16b"
+  },
+  {
+    "name": "Pantone 449 C",
+    "hex": "#70c8a0"
+  },
+  {
+    "name": "Pantone 450 C",
+    "hex": "#51270b"
+  },
+  {
+    "name": "Pantone 451 C",
+    "hex": "#19e8a6"
+  },
+  {
+    "name": "Pantone 452 C",
+    "hex": "#d18b32"
+  },
+  {
+    "name": "Pantone 453 C",
+    "hex": "#85bed0"
+  },
+  {
+    "name": "Pantone 454 C",
+    "hex": "#5abe06"
+  },
+  {
+    "name": "Pantone 455 C",
+    "hex": "#d464be"
+  },
+  {
+    "name": "Pantone 456 C",
+    "hex": "#1101b2"
+  },
+  {
+    "name": "Pantone 457 C",
+    "hex": "#3b6e60"
+  },
+  {
+    "name": "Pantone 458 C",
+    "hex": "#94689b"
+  },
+  {
+    "name": "Pantone 459 C",
+    "hex": "#21d533"
+  },
+  {
+    "name": "Pantone 460 C",
+    "hex": "#661679"
+  },
+  {
+    "name": "Pantone 461 C",
+    "hex": "#0951d8"
+  },
+  {
+    "name": "Pantone 462 C",
+    "hex": "#d1e0f1"
+  },
+  {
+    "name": "Pantone 463 C",
+    "hex": "#4dd9fa"
+  },
+  {
+    "name": "Pantone 464 C",
+    "hex": "#100fe2"
+  },
+  {
+    "name": "Pantone 465 C",
+    "hex": "#e22636"
+  },
+  {
+    "name": "Pantone 466 C",
+    "hex": "#fcfdea"
+  },
+  {
+    "name": "Pantone 467 C",
+    "hex": "#358d79"
+  },
+  {
+    "name": "Pantone 468 C",
+    "hex": "#1e09ca"
+  },
+  {
+    "name": "Pantone 469 C",
+    "hex": "#dcec18"
+  },
+  {
+    "name": "Pantone 470 C",
+    "hex": "#e4bf66"
+  },
+  {
+    "name": "Pantone 471 C",
+    "hex": "#acc7db"
+  },
+  {
+    "name": "Pantone 472 C",
+    "hex": "#0afea5"
+  },
+  {
+    "name": "Pantone 473 C",
+    "hex": "#579071"
+  },
+  {
+    "name": "Pantone 474 C",
+    "hex": "#d9eff3"
+  },
+  {
+    "name": "Pantone 475 C",
+    "hex": "#3e5306"
+  },
+  {
+    "name": "Pantone 476 C",
+    "hex": "#a83396"
+  },
+  {
+    "name": "Pantone 477 C",
+    "hex": "#12d5d9"
+  },
+  {
+    "name": "Pantone 478 C",
+    "hex": "#f99440"
+  },
+  {
+    "name": "Pantone 479 C",
+    "hex": "#ea2dc8"
+  },
+  {
+    "name": "Pantone 480 C",
+    "hex": "#aae25b"
+  },
+  {
+    "name": "Pantone 481 C",
+    "hex": "#0dcc55"
+  },
+  {
+    "name": "Pantone 482 C",
+    "hex": "#4a28f2"
+  },
+  {
+    "name": "Pantone 483 C",
+    "hex": "#ec91cd"
+  },
+  {
+    "name": "Pantone 484 C",
+    "hex": "#a88080"
+  },
+  {
+    "name": "Pantone 485 C",
+    "hex": "#4d4902"
+  },
+  {
+    "name": "Pantone 486 C",
+    "hex": "#e867de"
+  },
+  {
+    "name": "Pantone 487 C",
+    "hex": "#8f4e97"
+  },
+  {
+    "name": "Pantone 488 C",
+    "hex": "#664fa7"
+  },
+  {
+    "name": "Pantone 489 C",
+    "hex": "#99ed3e"
+  },
+  {
+    "name": "Pantone 490 C",
+    "hex": "#d6dacf"
+  },
+  {
+    "name": "Pantone 491 C",
+    "hex": "#79f98e"
+  },
+  {
+    "name": "Pantone 492 C",
+    "hex": "#55be58"
+  },
+  {
+    "name": "Pantone 493 C",
+    "hex": "#6cf2a6"
+  },
+  {
+    "name": "Pantone 494 C",
+    "hex": "#36172c"
+  },
+  {
+    "name": "Pantone 495 C",
+    "hex": "#9ec887"
+  },
+  {
+    "name": "Pantone 496 C",
+    "hex": "#0118bc"
+  },
+  {
+    "name": "Pantone 497 C",
+    "hex": "#66060a"
+  },
+  {
+    "name": "Pantone 498 C",
+    "hex": "#a9d17c"
+  },
+  {
+    "name": "Pantone 499 C",
+    "hex": "#fb97fd"
+  },
+  {
+    "name": "Pantone 500 C",
+    "hex": "#b82253"
+  },
+  {
+    "name": "Pantone 501 C",
+    "hex": "#6d6ac9"
+  },
+  {
+    "name": "Pantone 502 C",
+    "hex": "#19f0ca"
+  },
+  {
+    "name": "Pantone 503 C",
+    "hex": "#d088c2"
+  },
+  {
+    "name": "Pantone 504 C",
+    "hex": "#cdd0cb"
+  },
+  {
+    "name": "Pantone 505 C",
+    "hex": "#c2832a"
+  },
+  {
+    "name": "Pantone 506 C",
+    "hex": "#db1b0d"
+  },
+  {
+    "name": "Pantone 507 C",
+    "hex": "#d8d01d"
+  },
+  {
+    "name": "Pantone 508 C",
+    "hex": "#490de1"
+  },
+  {
+    "name": "Pantone 509 C",
+    "hex": "#409b62"
+  },
+  {
+    "name": "Pantone 510 C",
+    "hex": "#2ff738"
+  },
+  {
+    "name": "Pantone 511 C",
+    "hex": "#444122"
+  },
+  {
+    "name": "Pantone 512 C",
+    "hex": "#8c9df3"
+  },
+  {
+    "name": "Pantone 513 C",
+    "hex": "#1a8d25"
+  },
+  {
+    "name": "Pantone 514 C",
+    "hex": "#ec87aa"
+  },
+  {
+    "name": "Pantone 515 C",
+    "hex": "#fa2f68"
+  },
+  {
+    "name": "Pantone 516 C",
+    "hex": "#e25194"
+  },
+  {
+    "name": "Pantone 517 C",
+    "hex": "#a4b07c"
+  },
+  {
+    "name": "Pantone 518 C",
+    "hex": "#c04200"
+  },
+  {
+    "name": "Pantone 519 C",
+    "hex": "#970c8b"
+  },
+  {
+    "name": "Pantone 520 C",
+    "hex": "#17b44d"
+  },
+  {
+    "name": "Pantone 521 C",
+    "hex": "#d2acbd"
+  },
+  {
+    "name": "Pantone 522 C",
+    "hex": "#d73c29"
+  },
+  {
+    "name": "Pantone 523 C",
+    "hex": "#b539d1"
+  },
+  {
+    "name": "Pantone 524 C",
+    "hex": "#5facb5"
+  },
+  {
+    "name": "Pantone 525 C",
+    "hex": "#98a7c8"
+  },
+  {
+    "name": "Pantone 526 C",
+    "hex": "#81d8c1"
+  },
+  {
+    "name": "Pantone 527 C",
+    "hex": "#579cf0"
+  },
+  {
+    "name": "Pantone 528 C",
+    "hex": "#c4846f"
+  },
+  {
+    "name": "Pantone 529 C",
+    "hex": "#099217"
+  },
+  {
+    "name": "Pantone 530 C",
+    "hex": "#5c675b"
+  },
+  {
+    "name": "Pantone 531 C",
+    "hex": "#3945b9"
+  },
+  {
+    "name": "Pantone 532 C",
+    "hex": "#e42006"
+  },
+  {
+    "name": "Pantone 533 C",
+    "hex": "#a9d121"
+  },
+  {
+    "name": "Pantone 534 C",
+    "hex": "#08fc56"
+  },
+  {
+    "name": "Pantone 535 C",
+    "hex": "#bcba47"
+  },
+  {
+    "name": "Pantone 536 C",
+    "hex": "#c83486"
+  },
+  {
+    "name": "Pantone 537 C",
+    "hex": "#23b74f"
+  },
+  {
+    "name": "Pantone 538 C",
+    "hex": "#232044"
+  },
+  {
+    "name": "Pantone 539 C",
+    "hex": "#42689c"
+  },
+  {
+    "name": "Pantone 540 C",
+    "hex": "#efb0c2"
+  },
+  {
+    "name": "Pantone 541 C",
+    "hex": "#2ff347"
+  },
+  {
+    "name": "Pantone 542 C",
+    "hex": "#d65cb5"
+  },
+  {
+    "name": "Pantone 543 C",
+    "hex": "#5336bc"
+  },
+  {
+    "name": "Pantone 544 C",
+    "hex": "#3659af"
+  },
+  {
+    "name": "Pantone 545 C",
+    "hex": "#6c2817"
+  },
+  {
+    "name": "Pantone 546 C",
+    "hex": "#8a0406"
+  },
+  {
+    "name": "Pantone 547 C",
+    "hex": "#571ae6"
+  },
+  {
+    "name": "Pantone 548 C",
+    "hex": "#c9eae9"
+  },
+  {
+    "name": "Pantone 549 C",
+    "hex": "#9c9f4b"
+  },
+  {
+    "name": "Pantone 550 C",
+    "hex": "#6bf7a1"
+  },
+  {
+    "name": "Pantone 551 C",
+    "hex": "#2e52de"
+  },
+  {
+    "name": "Pantone 552 C",
+    "hex": "#688821"
+  },
+  {
+    "name": "Pantone 553 C",
+    "hex": "#157b44"
+  },
+  {
+    "name": "Pantone 554 C",
+    "hex": "#e5f240"
+  },
+  {
+    "name": "Pantone 555 C",
+    "hex": "#9a69aa"
+  },
+  {
+    "name": "Pantone 556 C",
+    "hex": "#c7a63c"
+  },
+  {
+    "name": "Pantone 557 C",
+    "hex": "#78e251"
+  },
+  {
+    "name": "Pantone 558 C",
+    "hex": "#b9ac9a"
+  },
+  {
+    "name": "Pantone 559 C",
+    "hex": "#32fb1c"
+  },
+  {
+    "name": "Pantone 560 C",
+    "hex": "#c8f5b8"
+  },
+  {
+    "name": "Pantone 561 C",
+    "hex": "#1a68e7"
+  },
+  {
+    "name": "Pantone 562 C",
+    "hex": "#42327e"
+  },
+  {
+    "name": "Pantone 563 C",
+    "hex": "#4f35e0"
+  },
+  {
+    "name": "Pantone 564 C",
+    "hex": "#ed83c5"
+  },
+  {
+    "name": "Pantone 565 C",
+    "hex": "#fccb4f"
+  },
+  {
+    "name": "Pantone 566 C",
+    "hex": "#26b0ea"
+  },
+  {
+    "name": "Pantone 567 C",
+    "hex": "#3ff3eb"
+  },
+  {
+    "name": "Pantone 568 C",
+    "hex": "#dae991"
+  },
+  {
+    "name": "Pantone 569 C",
+    "hex": "#0ac8ae"
+  },
+  {
+    "name": "Pantone 570 C",
+    "hex": "#2e641e"
+  },
+  {
+    "name": "Pantone 571 C",
+    "hex": "#db0f68"
+  },
+  {
+    "name": "Pantone 572 C",
+    "hex": "#1d7a57"
+  },
+  {
+    "name": "Pantone 573 C",
+    "hex": "#0fb452"
+  },
+  {
+    "name": "Pantone 574 C",
+    "hex": "#37fb81"
+  },
+  {
+    "name": "Pantone 575 C",
+    "hex": "#628ae9"
+  },
+  {
+    "name": "Pantone 576 C",
+    "hex": "#4a8c4b"
+  },
+  {
+    "name": "Pantone 577 C",
+    "hex": "#c5b165"
+  },
+  {
+    "name": "Pantone 578 C",
+    "hex": "#23a375"
+  },
+  {
+    "name": "Pantone 579 C",
+    "hex": "#b67ca1"
+  },
+  {
+    "name": "Pantone 580 C",
+    "hex": "#9504e8"
+  },
+  {
+    "name": "Pantone 581 C",
+    "hex": "#9178e5"
+  },
+  {
+    "name": "Pantone 582 C",
+    "hex": "#a8eda2"
+  },
+  {
+    "name": "Pantone 583 C",
+    "hex": "#bdc296"
+  },
+  {
+    "name": "Pantone 584 C",
+    "hex": "#876e6a"
+  },
+  {
+    "name": "Pantone 585 C",
+    "hex": "#ce9773"
+  },
+  {
+    "name": "Pantone 586 C",
+    "hex": "#ba15fe"
+  },
+  {
+    "name": "Pantone 587 C",
+    "hex": "#4cb5b4"
+  },
+  {
+    "name": "Pantone 588 C",
+    "hex": "#898b5f"
+  },
+  {
+    "name": "Pantone 589 C",
+    "hex": "#c2c55e"
+  },
+  {
+    "name": "Pantone 590 C",
+    "hex": "#768718"
+  },
+  {
+    "name": "Pantone 591 C",
+    "hex": "#ea8238"
+  },
+  {
+    "name": "Pantone 592 C",
+    "hex": "#a3c90e"
+  },
+  {
+    "name": "Pantone 593 C",
+    "hex": "#ce1a61"
+  },
+  {
+    "name": "Pantone 594 C",
+    "hex": "#d29d12"
+  },
+  {
+    "name": "Pantone 595 C",
+    "hex": "#b4574f"
+  },
+  {
+    "name": "Pantone 596 C",
+    "hex": "#8c0d5b"
+  },
+  {
+    "name": "Pantone 597 C",
+    "hex": "#2e2c6a"
+  },
+  {
+    "name": "Pantone 598 C",
+    "hex": "#e65f8c"
+  },
+  {
+    "name": "Pantone 599 C",
+    "hex": "#6551d1"
+  },
+  {
+    "name": "Pantone 600 C",
+    "hex": "#b48d27"
+  },
+  {
+    "name": "Pantone 601 C",
+    "hex": "#e1dc16"
+  },
+  {
+    "name": "Pantone 602 C",
+    "hex": "#80d773"
+  },
+  {
+    "name": "Pantone 603 C",
+    "hex": "#bfde6a"
+  },
+  {
+    "name": "Pantone 604 C",
+    "hex": "#3be483"
+  },
+  {
+    "name": "Pantone 605 C",
+    "hex": "#b0ac4c"
+  },
+  {
+    "name": "Pantone 606 C",
+    "hex": "#2c940a"
+  },
+  {
+    "name": "Pantone 607 C",
+    "hex": "#4d5263"
+  },
+  {
+    "name": "Pantone 608 C",
+    "hex": "#f2e449"
+  },
+  {
+    "name": "Pantone 609 C",
+    "hex": "#9237fd"
+  },
+  {
+    "name": "Pantone 610 C",
+    "hex": "#42b601"
+  },
+  {
+    "name": "Pantone 611 C",
+    "hex": "#aa4f24"
+  },
+  {
+    "name": "Pantone 612 C",
+    "hex": "#465939"
+  },
+  {
+    "name": "Pantone 613 C",
+    "hex": "#12ced5"
+  },
+  {
+    "name": "Pantone 614 C",
+    "hex": "#886423"
+  },
+  {
+    "name": "Pantone 615 C",
+    "hex": "#4240e8"
+  },
+  {
+    "name": "Pantone 616 C",
+    "hex": "#065dde"
+  },
+  {
+    "name": "Pantone 617 C",
+    "hex": "#28b646"
+  },
+  {
+    "name": "Pantone 618 C",
+    "hex": "#518263"
+  },
+  {
+    "name": "Pantone 619 C",
+    "hex": "#f91fd9"
+  },
+  {
+    "name": "Pantone 620 C",
+    "hex": "#2e6d53"
+  },
+  {
+    "name": "Pantone 621 C",
+    "hex": "#e30128"
+  },
+  {
+    "name": "Pantone 622 C",
+    "hex": "#9632a0"
+  },
+  {
+    "name": "Pantone 623 C",
+    "hex": "#e89efa"
+  },
+  {
+    "name": "Pantone 624 C",
+    "hex": "#c46937"
+  },
+  {
+    "name": "Pantone 625 C",
+    "hex": "#8c2433"
+  },
+  {
+    "name": "Pantone 626 C",
+    "hex": "#395ef2"
+  },
+  {
+    "name": "Pantone 627 C",
+    "hex": "#8c588a"
+  },
+  {
+    "name": "Pantone 628 C",
+    "hex": "#0d05ae"
+  },
+  {
+    "name": "Pantone 629 C",
+    "hex": "#d2814d"
+  },
+  {
+    "name": "Pantone 630 C",
+    "hex": "#184c66"
+  },
+  {
+    "name": "Pantone 631 C",
+    "hex": "#bf159a"
+  },
+  {
+    "name": "Pantone 632 C",
+    "hex": "#f0d3dc"
+  },
+  {
+    "name": "Pantone 633 C",
+    "hex": "#1d66a8"
+  },
+  {
+    "name": "Pantone 634 C",
+    "hex": "#9d8c18"
+  },
+  {
+    "name": "Pantone 635 C",
+    "hex": "#713812"
+  },
+  {
+    "name": "Pantone 636 C",
+    "hex": "#598477"
+  },
+  {
+    "name": "Pantone 637 C",
+    "hex": "#b8174d"
+  },
+  {
+    "name": "Pantone 638 C",
+    "hex": "#c9899a"
+  },
+  {
+    "name": "Pantone 639 C",
+    "hex": "#e1091e"
+  },
+  {
+    "name": "Pantone 640 C",
+    "hex": "#015344"
+  },
+  {
+    "name": "Pantone 641 C",
+    "hex": "#6a15e2"
+  },
+  {
+    "name": "Pantone 642 C",
+    "hex": "#1f5227"
+  },
+  {
+    "name": "Pantone 643 C",
+    "hex": "#32c7e0"
+  },
+  {
+    "name": "Pantone 644 C",
+    "hex": "#3200ba"
+  },
+  {
+    "name": "Pantone 645 C",
+    "hex": "#9b9b21"
+  },
+  {
+    "name": "Pantone 646 C",
+    "hex": "#9e4070"
+  },
+  {
+    "name": "Pantone 647 C",
+    "hex": "#1f5dc9"
+  },
+  {
+    "name": "Pantone 648 C",
+    "hex": "#41a609"
+  },
+  {
+    "name": "Pantone 649 C",
+    "hex": "#27d01d"
+  },
+  {
+    "name": "Pantone 650 C",
+    "hex": "#a9c1ab"
+  },
+  {
+    "name": "Pantone 651 C",
+    "hex": "#00fded"
+  },
+  {
+    "name": "Pantone 652 C",
+    "hex": "#d55275"
+  },
+  {
+    "name": "Pantone 653 C",
+    "hex": "#a5b0ec"
+  },
+  {
+    "name": "Pantone 654 C",
+    "hex": "#546803"
+  },
+  {
+    "name": "Pantone 655 C",
+    "hex": "#3e8c69"
+  },
+  {
+    "name": "Pantone 656 C",
+    "hex": "#b747d6"
+  },
+  {
+    "name": "Pantone 657 C",
+    "hex": "#9f1275"
+  },
+  {
+    "name": "Pantone 658 C",
+    "hex": "#dc21c1"
+  },
+  {
+    "name": "Pantone 659 C",
+    "hex": "#5bf100"
+  },
+  {
+    "name": "Pantone 660 C",
+    "hex": "#b1245e"
+  },
+  {
+    "name": "Pantone 661 C",
+    "hex": "#40d709"
+  },
+  {
+    "name": "Pantone 662 C",
+    "hex": "#25e950"
+  },
+  {
+    "name": "Pantone 663 C",
+    "hex": "#8005e2"
+  },
+  {
+    "name": "Pantone 664 C",
+    "hex": "#46d663"
+  },
+  {
+    "name": "Pantone 665 C",
+    "hex": "#6eef61"
+  },
+  {
+    "name": "Pantone 666 C",
+    "hex": "#83b552"
+  },
+  {
+    "name": "Pantone 667 C",
+    "hex": "#7d0020"
+  },
+  {
+    "name": "Pantone 668 C",
+    "hex": "#74524c"
+  },
+  {
+    "name": "Pantone 669 C",
+    "hex": "#29249b"
+  },
+  {
+    "name": "Pantone 670 C",
+    "hex": "#2da6c6"
+  },
+  {
+    "name": "Pantone 671 C",
+    "hex": "#2ff11d"
+  },
+  {
+    "name": "Pantone 672 C",
+    "hex": "#75a34e"
+  },
+  {
+    "name": "Pantone 673 C",
+    "hex": "#c6c16e"
+  },
+  {
+    "name": "Pantone 674 C",
+    "hex": "#800d83"
+  },
+  {
+    "name": "Pantone 675 C",
+    "hex": "#9c2001"
+  },
+  {
+    "name": "Pantone 676 C",
+    "hex": "#556c9c"
+  },
+  {
+    "name": "Pantone 677 C",
+    "hex": "#73866a"
+  },
+  {
+    "name": "Pantone 678 C",
+    "hex": "#181dbe"
+  },
+  {
+    "name": "Pantone 679 C",
+    "hex": "#184880"
+  },
+  {
+    "name": "Pantone 680 C",
+    "hex": "#0cd54e"
+  },
+  {
+    "name": "Pantone 681 C",
+    "hex": "#25c6ff"
+  },
+  {
+    "name": "Pantone 682 C",
+    "hex": "#1ce793"
+  },
+  {
+    "name": "Pantone 683 C",
+    "hex": "#8f14d2"
+  },
+  {
+    "name": "Pantone 684 C",
+    "hex": "#ad5495"
+  },
+  {
+    "name": "Pantone 685 C",
+    "hex": "#d1d807"
+  },
+  {
+    "name": "Pantone 686 C",
+    "hex": "#308fc2"
+  },
+  {
+    "name": "Pantone 687 C",
+    "hex": "#4cb657"
+  },
+  {
+    "name": "Pantone 688 C",
+    "hex": "#718487"
+  },
+  {
+    "name": "Pantone 689 C",
+    "hex": "#53f651"
+  },
+  {
+    "name": "Pantone 690 C",
+    "hex": "#d1c146"
+  },
+  {
+    "name": "Pantone 691 C",
+    "hex": "#1d5bad"
+  },
+  {
+    "name": "Pantone 692 C",
+    "hex": "#9aec1c"
+  },
+  {
+    "name": "Pantone 693 C",
+    "hex": "#df93a3"
+  },
+  {
+    "name": "Pantone 694 C",
+    "hex": "#127258"
+  },
+  {
+    "name": "Pantone 695 C",
+    "hex": "#41e2cb"
+  },
+  {
+    "name": "Pantone 696 C",
+    "hex": "#8c378a"
+  },
+  {
+    "name": "Pantone 697 C",
+    "hex": "#2ba051"
+  },
+  {
+    "name": "Pantone 698 C",
+    "hex": "#2b3681"
+  },
+  {
+    "name": "Pantone 699 C",
+    "hex": "#29f726"
+  },
+  {
+    "name": "Pantone 700 C",
+    "hex": "#cba159"
+  },
+  {
+    "name": "Pantone 701 C",
+    "hex": "#fcad10"
+  },
+  {
+    "name": "Pantone 702 C",
+    "hex": "#358823"
+  },
+  {
+    "name": "Pantone 703 C",
+    "hex": "#a576cf"
+  },
+  {
+    "name": "Pantone 704 C",
+    "hex": "#1edb2e"
+  },
+  {
+    "name": "Pantone 705 C",
+    "hex": "#fa24a4"
+  },
+  {
+    "name": "Pantone 706 C",
+    "hex": "#b5e9aa"
+  },
+  {
+    "name": "Pantone 707 C",
+    "hex": "#a2dec6"
+  },
+  {
+    "name": "Pantone 708 C",
+    "hex": "#5c07aa"
+  },
+  {
+    "name": "Pantone 709 C",
+    "hex": "#b43f97"
+  },
+  {
+    "name": "Pantone 710 C",
+    "hex": "#48ddba"
+  },
+  {
+    "name": "Pantone 711 C",
+    "hex": "#812204"
+  },
+  {
+    "name": "Pantone 712 C",
+    "hex": "#41a25d"
+  },
+  {
+    "name": "Pantone 713 C",
+    "hex": "#359fad"
+  },
+  {
+    "name": "Pantone 714 C",
+    "hex": "#2c81da"
+  },
+  {
+    "name": "Pantone 715 C",
+    "hex": "#6584ff"
+  },
+  {
+    "name": "Pantone 716 C",
+    "hex": "#71298c"
+  },
+  {
+    "name": "Pantone 717 C",
+    "hex": "#f8b2bb"
+  },
+  {
+    "name": "Pantone 718 C",
+    "hex": "#19b37f"
+  },
+  {
+    "name": "Pantone 719 C",
+    "hex": "#8dabb5"
+  },
+  {
+    "name": "Pantone 720 C",
+    "hex": "#de9ea7"
+  },
+  {
+    "name": "Pantone 721 C",
+    "hex": "#50c2ac"
+  },
+  {
+    "name": "Pantone 722 C",
+    "hex": "#61db88"
+  },
+  {
+    "name": "Pantone 723 C",
+    "hex": "#e7b37e"
+  },
+  {
+    "name": "Pantone 724 C",
+    "hex": "#2345c8"
+  },
+  {
+    "name": "Pantone 725 C",
+    "hex": "#19ad1b"
+  },
+  {
+    "name": "Pantone 726 C",
+    "hex": "#c207e5"
+  },
+  {
+    "name": "Pantone 727 C",
+    "hex": "#7859df"
+  },
+  {
+    "name": "Pantone 728 C",
+    "hex": "#f01015"
+  },
+  {
+    "name": "Pantone 729 C",
+    "hex": "#837668"
+  },
+  {
+    "name": "Pantone 730 C",
+    "hex": "#9b14ed"
+  },
+  {
+    "name": "Pantone 731 C",
+    "hex": "#1bf4e8"
+  },
+  {
+    "name": "Pantone 732 C",
+    "hex": "#dd7f51"
+  },
+  {
+    "name": "Pantone 733 C",
+    "hex": "#d983fd"
+  },
+  {
+    "name": "Pantone 734 C",
+    "hex": "#fef5e0"
+  },
+  {
+    "name": "Pantone 735 C",
+    "hex": "#197c49"
+  },
+  {
+    "name": "Pantone 736 C",
+    "hex": "#6868a0"
+  },
+  {
+    "name": "Pantone 737 C",
+    "hex": "#ed341a"
+  },
+  {
+    "name": "Pantone 738 C",
+    "hex": "#e27f6f"
+  },
+  {
+    "name": "Pantone 739 C",
+    "hex": "#cc3872"
+  },
+  {
+    "name": "Pantone 740 C",
+    "hex": "#043bf1"
+  },
+  {
+    "name": "Pantone 741 C",
+    "hex": "#6fa41b"
+  },
+  {
+    "name": "Pantone 742 C",
+    "hex": "#505097"
+  },
+  {
+    "name": "Pantone 743 C",
+    "hex": "#7033f0"
+  },
+  {
+    "name": "Pantone 744 C",
+    "hex": "#57b675"
+  },
+  {
+    "name": "Pantone 745 C",
+    "hex": "#7b94e2"
+  },
+  {
+    "name": "Pantone 746 C",
+    "hex": "#cc0ba3"
+  },
+  {
+    "name": "Pantone 747 C",
+    "hex": "#37e211"
+  },
+  {
+    "name": "Pantone 748 C",
+    "hex": "#fb3547"
+  },
+  {
+    "name": "Pantone 749 C",
+    "hex": "#14007d"
+  },
+  {
+    "name": "Pantone 750 C",
+    "hex": "#422c4a"
+  },
+  {
+    "name": "Pantone 751 C",
+    "hex": "#5caa48"
+  },
+  {
+    "name": "Pantone 752 C",
+    "hex": "#79ee0d"
+  },
+  {
+    "name": "Pantone 753 C",
+    "hex": "#13bcf6"
+  },
+  {
+    "name": "Pantone 754 C",
+    "hex": "#0cc463"
+  },
+  {
+    "name": "Pantone 755 C",
+    "hex": "#17bef7"
+  },
+  {
+    "name": "Pantone 756 C",
+    "hex": "#d15c4a"
+  },
+  {
+    "name": "Pantone 757 C",
+    "hex": "#9d287b"
+  },
+  {
+    "name": "Pantone 758 C",
+    "hex": "#9afdbd"
+  },
+  {
+    "name": "Pantone 759 C",
+    "hex": "#4d97c9"
+  },
+  {
+    "name": "Pantone 760 C",
+    "hex": "#f44b4a"
+  },
+  {
+    "name": "Pantone 761 C",
+    "hex": "#fe3640"
+  },
+  {
+    "name": "Pantone 762 C",
+    "hex": "#42e096"
+  },
+  {
+    "name": "Pantone 763 C",
+    "hex": "#5b3d49"
+  },
+  {
+    "name": "Pantone 764 C",
+    "hex": "#6bc6ae"
+  },
+  {
+    "name": "Pantone 765 C",
+    "hex": "#454d8e"
+  },
+  {
+    "name": "Pantone 766 C",
+    "hex": "#3750f9"
+  },
+  {
+    "name": "Pantone 767 C",
+    "hex": "#d41f5c"
+  },
+  {
+    "name": "Pantone 768 C",
+    "hex": "#7f413c"
+  },
+  {
+    "name": "Pantone 769 C",
+    "hex": "#d003f3"
+  },
+  {
+    "name": "Pantone 770 C",
+    "hex": "#818dd9"
+  },
+  {
+    "name": "Pantone 771 C",
+    "hex": "#e3846d"
+  },
+  {
+    "name": "Pantone 772 C",
+    "hex": "#ca12de"
+  },
+  {
+    "name": "Pantone 773 C",
+    "hex": "#6b728c"
+  },
+  {
+    "name": "Pantone 774 C",
+    "hex": "#d67c49"
+  },
+  {
+    "name": "Pantone 775 C",
+    "hex": "#a08f24"
+  },
+  {
+    "name": "Pantone 776 C",
+    "hex": "#06d7b3"
+  },
+  {
+    "name": "Pantone 777 C",
+    "hex": "#0ab7ba"
+  },
+  {
+    "name": "Pantone 778 C",
+    "hex": "#490d4e"
+  },
+  {
+    "name": "Pantone 779 C",
+    "hex": "#06561c"
+  },
+  {
+    "name": "Pantone 780 C",
+    "hex": "#b954e9"
+  },
+  {
+    "name": "Pantone 781 C",
+    "hex": "#8e10e7"
+  },
+  {
+    "name": "Pantone 782 C",
+    "hex": "#1452df"
+  },
+  {
+    "name": "Pantone 783 C",
+    "hex": "#b800e4"
+  },
+  {
+    "name": "Pantone 784 C",
+    "hex": "#0f8e7e"
+  },
+  {
+    "name": "Pantone 785 C",
+    "hex": "#ddd07c"
+  },
+  {
+    "name": "Pantone 786 C",
+    "hex": "#146fbd"
+  },
+  {
+    "name": "Pantone 787 C",
+    "hex": "#c53e25"
+  },
+  {
+    "name": "Pantone 788 C",
+    "hex": "#a7af5b"
+  },
+  {
+    "name": "Pantone 789 C",
+    "hex": "#3bcaaa"
+  },
+  {
+    "name": "Pantone 790 C",
+    "hex": "#994220"
+  },
+  {
+    "name": "Pantone 791 C",
+    "hex": "#10d9a4"
+  },
+  {
+    "name": "Pantone 792 C",
+    "hex": "#836de9"
+  },
+  {
+    "name": "Pantone 793 C",
+    "hex": "#952f7b"
+  },
+  {
+    "name": "Pantone 794 C",
+    "hex": "#ed8ffb"
+  },
+  {
+    "name": "Pantone 795 C",
+    "hex": "#6ffdde"
+  },
+  {
+    "name": "Pantone 796 C",
+    "hex": "#003d42"
+  },
+  {
+    "name": "Pantone 797 C",
+    "hex": "#230340"
+  },
+  {
+    "name": "Pantone 798 C",
+    "hex": "#311c24"
+  },
+  {
+    "name": "Pantone 799 C",
+    "hex": "#c1244b"
+  },
+  {
+    "name": "Pantone 800 C",
+    "hex": "#983a4b"
+  },
+  {
+    "name": "Pantone 801 C",
+    "hex": "#46f947"
+  },
+  {
+    "name": "Pantone 802 C",
+    "hex": "#1c05c5"
+  },
+  {
+    "name": "Pantone 803 C",
+    "hex": "#391f6e"
+  },
+  {
+    "name": "Pantone 804 C",
+    "hex": "#10d199"
+  },
+  {
+    "name": "Pantone 805 C",
+    "hex": "#55917d"
+  },
+  {
+    "name": "Pantone 806 C",
+    "hex": "#695887"
+  },
+  {
+    "name": "Pantone 807 C",
+    "hex": "#f9d5b3"
+  },
+  {
+    "name": "Pantone 808 C",
+    "hex": "#ed0684"
+  },
+  {
+    "name": "Pantone 809 C",
+    "hex": "#b2d5be"
+  },
+  {
+    "name": "Pantone 810 C",
+    "hex": "#398529"
+  },
+  {
+    "name": "Pantone 811 C",
+    "hex": "#05731d"
+  },
+  {
+    "name": "Pantone 812 C",
+    "hex": "#4feb21"
+  },
+  {
+    "name": "Pantone 813 C",
+    "hex": "#510740"
+  },
+  {
+    "name": "Pantone 814 C",
+    "hex": "#b5c72b"
+  },
+  {
+    "name": "Pantone 815 C",
+    "hex": "#873c7d"
+  },
+  {
+    "name": "Pantone 816 C",
+    "hex": "#f0b5d3"
+  },
+  {
+    "name": "Pantone 817 C",
+    "hex": "#07c1f6"
+  },
+  {
+    "name": "Pantone 818 C",
+    "hex": "#63954c"
+  },
+  {
+    "name": "Pantone 819 C",
+    "hex": "#463a41"
+  },
+  {
+    "name": "Pantone 820 C",
+    "hex": "#cb0ab1"
+  },
+  {
+    "name": "Pantone 821 C",
+    "hex": "#834c21"
+  },
+  {
+    "name": "Pantone 822 C",
+    "hex": "#61aa4f"
+  },
+  {
+    "name": "Pantone 823 C",
+    "hex": "#862be5"
+  },
+  {
+    "name": "Pantone 824 C",
+    "hex": "#aa5914"
+  },
+  {
+    "name": "Pantone 825 C",
+    "hex": "#447dfc"
+  },
+  {
+    "name": "Pantone 826 C",
+    "hex": "#9aab6c"
+  },
+  {
+    "name": "Pantone 827 C",
+    "hex": "#fb42d1"
+  },
+  {
+    "name": "Pantone 828 C",
+    "hex": "#112456"
+  },
+  {
+    "name": "Pantone 829 C",
+    "hex": "#2a1e47"
+  },
+  {
+    "name": "Pantone 830 C",
+    "hex": "#7ab469"
+  },
+  {
+    "name": "Pantone 831 C",
+    "hex": "#5e3bd1"
+  },
+  {
+    "name": "Pantone 832 C",
+    "hex": "#291203"
+  },
+  {
+    "name": "Pantone 833 C",
+    "hex": "#ba52e0"
+  },
+  {
+    "name": "Pantone 834 C",
+    "hex": "#8d9ed6"
+  },
+  {
+    "name": "Pantone 835 C",
+    "hex": "#c3c1cc"
+  },
+  {
+    "name": "Pantone 836 C",
+    "hex": "#6e9873"
+  },
+  {
+    "name": "Pantone 837 C",
+    "hex": "#4703f7"
+  },
+  {
+    "name": "Pantone 838 C",
+    "hex": "#06b759"
+  },
+  {
+    "name": "Pantone 839 C",
+    "hex": "#78d725"
+  },
+  {
+    "name": "Pantone 840 C",
+    "hex": "#48a248"
+  },
+  {
+    "name": "Pantone 841 C",
+    "hex": "#51c479"
+  },
+  {
+    "name": "Pantone 842 C",
+    "hex": "#33af0e"
+  },
+  {
+    "name": "Pantone 843 C",
+    "hex": "#67e5c4"
+  },
+  {
+    "name": "Pantone 844 C",
+    "hex": "#d02b8e"
+  },
+  {
+    "name": "Pantone 845 C",
+    "hex": "#2748b4"
+  },
+  {
+    "name": "Pantone 846 C",
+    "hex": "#2e9eb5"
+  },
+  {
+    "name": "Pantone 847 C",
+    "hex": "#fe4bac"
+  },
+  {
+    "name": "Pantone 848 C",
+    "hex": "#11f553"
+  },
+  {
+    "name": "Pantone 849 C",
+    "hex": "#7cbce4"
+  },
+  {
+    "name": "Pantone 850 C",
+    "hex": "#136845"
+  },
+  {
+    "name": "Pantone 851 C",
+    "hex": "#8d595b"
+  },
+  {
+    "name": "Pantone 852 C",
+    "hex": "#a6b8f7"
+  },
+  {
+    "name": "Pantone 853 C",
+    "hex": "#12a920"
+  },
+  {
+    "name": "Pantone 854 C",
+    "hex": "#4a4e63"
+  },
+  {
+    "name": "Pantone 855 C",
+    "hex": "#3bdaaa"
+  },
+  {
+    "name": "Pantone 856 C",
+    "hex": "#daa742"
+  },
+  {
+    "name": "Pantone 857 C",
+    "hex": "#dbad3d"
+  },
+  {
+    "name": "Pantone 858 C",
+    "hex": "#83a591"
+  },
+  {
+    "name": "Pantone 859 C",
+    "hex": "#295e34"
+  },
+  {
+    "name": "Pantone 860 C",
+    "hex": "#dfd101"
+  },
+  {
+    "name": "Pantone 861 C",
+    "hex": "#8a22dc"
+  },
+  {
+    "name": "Pantone 862 C",
+    "hex": "#b5beb7"
+  },
+  {
+    "name": "Pantone 863 C",
+    "hex": "#d0881b"
+  },
+  {
+    "name": "Pantone 864 C",
+    "hex": "#15260c"
+  },
+  {
+    "name": "Pantone 865 C",
+    "hex": "#136656"
+  },
+  {
+    "name": "Pantone 866 C",
+    "hex": "#862744"
+  },
+  {
+    "name": "Pantone 867 C",
+    "hex": "#b930df"
+  },
+  {
+    "name": "Pantone 868 C",
+    "hex": "#4d7914"
+  },
+  {
+    "name": "Pantone 869 C",
+    "hex": "#5806ab"
+  },
+  {
+    "name": "Pantone 870 C",
+    "hex": "#66504f"
+  },
+  {
+    "name": "Pantone 871 C",
+    "hex": "#767373"
+  },
+  {
+    "name": "Pantone 872 C",
+    "hex": "#e72d01"
+  },
+  {
+    "name": "Pantone 873 C",
+    "hex": "#db58b2"
+  },
+  {
+    "name": "Pantone 874 C",
+    "hex": "#9b2f83"
+  },
+  {
+    "name": "Pantone 875 C",
+    "hex": "#a360da"
+  },
+  {
+    "name": "Pantone 876 C",
+    "hex": "#1767b5"
+  },
+  {
+    "name": "Pantone 877 C",
+    "hex": "#81f18d"
+  },
+  {
+    "name": "Pantone 878 C",
+    "hex": "#4111d8"
+  },
+  {
+    "name": "Pantone 879 C",
+    "hex": "#a162ef"
+  },
+  {
+    "name": "Pantone 880 C",
+    "hex": "#cc19bc"
+  },
+  {
+    "name": "Pantone 881 C",
+    "hex": "#f10248"
+  },
+  {
+    "name": "Pantone 882 C",
+    "hex": "#118233"
+  },
+  {
+    "name": "Pantone 883 C",
+    "hex": "#b5b9e8"
+  },
+  {
+    "name": "Pantone 884 C",
+    "hex": "#ae5c32"
+  },
+  {
+    "name": "Pantone 885 C",
+    "hex": "#d1069e"
+  },
+  {
+    "name": "Pantone 886 C",
+    "hex": "#1221e9"
+  },
+  {
+    "name": "Pantone 887 C",
+    "hex": "#550953"
+  },
+  {
+    "name": "Pantone 888 C",
+    "hex": "#bb5081"
+  },
+  {
+    "name": "Pantone 889 C",
+    "hex": "#c35a15"
+  },
+  {
+    "name": "Pantone 890 C",
+    "hex": "#48c43f"
+  },
+  {
+    "name": "Pantone 891 C",
+    "hex": "#f86fff"
+  },
+  {
+    "name": "Pantone 892 C",
+    "hex": "#0f1cc0"
+  },
+  {
+    "name": "Pantone 893 C",
+    "hex": "#de444f"
+  },
+  {
+    "name": "Pantone 894 C",
+    "hex": "#d6dcb6"
+  },
+  {
+    "name": "Pantone 895 C",
+    "hex": "#c8cfc6"
+  },
+  {
+    "name": "Pantone 896 C",
+    "hex": "#7007cd"
+  },
+  {
+    "name": "Pantone 897 C",
+    "hex": "#e36cae"
+  },
+  {
+    "name": "Pantone 898 C",
+    "hex": "#2ca1fa"
+  },
+  {
+    "name": "Pantone 899 C",
+    "hex": "#818cc3"
+  },
+  {
+    "name": "Pantone 900 C",
+    "hex": "#fa021c"
+  },
+  {
+    "name": "Pantone 901 C",
+    "hex": "#d216a2"
+  },
+  {
+    "name": "Pantone 902 C",
+    "hex": "#6aeecb"
+  },
+  {
+    "name": "Pantone 903 C",
+    "hex": "#c318fa"
+  },
+  {
+    "name": "Pantone 904 C",
+    "hex": "#a8730a"
+  },
+  {
+    "name": "Pantone 905 C",
+    "hex": "#898431"
+  },
+  {
+    "name": "Pantone 906 C",
+    "hex": "#2bccab"
+  },
+  {
+    "name": "Pantone 907 C",
+    "hex": "#ee8cf3"
+  },
+  {
+    "name": "Pantone 908 C",
+    "hex": "#660d42"
+  },
+  {
+    "name": "Pantone 909 C",
+    "hex": "#b7740f"
+  },
+  {
+    "name": "Pantone 910 C",
+    "hex": "#f8f777"
+  },
+  {
+    "name": "Pantone 911 C",
+    "hex": "#4e7d4b"
+  },
+  {
+    "name": "Pantone 912 C",
+    "hex": "#f6cc4f"
+  },
+  {
+    "name": "Pantone 913 C",
+    "hex": "#ef912e"
+  },
+  {
+    "name": "Pantone 914 C",
+    "hex": "#04f460"
+  },
+  {
+    "name": "Pantone 915 C",
+    "hex": "#da7fe6"
+  },
+  {
+    "name": "Pantone 916 C",
+    "hex": "#efab3f"
+  },
+  {
+    "name": "Pantone 917 C",
+    "hex": "#64d1c1"
+  },
+  {
+    "name": "Pantone 918 C",
+    "hex": "#a9bd2d"
+  },
+  {
+    "name": "Pantone 919 C",
+    "hex": "#9e9adf"
+  },
+  {
+    "name": "Pantone 920 C",
+    "hex": "#4f07dc"
+  },
+  {
+    "name": "Pantone 921 C",
+    "hex": "#b9f563"
+  },
+  {
+    "name": "Pantone 922 C",
+    "hex": "#bf7aac"
+  },
+  {
+    "name": "Pantone 923 C",
+    "hex": "#8f4b3d"
+  },
+  {
+    "name": "Pantone 924 C",
+    "hex": "#070cee"
+  },
+  {
+    "name": "Pantone 925 C",
+    "hex": "#c7d4e6"
+  },
+  {
+    "name": "Pantone 926 C",
+    "hex": "#e7ff8b"
+  },
+  {
+    "name": "Pantone 927 C",
+    "hex": "#0aaa75"
+  },
+  {
+    "name": "Pantone 928 C",
+    "hex": "#54e839"
+  },
+  {
+    "name": "Pantone 929 C",
+    "hex": "#be4173"
+  },
+  {
+    "name": "Pantone 930 C",
+    "hex": "#7bc0a4"
+  },
+  {
+    "name": "Pantone 931 C",
+    "hex": "#0826fa"
+  },
+  {
+    "name": "Pantone 932 C",
+    "hex": "#1140e7"
+  },
+  {
+    "name": "Pantone 933 C",
+    "hex": "#dc1376"
+  },
+  {
+    "name": "Pantone 934 C",
+    "hex": "#d8e7ec"
+  },
+  {
+    "name": "Pantone 935 C",
+    "hex": "#670bd2"
+  },
+  {
+    "name": "Pantone 936 C",
+    "hex": "#5f06f4"
+  },
+  {
+    "name": "Pantone 937 C",
+    "hex": "#d715dd"
+  },
+  {
+    "name": "Pantone 938 C",
+    "hex": "#a9d647"
+  },
+  {
+    "name": "Pantone 939 C",
+    "hex": "#d10418"
+  },
+  {
+    "name": "Pantone 940 C",
+    "hex": "#722f01"
+  },
+  {
+    "name": "Pantone 941 C",
+    "hex": "#956b9a"
+  },
+  {
+    "name": "Pantone 942 C",
+    "hex": "#3dea90"
+  },
+  {
+    "name": "Pantone 943 C",
+    "hex": "#eb97ee"
+  },
+  {
+    "name": "Pantone 944 C",
+    "hex": "#dc19e2"
+  },
+  {
+    "name": "Pantone 945 C",
+    "hex": "#cdd505"
+  },
+  {
+    "name": "Pantone 946 C",
+    "hex": "#215c63"
+  },
+  {
+    "name": "Pantone 947 C",
+    "hex": "#6fc148"
+  },
+  {
+    "name": "Pantone 948 C",
+    "hex": "#8515cd"
+  },
+  {
+    "name": "Pantone 949 C",
+    "hex": "#60d064"
+  },
+  {
+    "name": "Pantone 950 C",
+    "hex": "#ed6643"
+  },
+  {
+    "name": "Pantone 951 C",
+    "hex": "#c51937"
+  },
+  {
+    "name": "Pantone 952 C",
+    "hex": "#a6638d"
+  },
+  {
+    "name": "Pantone 953 C",
+    "hex": "#6ca345"
+  },
+  {
+    "name": "Pantone 954 C",
+    "hex": "#8fafee"
+  },
+  {
+    "name": "Pantone 955 C",
+    "hex": "#51a858"
+  },
+  {
+    "name": "Pantone 956 C",
+    "hex": "#1e923b"
+  },
+  {
+    "name": "Pantone 957 C",
+    "hex": "#b4c2d4"
+  },
+  {
+    "name": "Pantone 958 C",
+    "hex": "#d9b406"
+  },
+  {
+    "name": "Pantone 959 C",
+    "hex": "#4f4db4"
+  },
+  {
+    "name": "Pantone 960 C",
+    "hex": "#ed85e6"
+  },
+  {
+    "name": "Pantone 961 C",
+    "hex": "#53f920"
+  },
+  {
+    "name": "Pantone 962 C",
+    "hex": "#f0d08a"
+  },
+  {
+    "name": "Pantone 963 C",
+    "hex": "#65fa89"
+  },
+  {
+    "name": "Pantone 964 C",
+    "hex": "#03d8aa"
+  },
+  {
+    "name": "Pantone 965 C",
+    "hex": "#11b38f"
+  },
+  {
+    "name": "Pantone 966 C",
+    "hex": "#34c30a"
+  },
+  {
+    "name": "Pantone 967 C",
+    "hex": "#fc67b4"
+  },
+  {
+    "name": "Pantone 968 C",
+    "hex": "#d1e3a2"
+  },
+  {
+    "name": "Pantone 969 C",
+    "hex": "#ea9f35"
+  },
+  {
+    "name": "Pantone 970 C",
+    "hex": "#6919df"
+  },
+  {
+    "name": "Pantone 971 C",
+    "hex": "#67cf06"
+  },
+  {
+    "name": "Pantone 972 C",
+    "hex": "#cd7735"
+  },
+  {
+    "name": "Pantone 973 C",
+    "hex": "#868555"
+  },
+  {
+    "name": "Pantone 974 C",
+    "hex": "#131cc1"
+  },
+  {
+    "name": "Pantone 975 C",
+    "hex": "#41309d"
+  },
+  {
+    "name": "Pantone 976 C",
+    "hex": "#21914d"
+  },
+  {
+    "name": "Pantone 977 C",
+    "hex": "#a4b73b"
+  },
+  {
+    "name": "Pantone 978 C",
+    "hex": "#42b855"
+  },
+  {
+    "name": "Pantone 979 C",
+    "hex": "#13ad1b"
+  },
+  {
+    "name": "Pantone 980 C",
+    "hex": "#c95ad6"
+  },
+  {
+    "name": "Pantone 981 C",
+    "hex": "#d458c9"
+  },
+  {
+    "name": "Pantone 982 C",
+    "hex": "#2fc360"
+  },
+  {
+    "name": "Pantone 983 C",
+    "hex": "#402c7e"
+  },
+  {
+    "name": "Pantone 984 C",
+    "hex": "#47eb86"
+  },
+  {
+    "name": "Pantone 985 C",
+    "hex": "#80b59a"
+  },
+  {
+    "name": "Pantone 986 C",
+    "hex": "#ba60ea"
+  },
+  {
+    "name": "Pantone 987 C",
+    "hex": "#ee877d"
+  },
+  {
+    "name": "Pantone 988 C",
+    "hex": "#7f9d12"
+  },
+  {
+    "name": "Pantone 989 C",
+    "hex": "#58e8f0"
+  },
+  {
+    "name": "Pantone 990 C",
+    "hex": "#ab7b13"
+  },
+  {
+    "name": "Pantone 991 C",
+    "hex": "#f53c38"
+  },
+  {
+    "name": "Pantone 992 C",
+    "hex": "#d396fc"
+  },
+  {
+    "name": "Pantone 993 C",
+    "hex": "#2b0024"
+  },
+  {
+    "name": "Pantone 994 C",
+    "hex": "#dfcc32"
+  },
+  {
+    "name": "Pantone 995 C",
+    "hex": "#31a147"
+  },
+  {
+    "name": "Pantone 996 C",
+    "hex": "#0d2d03"
+  },
+  {
+    "name": "Pantone 997 C",
+    "hex": "#1ffce0"
+  },
+  {
+    "name": "Pantone 998 C",
+    "hex": "#d186a2"
+  },
+  {
+    "name": "Pantone 999 C",
+    "hex": "#30c490"
+  },
+  {
+    "name": "Pantone 1000 C",
+    "hex": "#214559"
+  },
+  {
+    "name": "Pantone 1001 C",
+    "hex": "#86b8ad"
+  },
+  {
+    "name": "Pantone 1002 C",
+    "hex": "#70c6bf"
+  },
+  {
+    "name": "Pantone 1003 C",
+    "hex": "#32ed74"
+  },
+  {
+    "name": "Pantone 1004 C",
+    "hex": "#738802"
+  },
+  {
+    "name": "Pantone 1005 C",
+    "hex": "#6cb0ca"
+  },
+  {
+    "name": "Pantone 1006 C",
+    "hex": "#5c7be6"
+  },
+  {
+    "name": "Pantone 1007 C",
+    "hex": "#ed539b"
+  },
+  {
+    "name": "Pantone 1008 C",
+    "hex": "#d81ff0"
+  },
+  {
+    "name": "Pantone 1009 C",
+    "hex": "#458b1d"
+  },
+  {
+    "name": "Pantone 1010 C",
+    "hex": "#fb8e3a"
+  },
+  {
+    "name": "Pantone 1011 C",
+    "hex": "#175adb"
+  },
+  {
+    "name": "Pantone 1012 C",
+    "hex": "#d2ee6f"
+  },
+  {
+    "name": "Pantone 1013 C",
+    "hex": "#cebfa5"
+  },
+  {
+    "name": "Pantone 1014 C",
+    "hex": "#271f73"
+  },
+  {
+    "name": "Pantone 1015 C",
+    "hex": "#a890bd"
+  },
+  {
+    "name": "Pantone 1016 C",
+    "hex": "#bf6aa3"
+  },
+  {
+    "name": "Pantone 1017 C",
+    "hex": "#a5e404"
+  },
+  {
+    "name": "Pantone 1018 C",
+    "hex": "#f9b46e"
+  },
+  {
+    "name": "Pantone 1019 C",
+    "hex": "#d014db"
+  },
+  {
+    "name": "Pantone 1020 C",
+    "hex": "#ca7c08"
+  },
+  {
+    "name": "Pantone 1021 C",
+    "hex": "#948c0d"
+  },
+  {
+    "name": "Pantone 1022 C",
+    "hex": "#a9b96f"
+  },
+  {
+    "name": "Pantone 1023 C",
+    "hex": "#27dd8f"
+  },
+  {
+    "name": "Pantone 1024 C",
+    "hex": "#43275e"
+  },
+  {
+    "name": "Pantone 1025 C",
+    "hex": "#68dbfe"
+  },
+  {
+    "name": "Pantone 1026 C",
+    "hex": "#b578cf"
+  },
+  {
+    "name": "Pantone 1027 C",
+    "hex": "#1604b3"
+  },
+  {
+    "name": "Pantone 1028 C",
+    "hex": "#0775f6"
+  },
+  {
+    "name": "Pantone 1029 C",
+    "hex": "#9dc064"
+  },
+  {
+    "name": "Pantone 1030 C",
+    "hex": "#b47366"
+  },
+  {
+    "name": "Pantone 1031 C",
+    "hex": "#82c39d"
+  },
+  {
+    "name": "Pantone 1032 C",
+    "hex": "#da6f71"
+  },
+  {
+    "name": "Pantone 1033 C",
+    "hex": "#9a53c7"
+  },
+  {
+    "name": "Pantone 1034 C",
+    "hex": "#4a50d7"
+  },
+  {
+    "name": "Pantone 1035 C",
+    "hex": "#e60f03"
+  },
+  {
+    "name": "Pantone 1036 C",
+    "hex": "#1bf22a"
+  },
+  {
+    "name": "Pantone 1037 C",
+    "hex": "#5597ec"
+  },
+  {
+    "name": "Pantone 1038 C",
+    "hex": "#c7beea"
+  },
+  {
+    "name": "Pantone 1039 C",
+    "hex": "#fe4509"
+  },
+  {
+    "name": "Pantone 1040 C",
+    "hex": "#eabb66"
+  },
+  {
+    "name": "Pantone 1041 C",
+    "hex": "#188e02"
+  },
+  {
+    "name": "Pantone 1042 C",
+    "hex": "#e1db7d"
+  },
+  {
+    "name": "Pantone 1043 C",
+    "hex": "#68ad90"
+  },
+  {
+    "name": "Pantone 1044 C",
+    "hex": "#991580"
+  },
+  {
+    "name": "Pantone 1045 C",
+    "hex": "#ecc8cb"
+  },
+  {
+    "name": "Pantone 1046 C",
+    "hex": "#2fb909"
+  },
+  {
+    "name": "Pantone 1047 C",
+    "hex": "#d7ac25"
+  },
+  {
+    "name": "Pantone 1048 C",
+    "hex": "#82bd36"
+  },
+  {
+    "name": "Pantone 1049 C",
+    "hex": "#a07b85"
+  },
+  {
+    "name": "Pantone 1050 C",
+    "hex": "#15e3c5"
+  },
+  {
+    "name": "Pantone 1051 C",
+    "hex": "#7dc3a2"
+  },
+  {
+    "name": "Pantone 1052 C",
+    "hex": "#016077"
+  },
+  {
+    "name": "Pantone 1053 C",
+    "hex": "#4e7140"
+  },
+  {
+    "name": "Pantone 1054 C",
+    "hex": "#044333"
+  },
+  {
+    "name": "Pantone 1055 C",
+    "hex": "#8ba59b"
+  },
+  {
+    "name": "Pantone 1056 C",
+    "hex": "#29ed4e"
+  },
+  {
+    "name": "Pantone 1057 C",
+    "hex": "#1c30eb"
+  },
+  {
+    "name": "Pantone 1058 C",
+    "hex": "#878c64"
+  },
+  {
+    "name": "Pantone 1059 C",
+    "hex": "#616b19"
+  },
+  {
+    "name": "Pantone 1060 C",
+    "hex": "#385e1e"
+  },
+  {
+    "name": "Pantone 1061 C",
+    "hex": "#c6baed"
+  },
+  {
+    "name": "Pantone 1062 C",
+    "hex": "#c94fd9"
+  },
+  {
+    "name": "Pantone 1063 C",
+    "hex": "#c67e2e"
+  },
+  {
+    "name": "Pantone 1064 C",
+    "hex": "#e29e45"
+  },
+  {
+    "name": "Pantone 1065 C",
+    "hex": "#37fd96"
+  },
+  {
+    "name": "Pantone 1066 C",
+    "hex": "#f9bd21"
+  },
+  {
+    "name": "Pantone 1067 C",
+    "hex": "#1aea02"
+  },
+  {
+    "name": "Pantone 1068 C",
+    "hex": "#1a5387"
+  },
+  {
+    "name": "Pantone 1069 C",
+    "hex": "#5d5d2e"
+  },
+  {
+    "name": "Pantone 1070 C",
+    "hex": "#29564e"
+  },
+  {
+    "name": "Pantone 1071 C",
+    "hex": "#5a0ff9"
+  },
+  {
+    "name": "Pantone 1072 C",
+    "hex": "#3b112e"
+  },
+  {
+    "name": "Pantone 1073 C",
+    "hex": "#eef8d9"
+  },
+  {
+    "name": "Pantone 1074 C",
+    "hex": "#8670f0"
+  },
+  {
+    "name": "Pantone 1075 C",
+    "hex": "#afa705"
+  },
+  {
+    "name": "Pantone 1076 C",
+    "hex": "#e9f5b1"
+  },
+  {
+    "name": "Pantone 1077 C",
+    "hex": "#a562de"
+  },
+  {
+    "name": "Pantone 1078 C",
+    "hex": "#d504dc"
+  },
+  {
+    "name": "Pantone 1079 C",
+    "hex": "#c30589"
+  },
+  {
+    "name": "Pantone 1080 C",
+    "hex": "#f0f335"
+  },
+  {
+    "name": "Pantone 1081 C",
+    "hex": "#fa6137"
+  },
+  {
+    "name": "Pantone 1082 C",
+    "hex": "#f572b5"
+  },
+  {
+    "name": "Pantone 1083 C",
+    "hex": "#a02fce"
+  },
+  {
+    "name": "Pantone 1084 C",
+    "hex": "#9efaa5"
+  },
+  {
+    "name": "Pantone 1085 C",
+    "hex": "#7cdecb"
+  },
+  {
+    "name": "Pantone 1086 C",
+    "hex": "#f608ed"
+  },
+  {
+    "name": "Pantone 1087 C",
+    "hex": "#3c1315"
+  },
+  {
+    "name": "Pantone 1088 C",
+    "hex": "#2f8f70"
+  },
+  {
+    "name": "Pantone 1089 C",
+    "hex": "#3303f4"
+  },
+  {
+    "name": "Pantone 1090 C",
+    "hex": "#225dff"
+  },
+  {
+    "name": "Pantone 1091 C",
+    "hex": "#804cd0"
+  },
+  {
+    "name": "Pantone 1092 C",
+    "hex": "#bce8fc"
+  },
+  {
+    "name": "Pantone 1093 C",
+    "hex": "#720154"
+  },
+  {
+    "name": "Pantone 1094 C",
+    "hex": "#ab57b8"
+  },
+  {
+    "name": "Pantone 1095 C",
+    "hex": "#11820b"
+  },
+  {
+    "name": "Pantone 1096 C",
+    "hex": "#6cc263"
+  },
+  {
+    "name": "Pantone 1097 C",
+    "hex": "#726ffe"
+  },
+  {
+    "name": "Pantone 1098 C",
+    "hex": "#14e5be"
+  },
+  {
+    "name": "Pantone 1099 C",
+    "hex": "#5e4cfc"
+  }
+]
