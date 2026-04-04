@@ -210,7 +210,17 @@ function copyColor(type) {
   let hex = type === 'selected' ? selectedHex : pantoneHex;
   if (!hex) return;
 
-  navigator.clipboard.writeText(hex);
+  try {
+    navigator.clipboard.writeText(hex);
+  } catch (err) {
+    const textarea = document.createElement('textarea');
+    textarea.value = hex;
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
 
   const el = document.getElementById(
     type === 'selected' ? 'copiedSelected' : 'copiedPantone'
