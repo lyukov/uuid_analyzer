@@ -334,21 +334,24 @@
       const version = uuid[14];
 
       if (index === 12) return 'version (defines UUID type)';
+      if (index === 16) return 'variant'
 
       if (version === '1') {
         if (index < 16) return 'timestamp';
-        if (index === 16) return 'variant'
         if (index < 20) return 'clock_seq';
         return 'node (MAC/random)';
       }
 
       if (version === '7') {
         if (index < 12) return 'unix timestamp (ms)';
-        if (index === 16) return 'variant'
         return 'random bits';
       }
 
-      return 'random bits';
+      if (version === '4') {
+        return 'random bits';
+      }
+
+      return 'unknown UUID type';
     }
 
     function toBits(hex) {
@@ -373,8 +376,8 @@
         colors = [green,orange,purple,orange,purple];
       } else {
         // default (v4 etc): random structure
-        groupBoundaries = [8,12,13,20,32];
-        colors = [purple,purple,orange,purple,purple];
+        groupBoundaries = [12,13,16,17,32];
+        colors = [purple,orange,purple,orange,purple];
       }
 
       return hex.split('').map((h, i) => {
@@ -390,7 +393,7 @@
 
         const isVersion = i === 12;
 
-        return `<span class="bit ${isVersion ? 'version-bit' : ''}" 
+        return `<span class="bit" 
           style="background:${colors[groupIndex]}" 
           onmouseover="showExplanation(${i})">${bits}</span>`;
       }).join(' ');
