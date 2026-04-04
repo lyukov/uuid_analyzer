@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Калькулятор ИМТ</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       margin: 0;
@@ -11,29 +12,34 @@
       background: linear-gradient(135deg, #0f172a, #1e293b);
       color: #e2e8f0;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .container {
       background: #111827;
-      padding: 40px;
+      padding: 30px;
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      width: 350px;
+      width: 100%;
+      max-width: 380px;
       text-align: center;
+      margin-bottom: 20px;
     }
 
     h1 {
-      margin-bottom: 30px;
-      font-size: 28px;
+      margin-bottom: 25px;
+      font-size: 26px;
     }
 
     input {
       width: 100%;
       padding: 18px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       font-size: 20px;
       border-radius: 12px;
       border: none;
@@ -44,8 +50,8 @@
 
     button {
       width: 100%;
-      padding: 18px;
-      font-size: 20px;
+      padding: 16px;
+      font-size: 18px;
       border-radius: 12px;
       border: none;
       cursor: pointer;
@@ -59,19 +65,30 @@
     }
 
     .result {
-      margin-top: 25px;
-      font-size: 22px;
+      margin-top: 20px;
+      font-size: 20px;
       font-weight: bold;
     }
 
     .category {
-      margin-top: 10px;
-      font-size: 18px;
+      margin-top: 8px;
+      font-size: 16px;
       opacity: 0.9;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-width: 500px;
+      height: 700px !important;
+      background: #111827;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Калькулятор ИМТ</h1>
 
@@ -84,7 +101,68 @@
     <div class="category" id="category"></div>
   </div>
 
+  <canvas id="chart"></canvas>
+
   <script>
+    let chart;
+
+    function generateData(bmi) {
+      const data = [];
+      for (let h = 150; h <= 210; h += 1) {
+        const hm = h / 100;
+        const weight = bmi * hm * hm;
+        data.push({ x: h, y: weight });
+      }
+      return data;
+    }
+
+    function initChart() {
+      const ctx = document.getElementById('chart').getContext('2d');
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              label: 'Нижняя граница нормы (BMI 18.5)',
+              data: generateData(18.5),
+              borderWidth: 2
+            },
+            {
+              label: 'Верхняя граница нормы (BMI 25)',
+              data: generateData(25),
+              borderWidth: 2
+            },
+            {
+              label: 'Граница ожирения (BMI 30)',
+              data: generateData(30),
+              borderWidth: 2
+            },
+            {
+              label: 'Вы',
+              data: [],
+              type: 'scatter',
+              pointRadius: 6
+            }
+          ]
+        },
+        options: {
+          parsing: false,
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+            x: {
+              type: 'linear',
+              title: { display: true, text: 'Рост (см)' }
+            },
+            y: {
+              title: { display: true, text: 'Вес (кг)' }
+            }
+          }
+        }
+      });
+    }
+
     function calculateBMI() {
       const weight = parseFloat(document.getElementById('weight').value);
       const heightCm = parseFloat(document.getElementById('height').value);
@@ -107,7 +185,13 @@
 
       document.getElementById('result').innerText = 'ИМТ: ' + bmi.toFixed(1);
       document.getElementById('category').innerText = category;
+
+      chart.data.datasets[3].data = [{ x: heightCm, y: weight }];
+      chart.update();
     }
+
+    initChart();
   </script>
+
 </body>
 </html>
