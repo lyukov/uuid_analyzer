@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Учимся читать</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f7f0fc 0%, #e9def0 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 40px 40px 30px 30px;
+            padding: 25px 20px 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .sound-toggle {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 3px solid #b095c0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #8e749e, 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            font-family: inherit;
+            line-height: 1;
+            color: #3d2a4d;
+            z-index: 10;
+        }
+        .sound-toggle:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #8e749e, 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .sound-toggle:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .sound-toggle.muted {
+            opacity: 0.6;
+            border-color: #999;
+            background: rgba(200, 200, 200, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #3d2a4d;
+            margin-top: 0;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 rgba(255, 215, 0, 0.3);
+            padding-right: 55px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #5e4b6e;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 0 auto 14px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #d4c0e0;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 3px solid #b095c0;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.4);
+            color: #3d2a4d;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #8e749e;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            flex: 0 1 auto;
+            text-align: center;
+        }
+        .tab-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #8e749e;
+        }
+        .tab-btn.active {
+            background: #dcc7e8;
+            border-color: #6d4f82;
+            box-shadow: 0 4px 0 #6d4f82;
+            transform: translateY(2px);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0.4; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 18px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 8px 14px;
+            border-radius: 40px;
+            margin-bottom: 16px;
+            border: 1px solid #dcc7e8;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2c1e38;
+        }
+        .color-box {
+            width: 22px;
+            height: 22px;
+            border-radius: 8px;
+            border: 2px solid #4a2d5a;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .color-box.red { background: #e74c5e; }
+        .color-box.blue { background: #3b7bc9; }
+        .color-box.green { background: #2e9b6e; }
+        .color-box.black { background: #333; }
+        .color-box.green-red { background: linear-gradient(135deg, #2e9b6e 50%, #e74c5e 50%); }
+        .color-box.blue-green-split { 
+            background: linear-gradient(to right, #3b7bc9 50%, #2e9b6e 50%);
+        }
+
+        /* ----- Карточки букв как в букваре ----- */
+        .letter-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px 12px 12px;
+            border-radius: 24px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s;
+            min-width: 60px;
+            cursor: pointer;
+            position: relative;
+            flex: 0 1 auto;
+        }
+        .letter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .letter-card .letter-image {
+            font-size: 2.4rem;
+            line-height: 1.1;
+        }
+        .letter-card .letter-display {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+            color: #2c1e38;
+            line-height: 1.1;
+            transition: color 0.3s;
+            padding: 2px 4px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+        .letter-card .letter-display .capital {
+            font-size: 2.2rem;
+        }
+        .letter-card .letter-display .lowercase {
+            font-size: 1.4rem;
+            opacity: 0.85;
+        }
+        .letter-card .word-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #5e4b6e;
+            margin-top: 2px;
+        }
+
+        /* Цвета букв в карточках */
+        .letter-card .letter-display .capital.red { color: #e74c5e; }
+        .letter-card .letter-display .lowercase.red { color: #e74c5e; }
+        .letter-card .letter-display .capital.blue { color: #3b7bc9; }
+        .letter-card .letter-display .lowercase.blue { color: #3b7bc9; }
+        .letter-card .letter-display .capital.green { color: #2e9b6e; }
+        .letter-card .letter-display .lowercase.green { color: #2e9b6e; }
+        .letter-card .letter-display .capital.black { color: #333; }
+        .letter-card .letter-display .lowercase.black { color: #333; }
+        .letter-card .letter-display .capital.green-red { 
+            background: linear-gradient(135deg, #2e9b6e 50%, #e74c5e 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .letter-card .letter-display .lowercase.green-red {
+            background: linear-gradient(135deg, #2e9b6e 50%, #e74c5e 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Для зелено-синих: и заглавная, и строчная — зелено-синие */
+        .letter-card .letter-display .capital.blue-green {
+            background: linear-gradient(to right, #3b7bc9 50%, #2e9b6e 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .letter-card .letter-display .lowercase.blue-green {
+            background: linear-gradient(to right, #3b7bc9 50%, #2e9b6e 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Плашка с правилом (всплывающая над буквой) */
+        .rule-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #b095c0;
+            border-radius: 16px;
+            padding: 8px 12px;
+            min-width: 150px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            font-size: 0.8rem;
+            color: #2c1e38;
+            text-align: center;
+            display: none;
+            margin-bottom: 6px;
+            backdrop-filter: blur(10px);
+        }
+        .rule-popup.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+        .rule-popup .rule-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+        .rule-popup .rule-example {
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 3px 0;
+        }
+        .rule-popup .rule-desc {
+            font-size: 0.75rem;
+            color: #5e4b6e;
+        }
+
+        /* ----- Плашка со слогами внизу ----- */
+        .syllables-panel {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 3px solid #b095c0;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.3s ease;
+        }
+        .syllables-panel.show {
+            display: block;
+        }
+        .syllables-panel .syl-panel-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3d2a4d;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .syllables-panel .syl-panel-title .highlight-letter {
+            font-size: 1.4rem;
+            padding: 0 6px;
+            border-radius: 10px;
+            background: rgba(220, 199, 232, 0.3);
+        }
+        .syllables-panel .syl-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 12px;
+        }
+        .syllables-panel .syl-item {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+            padding: 3px 14px;
+            border-radius: 14px;
+            background: rgba(240, 230, 245, 0.3);
+            border: 2px solid #dcc7e8;
+            transition: all 0.2s;
+        }
+        .syllables-panel .syl-item:hover {
+            transform: scale(1.06);
+            background: rgba(240, 230, 245, 0.6);
+        }
+        .syllables-panel .syl-item .syl-letter {
+            display: inline;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .syllables-panel .syl-item .syl-letter.red { color: #e74c5e; }
+        .syllables-panel .syl-item .syl-letter.blue { color: #3b7bc9; }
+        .syllables-panel .syl-item .syl-letter.green { color: #2e9b6e; }
+        .syllables-panel .syl-item .syl-letter.black { color: #333; }
+        .syllables-panel .syl-empty {
+            color: #5e4b6e;
+            font-size: 1rem;
+            padding: 8px;
+            text-align: center;
+        }
+
+        /* ----- Сетки ----- */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 16px;
+            padding: 8px 4px;
+            margin-bottom: 4px;
+        }
+
+        /* ----- Буквы в словах ----- */
+        .letter {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 56px;
+            height: 56px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: #f5edfa;
+            color: #1f1129;
+            border-radius: 16px;
+            border: 3px solid #bda5ce;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            box-shadow: 0 5px 0 #9a81ab, 0 6px 12px rgba(0, 0, 0, 0.15);
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        .letter:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 0 #9a81ab, 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .letter:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #9a81ab, 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .letter.red {
+            background: #e74c5e;
+            border-color: #a13242;
+            color: white;
+            box-shadow: 0 5px 0 #8a2a38, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .letter.blue {
+            background: #3b7bc9;
+            border-color: #1f5291;
+            color: white;
+            box-shadow: 0 5px 0 #123e72, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .letter.green {
+            background: #2e9b6e;
+            border-color: #1a6e4d;
+            color: white;
+            box-shadow: 0 5px 0 #0d5739, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .letter.black {
+            background: #444;
+            border-color: #222;
+            color: white;
+            box-shadow: 0 5px 0 #222, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .letter.correct-highlight {
+            outline: 4px solid #ffd700;
+            outline-offset: 3px;
+            animation: pop 0.3s ease;
+        }
+        .letter.wrong-highlight {
+            outline: 4px solid #ff0000;
+            outline-offset: 3px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        /* ----- Карточки слов ----- */
+        .word-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 14px 18px 18px;
+            border-radius: 35px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s;
+            min-width: 100px;
+        }
+        .word-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .word-card .word-image {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        .word-card .word-letters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+        .word-card .word-letters .letter {
+            width: 52px;
+            height: 52px;
+            font-size: 2rem;
+        }
+
+        /* ----- Палитра ----- */
+        .palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px 16px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px 16px;
+            border-radius: 40px;
+            margin-bottom: 14px;
+            border: 2px dashed #b095c0;
+        }
+        .palette-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3d2a4d;
+        }
+        .color-pick {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 4px solid #4a2d5a;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 4px 0 #6d4f82;
+        }
+        .color-pick:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #6d4f82;
+        }
+        .color-pick.red { background: #e74c5e; }
+        .color-pick.blue { background: #3b7bc9; }
+        .color-pick.green { background: #2e9b6e; }
+        .color-pick.active-pick {
+            outline: 6px solid #ffd700;
+            outline-offset: 2px;
+            transform: scale(1.05);
+        }
+        .color-pick.eraser {
+            background: #f0e6f5;
+            border-color: #b095c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #6d4f82;
+        }
+
+        /* ----- Кнопки ----- */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 16px;
+            margin-top: 8px;
+        }
+        .btn {
+            padding: 10px 24px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: #ffffffdd;
+            backdrop-filter: blur(4px);
+            color: #3d2a4d;
+            border: 2px solid #b095c0;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #8e749e, 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.08s linear;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+        }
+        .btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 #8e749e, 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn.reset {
+            background: #ffdcdc;
+            border-color: #d48a8a;
+            color: #6a2e2e;
+            box-shadow: 0 5px 0 #b06a6a;
+        }
+        .btn.reset:active { box-shadow: 0 0px 0 #b06a6a; }
+        .btn.check {
+            background: #d4f0e0;
+            border-color: #5fa87f;
+            color: #1a4d32;
+            box-shadow: 0 5px 0 #3d7a5b;
+        }
+        .btn.check:active { box-shadow: 0 0px 0 #3d7a5b; }
+        .btn.primary {
+            background: #dcc7e8;
+            border-color: #8e74a0;
+            color: #2c1e38;
+            box-shadow: 0 5px 0 #6d4f82;
+        }
+        .btn.primary:active { box-shadow: 0 0px 0 #6d4f82; }
+        .btn.new-words {
+            background: #c7e0f0;
+            border-color: #6a9ec4;
+            color: #1a3a52;
+            box-shadow: 0 5px 0 #4a7a9e;
+        }
+        .btn.new-words:active { box-shadow: 0 0px 0 #4a7a9e; }
+
+        .message {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2f1d3d;
+            min-height: 2.8rem;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 35px;
+            border: 1px solid #d4bde0;
+            transition: all 0.3s;
+        }
+        .message.success {
+            background: rgba(46, 155, 110, 0.2);
+            border-color: #2e9b6e;
+        }
+        .message.error {
+            background: rgba(231, 76, 94, 0.2);
+            border-color: #e74c5e;
+        }
+
+        /* ----- Сборка слова ----- */
+        .build-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            border: 2px dashed #b095c0;
+            margin-bottom: 14px;
+        }
+        .build-target {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #3d2a4d;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .build-target .target-image { font-size: 2.8rem; }
+        .build-slots {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            min-height: 60px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 22px;
+            border: 2px dashed #b095c0;
+        }
+        .build-letters {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 8px;
+            min-height: 60px;
+        }
+        .build-letters .letter { cursor: grab; }
+        .build-letters .letter:active { cursor: grabbing; }
+        .build-slot {
+            width: 52px;
+            height: 52px;
+            border: 3px dashed #b095c0;
+            border-radius: 16px;
+            background: rgba(240, 230, 245, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            color: #1f1129;
+        }
+        .build-slot.filled {
+            border-color: #6d4f82;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .build-slot.drag-over {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+            transform: scale(1.05);
+        }
+        .build-slot .letter {
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-shadow: none;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .build-slot .letter:hover { transform: none; box-shadow: none; }
+        .build-slot .letter:active { transform: none; box-shadow: none; }
+        .build-controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+        /* ----- Чтение по слогам ----- */
+        .read-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px 24px;
+            padding: 8px 4px;
+            margin-bottom: 10px;
+        }
+        .read-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 12px 16px 16px;
+            border-radius: 30px;
+            border: 2px solid #dcc7e8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s;
+            min-width: 80px;
+        }
+        .read-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .read-card .read-image { font-size: 2.8rem; }
+        .read-card .read-word {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2px 4px;
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+            color: #2c1e38;
+            margin-top: 4px;
+        }
+        .read-card .read-word .syllable-part {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            padding: 2px 5px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+        .read-card .read-word .syllable-part .letter {
+            width: auto;
+            height: auto;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0 2px;
+            cursor: default;
+            font-family: inherit;
+        }
+        .read-card .read-word .syllable-part .letter:hover { transform: none; box-shadow: none; }
+        .read-card .read-word .syllable-part .letter.red { color: #e74c5e; background: none; }
+        .read-card .read-word .syllable-part .letter.blue { color: #3b7bc9; background: none; }
+        .read-card .read-word .syllable-part .letter.green { color: #2e9b6e; background: none; }
+        .read-card .read-word .syllable-part .letter.black { color: #333; background: none; }
+        .read-card .read-word .hyphen {
+            color: #9a81ab;
+            font-weight: 300;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ----- Адаптивность ----- */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px 30px; border-radius: 30px; }
+            h1 { font-size: 1.8rem; padding-right: 50px; }
+            .sound-toggle { top: 12px; right: 12px; width: 44px; height: 44px; font-size: 1.4rem; }
+            .letter { width: 48px; height: 48px; font-size: 1.8rem; }
+            .word-card .word-letters .letter { width: 44px; height: 44px; font-size: 1.6rem; }
+            .word-card .word-image { font-size: 3rem; }
+            .build-slot { width: 48px; height: 48px; font-size: 1.8rem; }
+            .letter-card .letter-image { font-size: 2rem; }
+            .letter-card .letter-display .capital { font-size: 1.8rem; }
+            .letter-card .letter-display .lowercase { font-size: 1.2rem; }
+            .tab-btn { padding: 6px 12px; font-size: 0.8rem; }
+            .color-pick { width: 36px; height: 36px; }
+            .read-card .read-word { font-size: 1.6rem; }
+            .read-card .read-word .syllable-part .letter { font-size: 1.6rem; }
+            .build-target { font-size: 1.4rem; }
+            .build-target .target-image { font-size: 2.2rem; }
+            .read-card .read-image { font-size: 2.2rem; }
+            .btn { padding: 8px 18px; font-size: 0.95rem; }
+            .rule-popup { min-width: 120px; font-size: 0.75rem; padding: 6px 10px; }
+            .syllables-panel .syl-item { font-size: 1.3rem; padding: 2px 10px; }
+            .syllables-panel .syl-item .syl-letter { font-size: 1.3rem; }
+            .legend { gap: 5px 12px; }
+            .legend-item { font-size: 0.75rem; }
+            .color-box { width: 18px; height: 18px; }
+            .message { font-size: 1rem; padding: 6px 12px; min-height: 2.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 15px 10px 25px; border-radius: 25px; }
+            h1 { font-size: 1.4rem; padding-right: 40px; }
+            .sound-toggle { top: 8px; right: 8px; width: 38px; height: 38px; font-size: 1.1rem; }
+            .letter { width: 40px; height: 40px; font-size: 1.4rem; border-radius: 12px; }
+            .word-card .word-letters .letter { width: 38px; height: 38px; font-size: 1.3rem; }
+            .word-card .word-image { font-size: 2.4rem; }
+            .word-card { padding: 10px 12px 14px; min-width: 70px; border-radius: 25px; }
+            .build-slot { width: 40px; height: 40px; font-size: 1.4rem; border-radius: 12px; }
+            .letter-card .letter-image { font-size: 1.6rem; }
+            .letter-card .letter-display .capital { font-size: 1.4rem; }
+            .letter-card .letter-display .lowercase { font-size: 1rem; }
+            .letter-card { padding: 8px 8px 10px; min-width: 48px; border-radius: 18px; }
+            .tab-btn { padding: 4px 10px; font-size: 0.7rem; border-width: 2px; box-shadow: 0 3px 0 #8e749e; }
+            .color-pick { width: 32px; height: 32px; border-radius: 10px; border-width: 3px; }
+            .palette { padding: 8px 12px; gap: 6px 12px; }
+            .palette-label { font-size: 0.85rem; }
+            .read-card .read-word { font-size: 1.3rem; }
+            .read-card .read-word .syllable-part .letter { font-size: 1.3rem; }
+            .read-card { padding: 10px 12px 14px; min-width: 60px; border-radius: 22px; }
+            .read-card .read-image { font-size: 1.8rem; }
+            .build-target { font-size: 1.2rem; }
+            .build-target .target-image { font-size: 2rem; }
+            .btn { padding: 6px 14px; font-size: 0.8rem; border-width: 2px; box-shadow: 0 3px 0 #8e749e; }
+            .rule-popup { min-width: 100px; font-size: 0.65rem; padding: 4px 8px; border-width: 2px; border-radius: 12px; }
+            .syllables-panel { padding: 10px 12px; border-radius: 20px; margin-top: 12px; }
+            .syllables-panel .syl-item { font-size: 1.1rem; padding: 2px 8px; border-radius: 10px; }
+            .syllables-panel .syl-item .syl-letter { font-size: 1.1rem; }
+            .syllables-panel .syl-panel-title { font-size: 0.95rem; }
+            .legend { gap: 4px 8px; padding: 6px 10px; border-radius: 30px; }
+            .legend-item { font-size: 0.65rem; gap: 3px; }
+            .color-box { width: 16px; height: 16px; border-radius: 6px; border-width: 1.5px; }
+            .grid-container { gap: 8px 10px; padding: 4px 2px; }
+            .build-area { padding: 12px; gap: 10px; border-radius: 22px; }
+            .build-slots { min-height: 48px; padding: 6px; gap: 4px; }
+            .build-letters { min-height: 48px; padding: 6px; gap: 4px; }
+            .build-controls { gap: 6px; }
+            .message { font-size: 0.85rem; padding: 5px 10px; min-height: 2rem; border-radius: 25px; margin-top: 12px; }
+            .controls { gap: 6px 12px; margin-top: 6px; }
+            .subtitle { font-size: 0.9rem; padding: 4px 14px; margin-bottom: 10px; }
+            .read-grid { gap: 10px 16px; }
+        }
+
+        @media (max-width: 380px) {
+            .letter { width: 34px; height: 34px; font-size: 1.1rem; }
+            .word-card .word-letters .letter { width: 32px; height: 32px; font-size: 1rem; }
+            .build-slot { width: 34px; height: 34px; font-size: 1.1rem; }
+            .letter-card .letter-display .capital { font-size: 1.2rem; }
+            .letter-card .letter-display .lowercase { font-size: 0.85rem; }
+            .tab-btn { font-size: 0.6rem; padding: 3px 8px; }
+            .btn { font-size: 0.7rem; padding: 5px 12px; }
+            .read-card .read-word { font-size: 1.1rem; }
+            .read-card .read-word .syllable-part .letter { font-size: 1.1rem; }
+            .syllables-panel .syl-item { font-size: 0.95rem; padding: 2px 6px; }
+            .syllables-panel .syl-item .syl-letter { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="sound-toggle" id="soundToggle" title="Включить/выключить звук">🔊</button>
+
+    <h1>📖 Учимся читать</h1>
+    <div style="text-align: center;">
+        <span class="subtitle">👆 Играем и учим звуки и буквы!</span>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="tabLetters">🔤 Буквы</button>
+        <button class="tab-btn" data-tab="tabLearn">📚 Учимся</button>
+        <button class="tab-btn" data-tab="tabPaint">🎨 Раскрась</button>
+        <button class="tab-btn" data-tab="tabBuild">🧩 Собери</button>
+        <button class="tab-btn" data-tab="tabRead">📖 Читай</button>
+    </div>
+
+    <!-- ===== РАЗДЕЛ 1: УЧИМ БУКВЫ ===== -->
+    <div id="tabLetters" class="tab-content active">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные (А, О, У, Ы, Э)</span>
+            <span class="legend-item"><span class="color-box green-red"></span> Гласные (Я, Ю, Е, Ё)</span>
+            <span class="legend-item"><span class="color-box blue"></span> Всегда твёрдые (Ш, Ж, Ц)</span>
+            <span class="legend-item"><span class="color-box green"></span> Всегда мягкие (Й, Ч, Щ)</span>
+            <span class="legend-item"><span class="color-box blue-green-split"></span> Зелено-синие (остальные)</span>
+            <span class="legend-item"><span class="color-box black"></span> Ь, Ъ (без звука)</span>
+        </div>
+
+        <div class="grid-container" id="lettersGrid"></div>
+
+        <!-- Плашка со слогами внизу -->
+        <div class="syllables-panel" id="syllablesPanel">
+            <div class="syl-panel-title">
+                Слоги с буквой <span class="highlight-letter" id="panelLetter">А</span>
+            </div>
+            <div class="syl-grid" id="panelSyllables"></div>
+        </div>
+
+        <div class="message" id="lettersMessage">🔤 Нажми на букву, чтобы узнать её правило!</div>
+    </div>
+
+    <!-- ===== РАЗДЕЛ 2: УЧИМСЯ ===== -->
+    <div id="tabLearn" class="tab-content">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные</span>
+            <span class="legend-item"><span class="color-box blue"></span> Твёрдые согласные</span>
+            <span class="legend-item"><span class="color-box green"></span> Мягкие согласные</span>
+        </div>
+
+        <div class="grid-container" id="learnWordsGrid"></div>
+
+        <div class="controls">
+            <button class="btn new-words" id="newLearnBtn">🔄 Новые слова</button>
+            <button class="btn primary" id="colorLearnBtn">🎨 Раскрасить всё</button>
+            <button class="btn reset" id="resetLearnBtn">🔄 Сбросить</button>
+        </div>
+        <div class="message" id="learnMessage">👆 Нажми на букву, чтобы увидеть её цвет!</div>
+    </div>
+
+    <!-- ===== РАЗДЕЛ 3: РАСКРАСЬ СЛОВО ===== -->
+    <div id="tabPaint" class="tab-content">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные</span>
+            <span class="legend-item"><span class="color-box blue"></span> Твёрдые согласные</span>
+            <span class="legend-item"><span class="color-box green"></span> Мягкие согласные</span>
+            <span class="legend-item"><span class="color-box default"></span> Не раскрашена</span>
+        </div>
+
+        <div class="palette" id="palette">
+            <span class="palette-label">🎨 Выбери цвет:</span>
+            <div class="color-pick red active-pick" data-color="red" title="Красный — гласные"></div>
+            <div class="color-pick blue" data-color="blue" title="Синий — твёрдые согласные"></div>
+            <div class="color-pick green" data-color="green" title="Зелёный — мягкие согласные"></div>
+            <div class="color-pick eraser" data-color="erase" title="Ластик — снять цвет">🧹</div>
+        </div>
+
+        <div class="grid-container" id="paintGrid"></div>
+
+        <div class="controls">
+            <button class="btn new-words" id="newPaintBtn">🔄 Новые слова</button>
+            <button class="btn reset" id="resetPaintBtn">🔄 Сбросить всё</button>
+            <button class="btn check" id="checkPaintBtn">✅ Проверить</button>
+        </div>
+        <div class="message" id="paintMessage">🎨 Выбери цвет в палитре и нажми на букву, чтобы раскрасить!</div>
+    </div>
+
+    <!-- ===== РАЗДЕЛ 4: СОБЕРИ СЛОВО ===== -->
+    <div id="tabBuild" class="tab-content">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные</span>
+            <span class="legend-item"><span class="color-box blue"></span> Твёрдые согласные</span>
+            <span class="legend-item"><span class="color-box green"></span> Мягкие согласные</span>
+        </div>
+
+        <div class="build-area" id="buildArea">
+            <div class="build-target" id="buildTarget">
+                <span class="target-image" id="targetImage">🐱</span>
+                <span>Собери слово:</span>
+                <span id="targetWord">КОТ</span>
+            </div>
+
+            <div class="build-slots" id="buildSlots"></div>
+            <div class="build-letters" id="buildLetters"></div>
+
+            <div class="build-controls">
+                <button class="btn reset" id="resetBuildBtn">🔄 Новое слово</button>
+                <button class="btn check" id="checkBuildBtn">✅ Проверить</button>
+                <button class="btn primary" id="colorBuildBtn">🎨 Раскрасить буквы</button>
+            </div>
+        </div>
+
+        <div class="message" id="buildMessage">🧩 Перетащи буквы в ячейки, чтобы собрать слово!</div>
+    </div>
+
+    <!-- ===== РАЗДЕЛ 5: ПРОЧИТАЙ СЛОВО ===== -->
+    <div id="tabRead" class="tab-content">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные</span>
+            <span class="legend-item"><span class="color-box blue"></span> Твёрдые согласные</span>
+            <span class="legend-item"><span class="color-box green"></span> Мягкие согласные</span>
+        </div>
+
+        <div class="read-grid" id="readGrid"></div>
+
+        <div class="controls">
+            <button class="btn new-words" id="newReadBtn">🔄 Новые слова</button>
+        </div>
+        <div class="message" id="readMessage">📖 Читай слова по слогам!</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ============================================================
+        // ДАННЫЕ
+        // ============================================================
+        const ALL_LETTERS = [
+            { letter: 'А', emoji: '🍉', word: 'арбуз', color: 'red', rule: 'Гласная. Даёт звук [а]' },
+            { letter: 'Б', emoji: '🍌', word: 'банан', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'В', emoji: '🐺', word: 'волк', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Г', emoji: '🍐', word: 'груша', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Д', emoji: '👨', word: 'дядя', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Е', emoji: '🦔', word: 'еж', color: 'green-red', rule: 'Гласная. После согласной — [е]; после гласной или Ъ/Ь — [йэ]' },
+            { letter: 'Ё', emoji: '🎄', word: 'ёлка', color: 'green-red', rule: 'Гласная. После согласной — [о]; после гласной или Ъ/Ь — [йо]' },
+            { letter: 'Ж', emoji: '🐞', word: 'жук', color: 'blue', rule: 'Согласная. Всегда твёрдая [ж]' },
+            { letter: 'З', emoji: '🦷', word: 'зубы', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'И', emoji: '🏠', word: 'изба', color: 'red', rule: 'Гласная. Даёт звук [и]' },
+            { letter: 'Й', emoji: '🧵', word: 'йод', color: 'green', rule: 'Согласная. Всегда мягкая [й\']' },
+            { letter: 'К', emoji: '🐱', word: 'кот', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Л', emoji: '🌲', word: 'лес', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'М', emoji: '⚽', word: 'мяч', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Н', emoji: '🦏', word: 'нос', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'О', emoji: '🕶️', word: 'очки', color: 'red', rule: 'Гласная. Даёт звук [о]' },
+            { letter: 'П', emoji: '🪵', word: 'пень', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Р', emoji: '🐟', word: 'рыба', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'С', emoji: '🌙', word: 'сон', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Т', emoji: '🐯', word: 'тигр', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'У', emoji: '🐌', word: 'улитка', color: 'red', rule: 'Гласная. Даёт звук [у]' },
+            { letter: 'Ф', emoji: '🔦', word: 'фонарь', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Х', emoji: '🐹', word: 'хомяк', color: 'blue-green', rule: 'Согласная. Твёрдая перед А,О,У,Ы; мягкая перед Я,Ю,Е,Ё,И,Ь' },
+            { letter: 'Ц', emoji: '🐔', word: 'цыпленок', color: 'blue', rule: 'Согласная. Всегда твёрдая [ц]' },
+            { letter: 'Ч', emoji: '🕰️', word: 'часы', color: 'green', rule: 'Согласная. Всегда мягкая [ч\']' },
+            { letter: 'Ш', emoji: '🎈', word: 'шар', color: 'blue', rule: 'Согласная. Всегда твёрдая [ш]' },
+            { letter: 'Щ', emoji: '🖌️', word: 'щетка', color: 'green', rule: 'Согласная. Всегда мягкая [щ\']' },
+            { letter: 'Ъ', emoji: '🚪', word: 'подъезд', color: 'black', rule: 'Разделительный знак. Звука не даёт' },
+            { letter: 'Ы', emoji: '🧀', word: 'сыр', color: 'red', rule: 'Гласная. Даёт звук [ы]' },
+            { letter: 'Ь', emoji: '🪶', word: 'лень', color: 'black', rule: 'Разделительный знак. Звука не даёт' },
+            { letter: 'Э', emoji: '⚡', word: 'экран', color: 'red', rule: 'Гласная. Даёт звук [э]' },
+            { letter: 'Ю', emoji: '🪀', word: 'юла', color: 'green-red', rule: 'Гласная. После согласной — [у]; после гласной или Ъ/Ь — [йу]' },
+            { letter: 'Я', emoji: '🍎', word: 'яблоко', color: 'green-red', rule: 'Гласная. После согласной — [а]; после гласной или Ъ/Ь — [йа]' }
+        ];
+
+        // ============================================================
+        // БОЛЬШОЙ ПУЛ СЛОВ (более 100)
+        // ============================================================
+        const ALL_WORDS_POOL = [
+            // Короткие слова (3-4 буквы)
+            { word: ['к', 'о', 'т'], emoji: '🐱', display: 'КОТ', syllables: 'кот' },
+            { word: ['м', 'я', 'ч'], emoji: '⚽', display: 'МЯЧ', syllables: 'мяч' },
+            { word: ['с', 'о', 'н'], emoji: '🌙', display: 'СОН', syllables: 'сон' },
+            { word: ['л', 'е', 'с'], emoji: '🌲', display: 'ЛЕС', syllables: 'лес' },
+            { word: ['р', 'ы', 'б', 'а'], emoji: '🐟', display: 'РЫБА', syllables: 'ры-ба' },
+            { word: ['д', 'о', 'м'], emoji: '🏠', display: 'ДОМ', syllables: 'дом' },
+            { word: ['с', 'а', 'д'], emoji: '🌳', display: 'САД', syllables: 'сад' },
+            { word: ['р', 'о', 'т'], emoji: '👄', display: 'РОТ', syllables: 'рот' },
+            { word: ['н', 'о', 'с'], emoji: '👃', display: 'НОС', syllables: 'нос' },
+            { word: ['з', 'у', 'б'], emoji: '🦷', display: 'ЗУБ', syllables: 'зуб' },
+            { word: ['в', 'о', 'л', 'к'], emoji: '🐺', display: 'ВОЛК', syllables: 'волк' },
+            { word: ['т', 'и', 'г', 'р'], emoji: '🐯', display: 'ТИГР', syllables: 'тигр' },
+            { word: ['ж', 'у', 'к'], emoji: '🐞', display: 'ЖУК', syllables: 'жук' },
+            { word: ['ч', 'а', 'с', 'ы'], emoji: '🕰️', display: 'ЧАСЫ', syllables: 'ча-сы' },
+            { word: ['щ', 'е', 'т', 'к', 'а'], emoji: '🧹', display: 'ЩЕТКА', syllables: 'щет-ка' },
+            { word: ['г', 'р', 'у', 'ш', 'а'], emoji: '🍐', display: 'ГРУША', syllables: 'гру-ша' },
+            { word: ['б', 'а', 'н', 'а', 'н'], emoji: '🍌', display: 'БАНАН', syllables: 'ба-нан' },
+            { word: ['а', 'р', 'б', 'у', 'з'], emoji: '🍉', display: 'АРБУЗ', syllables: 'ар-буз' },
+            { word: ['е', 'ж'], emoji: '🦔', display: 'ЕЖ', syllables: 'еж' },
+            { word: ['ё', 'л', 'к', 'а'], emoji: '🎄', display: 'ЁЛКА', syllables: 'ёл-ка' },
+            { word: ['и', 'з', 'б', 'а'], emoji: '🏚️', display: 'ИЗБА', syllables: 'из-ба' },
+            { word: ['й', 'о', 'д'], emoji: '🧪', display: 'ЙОД', syllables: 'йод' },
+            { word: ['х', 'о', 'м', 'я', 'к'], emoji: '🐹', display: 'ХОМЯК', syllables: 'хо-мяк' },
+            { word: ['ц', 'ы', 'п', 'л', 'е', 'н', 'о', 'к'], emoji: '🐥', display: 'ЦЫПЛЕНОК', syllables: 'цып-ле-нок' },
+            { word: ['щ', 'у', 'к', 'а'], emoji: '🐟', display: 'ЩУКА', syllables: 'щу-ка' },
+            { word: ['ф', 'о', 'н', 'а', 'р', 'ь'], emoji: '🔦', display: 'ФОНАРЬ', syllables: 'фо-нарь' },
+            { word: ['ш', 'а', 'р'], emoji: '🎈', display: 'ШАР', syllables: 'шар' },
+            { word: ['ю', 'л', 'а'], emoji: '🪀', display: 'ЮЛА', syllables: 'ю-ла' },
+            { word: ['з', 'у', 'б', 'ы'], emoji: '🦷', display: 'ЗУБЫ', syllables: 'зу-бы' },
+            { word: ['п', 'е', 'н', 'ь'], emoji: '🪵', display: 'ПЕНЬ', syllables: 'пень' },
+            // Слова с 4-5 буквами
+            { word: ['м', 'о', 'р', 'е'], emoji: '🌊', display: 'МОРЕ', syllables: 'мо-ре' },
+            { word: ['г', 'о', 'р', 'а'], emoji: '🏔️', display: 'ГОРА', syllables: 'го-ра' },
+            { word: ['р', 'е', 'к', 'а'], emoji: '🏞️', display: 'РЕКА', syllables: 'ре-ка' },
+            { word: ['л', 'у', 'н', 'а'], emoji: '🌙', display: 'ЛУНА', syllables: 'лу-на' },
+            { word: ['з', 'в', 'е', 'з', 'д', 'а'], emoji: '⭐', display: 'ЗВЕЗДА', syllables: 'звез-да' },
+            { word: ['с', 'н', 'е', 'г'], emoji: '❄️', display: 'СНЕГ', syllables: 'снег' },
+            { word: ['д', 'о', 'ж', 'д', 'ь'], emoji: '🌧️', display: 'ДОЖДЬ', syllables: 'дождь' },
+            { word: ['в', 'е', 'т', 'е', 'р'], emoji: '💨', display: 'ВЕТЕР', syllables: 'ве-тер' },
+            { word: ['о', 'с', 'е', 'н', 'ь'], emoji: '🍂', display: 'ОСЕНЬ', syllables: 'о-сень' },
+            { word: ['в', 'е', 'с', 'н', 'а'], emoji: '🌸', display: 'ВЕСНА', syllables: 'вес-на' },
+            { word: ['з', 'и', 'м', 'а'], emoji: '☃️', display: 'ЗИМА', syllables: 'зи-ма' },
+            { word: ['л', 'е', 'т', 'о'], emoji: '☀️', display: 'ЛЕТО', syllables: 'ле-то' },
+            { word: ['у', 'т', 'р', 'о'], emoji: '🌅', display: 'УТРО', syllables: 'ут-ро' },
+            { word: ['в', 'е', 'ч', 'е', 'р'], emoji: '🌆', display: 'ВЕЧЕР', syllables: 'ве-чер' },
+            { word: ['н', 'о', 'ч', 'ь'], emoji: '🌃', display: 'НОЧЬ', syllables: 'ночь' },
+            { word: ['д', 'е', 'н', 'ь'], emoji: '☀️', display: 'ДЕНЬ', syllables: 'день' },
+            { word: ['м', 'и', 'р'], emoji: '🌍', display: 'МИР', syllables: 'мир' },
+            { word: ['д', 'р', 'у', 'г'], emoji: '🤝', display: 'ДРУГ', syllables: 'друг' },
+            { word: ['с', 'е', 'м', 'ь', 'я'], emoji: '👨‍👩‍👧‍👦', display: 'СЕМЬЯ', syllables: 'семь-я' },
+            { word: ['м', 'а', 'м', 'а'], emoji: '👩', display: 'МАМА', syllables: 'ма-ма' },
+            { word: ['п', 'а', 'п', 'а'], emoji: '👨', display: 'ПАПА', syllables: 'па-па' },
+            { word: ['б', 'а', 'б', 'у', 'ш', 'к', 'а'], emoji: '👵', display: 'БАБУШКА', syllables: 'ба-буш-ка' },
+            { word: ['д', 'е', 'д', 'у', 'ш', 'к', 'а'], emoji: '👴', display: 'ДЕДУШКА', syllables: 'де-душ-ка' },
+            { word: ['к', 'о', 'ш', 'к', 'а'], emoji: '🐈', display: 'КОШКА', syllables: 'кош-ка' },
+            { word: ['с', 'о', 'б', 'а', 'к', 'а'], emoji: '🐕', display: 'СОБАКА', syllables: 'со-ба-ка' },
+            { word: ['к', 'о', 'р', 'о', 'в', 'а'], emoji: '🐄', display: 'КОРОВА', syllables: 'ко-ро-ва' },
+            { word: ['л', 'о', 'ш', 'а', 'д', 'ь'], emoji: '🐴', display: 'ЛОШАДЬ', syllables: 'ло-шадь' },
+            { word: ['п', 'т', 'и', 'ц', 'а'], emoji: '🐦', display: 'ПТИЦА', syllables: 'пти-ца' },
+            { word: ['р', 'ы', 'б', 'к', 'а'], emoji: '🐠', display: 'РЫБКА', syllables: 'рыб-ка' },
+            { word: ['х', 'л', 'е', 'б'], emoji: '🍞', display: 'ХЛЕБ', syllables: 'хлеб' },
+            { word: ['м', 'о', 'л', 'о', 'к', 'о'], emoji: '🥛', display: 'МОЛОКО', syllables: 'мо-ло-ко' },
+            { word: ['м', 'а', 'с', 'л', 'о'], emoji: '🧈', display: 'МАСЛО', syllables: 'мас-ло' },
+            { word: ['с', 'ы', 'р'], emoji: '🧀', display: 'СЫР', syllables: 'сыр' },
+            { word: ['м', 'я', 'с', 'о'], emoji: '🥩', display: 'МЯСО', syllables: 'мя-со' },
+            { word: ['р', 'у', 'б', 'а', 'ш', 'к', 'а'], emoji: '👕', display: 'РУБАШКА', syllables: 'ру-баш-ка' },
+            { word: ['ш', 'а', 'п', 'к', 'а'], emoji: '🧢', display: 'ШАПКА', syllables: 'шап-ка' },
+            { word: ['с', 'а', 'п', 'о', 'г', 'и'], emoji: '👢', display: 'САПОГИ', syllables: 'са-по-ги' },
+            { word: ['т', 'у', 'ф', 'л', 'и'], emoji: '👟', display: 'ТУФЛИ', syllables: 'туф-ли' },
+            { word: ['п', 'а', 'л', 'ь', 'т', 'о'], emoji: '🧥', display: 'ПАЛЬТО', syllables: 'паль-то' },
+            { word: ['п', 'л', 'а', 'т', 'ь', 'е'], emoji: '👗', display: 'ПЛАТЬЕ', syllables: 'плать-е' },
+            { word: ['ю', 'б', 'к', 'а'], emoji: '👘', display: 'ЮБКА', syllables: 'юб-ка' },
+            { word: ['б', 'р', 'ю', 'к', 'и'], emoji: '👖', display: 'БРЮКИ', syllables: 'брю-ки' },
+            { word: ['н', 'о', 'с', 'к', 'и'], emoji: '🧦', display: 'НОСКИ', syllables: 'нос-ки' },
+            { word: ['п', 'е', 'р', 'ч', 'а', 'т', 'к', 'и'], emoji: '🧤', display: 'ПЕРЧАТКИ', syllables: 'пер-чат-ки' },
+            { word: ['ш', 'а', 'р', 'ф'], emoji: '🧣', display: 'ШАРФ', syllables: 'шарф' },
+            { word: ['з', 'о', 'н', 'т'], emoji: '🌂', display: 'ЗОНТ', syllables: 'зонт' },
+            { word: ['с', 'т', 'о', 'л'], emoji: '🪑', display: 'СТОЛ', syllables: 'стол' },
+            { word: ['с', 'т', 'у', 'л'], emoji: '🪑', display: 'СТУЛ', syllables: 'стул' },
+            { word: ['к', 'р', 'о', 'в', 'а', 'т', 'ь'], emoji: '🛏️', display: 'КРОВАТЬ', syllables: 'кро-вать' },
+            { word: ['д', 'и', 'в', 'а', 'н'], emoji: '🛋️', display: 'ДИВАН', syllables: 'ди-ван' },
+            { word: ['т', 'е', 'л', 'е', 'ф', 'о', 'н'], emoji: '📱', display: 'ТЕЛЕФОН', syllables: 'те-ле-фон' },
+            { word: ['к', 'о', 'м', 'п', 'ь', 'ю', 'т', 'е', 'р'], emoji: '💻', display: 'КОМПЬЮТЕР', syllables: 'ком-пью-тер' },
+            { word: ['т', 'е', 'л', 'е', 'в', 'и', 'з', 'о', 'р'], emoji: '📺', display: 'ТЕЛЕВИЗОР', syllables: 'те-ле-ви-зор' },
+            { word: ['м', 'а', 'г', 'а', 'з', 'и', 'н'], emoji: '🏪', display: 'МАГАЗИН', syllables: 'ма-га-зин' },
+            { word: ['а', 'п', 'т', 'е', 'к', 'а'], emoji: '💊', display: 'АПТЕКА', syllables: 'ап-те-ка' },
+            { word: ['б', 'о', 'л', 'ь', 'н', 'и', 'ц', 'а'], emoji: '🏥', display: 'БОЛЬНИЦА', syllables: 'боль-ни-ца' },
+            { word: ['ш', 'к', 'о', 'л', 'а'], emoji: '🏫', display: 'ШКОЛА', syllables: 'шко-ла' },
+            { word: ['у', 'ч', 'и', 'т', 'е', 'л', 'ь'], emoji: '👨‍🏫', display: 'УЧИТЕЛЬ', syllables: 'у-чи-тель' },
+            { word: ['у', 'ч', 'е', 'н', 'и', 'к'], emoji: '🧑‍🎓', display: 'УЧЕНИК', syllables: 'у-че-ник' },
+            { word: ['к', 'н', 'и', 'г', 'а'], emoji: '📖', display: 'КНИГА', syllables: 'кни-га' },
+            { word: ['т', 'е', 'т', 'р', 'а', 'д', 'ь'], emoji: '📓', display: 'ТЕТРАДЬ', syllables: 'тет-радь' },
+            { word: ['р', 'у', 'ч', 'к', 'а'], emoji: '🖊️', display: 'РУЧКА', syllables: 'руч-ка' },
+            { word: ['к', 'а', 'р', 'а', 'н', 'д', 'а', 'ш'], emoji: '✏️', display: 'КАРАНДАШ', syllables: 'ка-ран-даш' },
+            { word: ['к', 'р', 'а', 'с', 'к', 'и'], emoji: '🎨', display: 'КРАСКИ', syllables: 'крас-ки' },
+            { word: ['п', 'л', 'а', 'с', 'т', 'и', 'л', 'и', 'н'], emoji: '🧱', display: 'ПЛАСТИЛИН', syllables: 'плас-ти-лин' },
+            { word: ['к', 'у', 'б', 'и', 'к', 'и'], emoji: '🧊', display: 'КУБИКИ', syllables: 'ку-би-ки' },
+            { word: ['м', 'я', 'ч', 'и', 'к'], emoji: '🏀', display: 'МЯЧИК', syllables: 'мя-чик' },
+            { word: ['к', 'у', 'к', 'л', 'а'], emoji: '🎎', display: 'КУКЛА', syllables: 'кук-ла' },
+            { word: ['м', 'а', 'ш', 'и', 'н', 'к', 'а'], emoji: '🚗', display: 'МАШИНКА', syllables: 'ма-шин-ка' },
+            { word: ['с', 'а', 'м', 'о', 'л', 'е', 'т'], emoji: '✈️', display: 'САМОЛЕТ', syllables: 'са-мо-лет' },
+            { word: ['п', 'а', 'р', 'о', 'х', 'о', 'д'], emoji: '🚢', display: 'ПАРОХОД', syllables: 'па-ро-ход' },
+            { word: ['п', 'о', 'е', 'з', 'д'], emoji: '🚂', display: 'ПОЕЗД', syllables: 'по-езд' },
+            { word: ['м', 'е', 'т', 'р', 'о'], emoji: '🚇', display: 'МЕТРО', syllables: 'мет-ро' },
+            { word: ['а', 'в', 'т', 'о', 'б', 'у', 'с'], emoji: '🚌', display: 'АВТОБУС', syllables: 'ав-то-бус' },
+            { word: ['т', 'р', 'а', 'м', 'в', 'а', 'й'], emoji: '🚋', display: 'ТРАМВАЙ', syllables: 'трам-вай' },
+            { word: ['в', 'е', 'л', 'о', 'с', 'и', 'п', 'е', 'д'], emoji: '🚲', display: 'ВЕЛОСИПЕД', syllables: 'ве-ло-си-пед' }
+        ];
+
+        // ============================================================
+        // ПРАВИЛА
+        // ============================================================
+        const VOWELS = new Set(['а', 'о', 'у', 'э', 'ы', 'я', 'ю', 'е', 'ё', 'и']);
+        const SOFT_VOWELS = new Set(['я', 'ю', 'е', 'ё', 'и']);
+        const ALWAYS_HARD = new Set(['ж', 'ш', 'ц']);
+        const ALWAYS_SOFT = new Set(['й', 'ч', 'щ']);
+        const NO_SOUND = new Set(['ь', 'ъ']);
+        const RED_VOWELS = new Set(['а', 'о', 'у', 'э', 'ы']);
+
+        function getLetterColor(letter) {
+            const l = letter.toLowerCase();
+            if (RED_VOWELS.has(l)) return 'red';
+            if (['я', 'ю', 'е', 'ё'].includes(l)) return 'green-red';
+            if (ALWAYS_HARD.has(l)) return 'blue';
+            if (ALWAYS_SOFT.has(l)) return 'green';
+            if (NO_SOUND.has(l)) return 'black';
+            return 'blue-green';
+        }
+
+        function getCorrectColor(letter, wordArray, index) {
+            const lower = letter.toLowerCase();
+            if (RED_VOWELS.has(lower)) return 'red';
+            if (['я', 'ю', 'е', 'ё', 'и'].includes(lower)) return 'red';
+            if (NO_SOUND.has(lower)) return 'black';
+            if (ALWAYS_HARD.has(lower)) return 'blue';
+            if (ALWAYS_SOFT.has(lower)) return 'green';
+            
+            const nextIndex = index + 1;
+            if (nextIndex < wordArray.length) {
+                const next = wordArray[nextIndex].toLowerCase();
+                if (SOFT_VOWELS.has(next) || next === 'ь') return 'green';
+                return 'blue';
+            }
+            return 'blue';
+        }
+
+        function getSyllableColor(letter, nextLetter) {
+            const l = letter.toLowerCase();
+            if (RED_VOWELS.has(l)) return 'red';
+            if (['я', 'ю', 'е', 'ё', 'и'].includes(l)) return 'red';
+            if (NO_SOUND.has(l)) return 'black';
+            if (ALWAYS_HARD.has(l)) return 'blue';
+            if (ALWAYS_SOFT.has(l)) return 'green';
+            const n = nextLetter ? nextLetter.toLowerCase() : '';
+            if (SOFT_VOWELS.has(n) || n === 'ь') return 'green';
+            return 'blue';
+        }
+
+        function getKey(wordIdx, letterIdx) {
+            return `${wordIdx}-${letterIdx}`;
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function clearHighlights(container) {
+            container.querySelectorAll('.letter').forEach(el => {
+                el.classList.remove('correct-highlight', 'wrong-highlight');
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+        }
+
+        function getRandomWords(count) {
+            const shuffled = shuffleArray([...ALL_WORDS_POOL]);
+            return shuffled.slice(0, count);
+        }
+
+        // ============================================================
+        // ЗВУКИ (только для обратной связи)
+        // ============================================================
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) { return null; }
+            }
+            return audioCtx;
+        }
+
+        function playTone(frequency, duration, type = 'sine', volume = 0.3) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const oscillator = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                oscillator.type = type;
+                oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
+                gainNode.gain.setValueAtTime(volume, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                oscillator.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                oscillator.start();
+                oscillator.stop(ctx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function playClickSound() {
+            if (!soundEnabled) return;
+            playTone(800, 0.06, 'sine', 0.15);
+        }
+        function playSuccessSound() {
+            if (!soundEnabled) return;
+            playTone(523, 0.15);
+            setTimeout(() => playTone(659, 0.15), 150);
+            setTimeout(() => playTone(784, 0.25), 300);
+        }
+        function playErrorSound() {
+            if (!soundEnabled) return;
+            playTone(400, 0.2, 'sawtooth', 0.2);
+            setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
+        }
+        function playCompleteSound() {
+            if (!soundEnabled) return;
+            playTone(523, 0.2);
+            setTimeout(() => playTone(659, 0.2), 150);
+            setTimeout(() => playTone(784, 0.2), 300);
+            setTimeout(() => playTone(1047, 0.4), 450);
+        }
+
+        // ============================================================
+        // КНОПКА ЗВУКА
+        // ============================================================
+        const soundToggle = document.getElementById('soundToggle');
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            this.textContent = soundEnabled ? '🔊' : '🔇';
+            this.classList.toggle('muted', !soundEnabled);
+            if (soundEnabled) setTimeout(() => playClickSound(), 100);
+        });
+
+        // ============================================================
+        // РАЗДЕЛ 1: УЧИМ БУКВЫ
+        // ============================================================
+        function renderLetters() {
+            const container = document.getElementById('lettersGrid');
+            container.innerHTML = '';
+            
+            ALL_LETTERS.forEach((data) => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+                card.dataset.letter = data.letter;
+
+                const img = document.createElement('div');
+                img.className = 'letter-image';
+                img.textContent = data.emoji;
+                card.appendChild(img);
+
+                const display = document.createElement('div');
+                display.className = 'letter-display';
+                
+                const colorClass = data.color;
+                let capitalColor = colorClass;
+                let lowercaseColor = colorClass;
+                
+                // Для зелено-синих: и заглавная, и строчная — зелено-синие
+                if (colorClass === 'blue-green') {
+                    capitalColor = 'blue-green';
+                    lowercaseColor = 'blue-green';
+                }
+                
+                display.innerHTML = `
+                    <span class="capital ${capitalColor}">${data.letter}</span>
+                    <span class="lowercase ${lowercaseColor}">${data.letter.toLowerCase()}</span>
+                `;
+                card.appendChild(display);
+
+                const label = document.createElement('div');
+                label.className = 'word-label';
+                label.textContent = data.word;
+                card.appendChild(label);
+
+                // Плашка с правилом
+                const rulePopup = document.createElement('div');
+                rulePopup.className = 'rule-popup';
+                const colorStyle = data.color === 'red' ? '#e74c5e' : 
+                                  data.color === 'blue' ? '#3b7bc9' : 
+                                  data.color === 'green' ? '#2e9b6e' : 
+                                  data.color === 'black' ? '#333' : 
+                                  data.color === 'green-red' ? '#6d4f82' : '#6d4f82';
+                rulePopup.innerHTML = `
+                    <div class="rule-title">📖 ${data.letter}</div>
+                    <div class="rule-example" style="color:${colorStyle}">${data.rule}</div>
+                    <div class="rule-desc">Слово: ${data.word}</div>
+                `;
+                card.appendChild(rulePopup);
+
+                card.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    playClickSound();
+                    
+                    document.querySelectorAll('.rule-popup.show').forEach(el => {
+                        el.classList.remove('show');
+                    });
+                    
+                    const letter = this.dataset.letter;
+                    const dataObj = ALL_LETTERS.find(d => d.letter === letter);
+                    
+                    const rule = this.querySelector('.rule-popup');
+                    rule.classList.toggle('show');
+                    
+                    updateSyllablesPanel(letter);
+                    
+                    const colorNameText = dataObj.color === 'red' ? 'гласная' : 
+                                         dataObj.color === 'blue' ? 'всегда твёрдая согласная' :
+                                         dataObj.color === 'green' ? 'всегда мягкая согласная' :
+                                         dataObj.color === 'black' ? 'знак без звука' :
+                                         dataObj.color === 'green-red' ? 'гласная (может давать 2 звука)' :
+                                         'согласная (твердая/мягкая)';
+                    document.getElementById('lettersMessage').textContent = `🔤 Буква «${letter}» — ${colorNameText}. Слово: ${dataObj.word}`;
+                    document.getElementById('lettersMessage').className = 'message success';
+                });
+
+                container.appendChild(card);
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.letter-card')) {
+                    document.querySelectorAll('.rule-popup.show').forEach(el => {
+                        el.classList.remove('show');
+                    });
+                }
+            });
+        }
+
+        function updateSyllablesPanel(letter) {
+            const panel = document.getElementById('syllablesPanel');
+            const panelLetter = document.getElementById('panelLetter');
+            const grid = document.getElementById('panelSyllables');
+            
+            panelLetter.textContent = letter.toUpperCase();
+            grid.innerHTML = '';
+            
+            const lower = letter.toLowerCase();
+            
+            if (!VOWELS.has(lower) && !NO_SOUND.has(lower)) {
+                panel.classList.add('show');
+                
+                const vowels = ['а', 'о', 'у', 'ы', 'я', 'ю', 'е', 'ё', 'и'];
+                vowels.forEach(v => {
+                    const sylDiv = document.createElement('div');
+                    sylDiv.className = 'syl-item';
+                    const lSpan = document.createElement('span');
+                    lSpan.className = `syl-letter ${getSyllableColor(lower, v)}`;
+                    lSpan.textContent = letter.toUpperCase();
+                    const vSpan = document.createElement('span');
+                    vSpan.className = 'syl-letter red';
+                    vSpan.textContent = v.toUpperCase();
+                    sylDiv.appendChild(lSpan);
+                    sylDiv.appendChild(vSpan);
+                    grid.appendChild(sylDiv);
+                });
+            } else {
+                panel.classList.remove('show');
+            }
+        }
+
+        // ============================================================
+        // РАЗДЕЛ 2: УЧИМСЯ
+        // ============================================================
+        let learnWords = [];
+        const learnState = new Map();
+
+        function generateLearnWords() {
+            learnWords = getRandomWords(6);
+            learnState.clear();
+            renderLearnWords();
+            document.getElementById('learnMessage').textContent = '🔄 Новые слова! Нажми на букву, чтобы увидеть её цвет!';
+            document.getElementById('learnMessage').className = 'message';
+        }
+
+        function renderLearnWords() {
+            const container = document.getElementById('learnWordsGrid');
+            container.innerHTML = '';
+
+            learnWords.forEach((data, wIdx) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+
+                const img = document.createElement('div');
+                img.className = 'word-image';
+                img.textContent = data.emoji;
+                card.appendChild(img);
+
+                const lettersDiv = document.createElement('div');
+                lettersDiv.className = 'word-letters';
+
+                data.word.forEach((letter, lIdx) => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.dataset.word = wIdx;
+                    span.dataset.index = lIdx;
+                    span.textContent = letter.toUpperCase();
+
+                    if (learnState.has(getKey(wIdx, lIdx))) {
+                        const color = learnState.get(getKey(wIdx, lIdx));
+                        span.classList.add(color);
+                    }
+
+                    span.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        handleLearnWordClick(wIdx, lIdx);
+                    });
+
+                    lettersDiv.appendChild(span);
+                });
+
+                card.appendChild(lettersDiv);
+                container.appendChild(card);
+            });
+        }
+
+        function handleLearnWordClick(wIdx, lIdx) {
+            const key = getKey(wIdx, lIdx);
+            const word = learnWords[wIdx].word;
+            const letter = word[lIdx];
+            
+            playClickSound();
+
+            if (learnState.has(key)) {
+                const els = document.querySelectorAll(`#learnWordsGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
+                els.forEach(el => el.classList.remove('red', 'blue', 'green', 'black'));
+                learnState.delete(key);
+                document.getElementById('learnMessage').textContent = `🗑️ Убрали цвет с «${letter.toUpperCase()}»`;
+                document.getElementById('learnMessage').className = 'message';
+                return;
+            }
+
+            const color = getCorrectColor(letter, word, lIdx);
+            learnState.set(key, color);
+            
+            const els = document.querySelectorAll(`#learnWordsGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
+            els.forEach(el => {
+                el.classList.remove('red', 'blue', 'green', 'black');
+                el.classList.add(color);
+            });
+
+            const colorName = color === 'red' ? 'гласный' : color === 'blue' ? 'твёрдый согласный' : color === 'green' ? 'мягкий согласный' : 'без звука';
+            document.getElementById('learnMessage').textContent = `✅ «${letter.toUpperCase()}» → ${colorName}`;
+            document.getElementById('learnMessage').className = 'message success';
+        }
+
+        function colorLearnAll() {
+            learnWords.forEach((data, wIdx) => {
+                data.word.forEach((letter, lIdx) => {
+                    const color = getCorrectColor(letter, data.word, lIdx);
+                    const key = getKey(wIdx, lIdx);
+                    learnState.set(key, color);
+                    
+                    const els = document.querySelectorAll(`#learnWordsGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
+                    els.forEach(el => {
+                        el.classList.remove('red', 'blue', 'green', 'black');
+                        el.classList.add(color);
+                    });
+                });
+            });
+            document.getElementById('learnMessage').textContent = '🌟 Все буквы раскрашены! Молодец!';
+            document.getElementById('learnMessage').className = 'message success';
+            playSuccessSound();
+        }
+
+        function resetLearn() {
+            learnState.clear();
+            document.querySelectorAll('#learnWordsGrid .letter').forEach(el => {
+                el.classList.remove('red', 'blue', 'green', 'black');
+            });
+            document.getElementById('learnMessage').textContent = '🔄 Сброшено. Нажми на букву!';
+            document.getElementById('learnMessage').className = 'message';
+        }
+
+        // ============================================================
+        // РАЗДЕЛ 3: РАСКРАСЬ СЛОВО
+        // ============================================================
+        let paintWords = [];
+        const paintState = new Map();
+        let selectedColor = 'red';
+        let isCheckingPaint = false;
+
+        function generatePaintWords() {
+            paintWords = getRandomWords(4);
+            paintState.clear();
+            renderPaintWords();
+            document.getElementById('paintMessage').textContent = '🔄 Новые слова! Раскрашивай!';
+            document.getElementById('paintMessage').className = 'message';
+            isCheckingPaint = false;
+        }
+
+        function renderPaintWords() {
+            const container = document.getElementById('paintGrid');
+            container.innerHTML = '';
+
+            paintWords.forEach((data, wIdx) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+
+                const img = document.createElement('div');
+                img.className = 'word-image';
+                img.textContent = data.emoji;
+                card.appendChild(img);
+
+                const lettersDiv = document.createElement('div');
+                lettersDiv.className = 'word-letters';
+
+                data.word.forEach((letter, lIdx) => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.dataset.word = wIdx;
+                    span.dataset.index = lIdx;
+                    span.textContent = letter.toUpperCase();
+
+                    if (paintState.has(getKey(wIdx, lIdx))) {
+                        const color = paintState.get(getKey(wIdx, lIdx));
+                        span.classList.add(color);
+                    }
+
+                    span.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        handlePaintWordClick(wIdx, lIdx);
+                    });
+
+                    lettersDiv.appendChild(span);
+                });
+
+                card.appendChild(lettersDiv);
+                container.appendChild(card);
+            });
+        }
+
+        function handlePaintWordClick(wIdx, lIdx) {
+            if (isCheckingPaint) return;
+            const key = getKey(wIdx, lIdx);
+            const word = paintWords[wIdx].word;
+            const letter = word[lIdx];
+            
+            playClickSound();
+
+            const els = document.querySelectorAll(`#paintGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
+            
+            els.forEach(el => {
+                el.classList.remove('correct-highlight', 'wrong-highlight');
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+            
+            if (selectedColor === 'erase') {
+                els.forEach(el => el.classList.remove('red', 'blue', 'green', 'black'));
+                paintState.delete(key);
+                document.getElementById('paintMessage').textContent = `🧹 Сняли цвет с «${letter.toUpperCase()}»`;
+                document.getElementById('paintMessage').className = 'message';
+                return;
+            }
+
+            if (paintState.has(key) && paintState.get(key) === selectedColor) {
+                els.forEach(el => el.classList.remove('red', 'blue', 'green', 'black'));
+                paintState.delete(key);
+                document.getElementById('paintMessage').textContent = `🧹 Сняли цвет с «${letter.toUpperCase()}»`;
+                document.getElementById('paintMessage').className = 'message';
+                return;
+            }
+
+            paintState.set(key, selectedColor);
+            els.forEach(el => {
+                el.classList.remove('red', 'blue', 'green', 'black');
+                el.classList.add(selectedColor);
+            });
+
+            const colorName = selectedColor === 'red' ? 'красный' : selectedColor === 'blue' ? 'синий' : 'зелёный';
+            document.getElementById('paintMessage').textContent = `🎨 «${letter.toUpperCase()}» → ${colorName}`;
+            document.getElementById('paintMessage').className = 'message';
+        }
+
+        function resetPaint() {
+            paintState.clear();
+            document.querySelectorAll('#paintGrid .letter').forEach(el => {
+                el.classList.remove('red', 'blue', 'green', 'black', 'correct-highlight', 'wrong-highlight');
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+            document.querySelectorAll('#paintGrid .word-card').forEach(card => {
+                card.style.borderColor = 'rgba(255,255,255,0.6)';
+                card.style.boxShadow = 'none';
+            });
+            document.getElementById('paintMessage').textContent = '🔄 Всё сброшено. Раскрашивай!';
+            document.getElementById('paintMessage').className = 'message';
+            isCheckingPaint = false;
+        }
+
+        function checkPaint() {
+            if (isCheckingPaint) return;
+            isCheckingPaint = true;
+
+            let correct = 0;
+            let total = 0;
+            let hasErrors = false;
+
+            clearHighlights(document.getElementById('paintGrid'));
+
+            paintWords.forEach((data, wIdx) => {
+                data.word.forEach((letter, lIdx) => {
+                    total++;
+                    const key = getKey(wIdx, lIdx);
+                    const expected = getCorrectColor(letter, data.word, lIdx);
+                    const userColor = paintState.get(key);
+                    const els = document.querySelectorAll(`#paintGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
+                    
+                    els.forEach(el => {
+                        el.classList.remove('correct-highlight', 'wrong-highlight');
+                        el.style.outline = '';
+                        el.style.outlineOffset = '';
+
+                        if (userColor === expected) {
+                            correct++;
+                            el.classList.add('correct-highlight');
+                        } else if (userColor !== undefined) {
+                            hasErrors = true;
+                            el.classList.add('wrong-highlight');
+                        } else {
+                            hasErrors = true;
+                        }
+                    });
+                });
+            });
+
+            const msg = document.getElementById('paintMessage');
+
+            if (correct === total) {
+                document.querySelectorAll('#paintGrid .word-card').forEach(card => {
+                    card.style.borderColor = '#2e9b6e';
+                    card.style.boxShadow = '0 0 20px rgba(46,155,110,0.3)';
+                });
+                msg.innerHTML = `🎉✨ Отлично! Все ${total} букв раскрашены правильно! ✨🎉`;
+                msg.className = 'message success';
+                playCompleteSound();
+            } else if (correct === 0) {
+                document.querySelectorAll('#paintGrid .word-card').forEach(card => {
+                    card.style.borderColor = 'rgba(255,255,255,0.6)';
+                    card.style.boxShadow = 'none';
+                });
+                msg.innerHTML = `😅 Попробуй раскрасить буквы, а потом проверь!`;
+                msg.className = 'message';
+                playErrorSound();
+            } else {
+                document.querySelectorAll('#paintGrid .word-card').forEach(card => {
+                    if (hasErrors) {
+                        card.style.borderColor = '#ff0000';
+                        card.style.boxShadow = '0 0 20px rgba(255,0,0,0.2)';
+                    } else {
+                        card.style.borderColor = '#2e9b6e';
+                        card.style.boxShadow = '0 0 20px rgba(46,155,110,0.3)';
+                    }
+                });
+                msg.innerHTML = `📝 Правильно: ${correct} из ${total}. Неправильные буквы подсвечены красным!`;
+                msg.className = 'message error';
+                playErrorSound();
+            }
+
+            setTimeout(() => { isCheckingPaint = false; }, 1000);
+        }
+
+        // ----- Палитра -----
+        function initPalette() {
+            const picks = document.querySelectorAll('.color-pick');
+            picks.forEach(pick => {
+                pick.addEventListener('click', function() {
+                    picks.forEach(p => p.classList.remove('active-pick'));
+                    this.classList.add('active-pick');
+                    selectedColor = this.dataset.color;
+                    const name = selectedColor === 'red' ? 'красный (гласные)' :
+                                 selectedColor === 'blue' ? 'синий (твёрдые согласные)' :
+                                 selectedColor === 'green' ? 'зелёный (мягкие согласные)' :
+                                 'ластик 🧹';
+                    document.getElementById('paintMessage').textContent = `🖌️ Выбран ${name}`;
+                    document.getElementById('paintMessage').className = 'message';
+                    playClickSound();
+                });
+            });
+        }
+
+        // ============================================================
+        // РАЗДЕЛ 4: СОБЕРИ СЛОВО
+        // ============================================================
+        let currentWordIndex = 0;
+        let buildState = [];
+        let isWordBuilt = false;
+
+        function initBuild() {
+            currentWordIndex = Math.floor(Math.random() * ALL_WORDS_POOL.length);
+            const data = ALL_WORDS_POOL[currentWordIndex];
+            const word = data.word;
+            isWordBuilt = false;
+
+            document.getElementById('targetImage').textContent = data.emoji;
+            document.getElementById('targetWord').textContent = data.display;
+
+            buildState = new Array(word.length).fill(null);
+            const slotsContainer = document.getElementById('buildSlots');
+            slotsContainer.innerHTML = '';
+            word.forEach((_, idx) => {
+                const slot = document.createElement('div');
+                slot.className = 'build-slot';
+                slot.dataset.index = idx;
+                slot.addEventListener('dragover', handleDragOver);
+                slot.addEventListener('dragleave', handleDragLeave);
+                slot.addEventListener('drop', handleDrop);
+                slot.addEventListener('click', () => handleSlotClick(idx));
+                slotsContainer.appendChild(slot);
+            });
+
+            const shuffled = shuffleArray([...word]);
+            const lettersContainer = document.getElementById('buildLetters');
+            lettersContainer.innerHTML = '';
+            shuffled.forEach((letter) => {
+                const span = document.createElement('span');
+                span.className = 'letter draggable';
+                span.textContent = letter.toUpperCase();
+                span.draggable = true;
+                span.dataset.letter = letter;
+                span.addEventListener('dragstart', handleDragStart);
+                span.addEventListener('dragend', handleDragEnd);
+                lettersContainer.appendChild(span);
+            });
+
+            document.querySelectorAll('#buildArea .build-slots').forEach(el => {
+                el.style.borderColor = '#b095c0';
+                el.style.boxShadow = 'none';
+            });
+
+            document.getElementById('buildMessage').textContent = '🧩 Перетащи буквы в ячейки, чтобы собрать слово!';
+            document.getElementById('buildMessage').className = 'message';
+            clearHighlights(document.getElementById('buildSlots'));
+            clearHighlights(document.getElementById('buildLetters'));
+            updateBuildSlots();
+        }
+
+        function updateBuildSlots() {
+            const slots = document.querySelectorAll('#buildSlots .build-slot');
+            slots.forEach((slot, idx) => {
+                slot.innerHTML = '';
+                slot.className = 'build-slot';
+                if (buildState[idx] !== null) {
+                    slot.classList.add('filled');
+                    const letterSpan = document.createElement('span');
+                    letterSpan.className = 'letter';
+                    letterSpan.textContent = buildState[idx].toUpperCase();
+                    slot.appendChild(letterSpan);
+                }
+            });
+        }
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            e.dataTransfer.setData('text/plain', this.dataset.letter);
+            this.style.opacity = '0.5';
+        }
+        function handleDragEnd(e) {
+            this.style.opacity = '1';
+            document.querySelectorAll('.build-slot').forEach(s => s.classList.remove('drag-over'));
+        }
+        function handleDragOver(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        }
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            const letter = e.dataTransfer.getData('text/plain');
+            const slotIndex = parseInt(this.dataset.index, 10);
+
+            if (buildState[slotIndex] !== null) {
+                playErrorSound();
+                document.getElementById('buildMessage').textContent = '⚠️ В этой ячейке уже есть буква!';
+                document.getElementById('buildMessage').className = 'message error';
+                return;
+            }
+
+            const lettersContainer = document.getElementById('buildLetters');
+            const letterElements = lettersContainer.querySelectorAll('.letter');
+            let found = false;
+            let targetEl = null;
+
+            letterElements.forEach(el => {
+                if (el.dataset.letter === letter && el.parentNode === lettersContainer) {
+                    found = true;
+                    targetEl = el;
+                }
+            });
+
+            if (!found) {
+                playErrorSound();
+                document.getElementById('buildMessage').textContent = '⚠️ Такой буквы нет в наборе!';
+                document.getElementById('buildMessage').className = 'message error';
+                return;
+            }
+
+            targetEl.remove();
+            buildState[slotIndex] = letter;
+            updateBuildSlots();
+            playClickSound();
+
+            checkBuildComplete();
+        }
+
+        function handleSlotClick(index) {
+            if (buildState[index] === null) return;
+            
+            const letter = buildState[index];
+            buildState[index] = null;
+
+            const lettersContainer = document.getElementById('buildLetters');
+            const span = document.createElement('span');
+            span.className = 'letter draggable';
+            span.textContent = letter.toUpperCase();
+            span.draggable = true;
+            span.dataset.letter = letter;
+            span.addEventListener('dragstart', handleDragStart);
+            span.addEventListener('dragend', handleDragEnd);
+            lettersContainer.appendChild(span);
+
+            updateBuildSlots();
+            playClickSound();
+            document.getElementById('buildMessage').textContent = `↩️ Буква «${letter.toUpperCase()}» возвращена`;
+            document.getElementById('buildMessage').className = 'message';
+            isWordBuilt = false;
+            
+            document.querySelectorAll('#buildArea .build-slots').forEach(el => {
+                el.style.borderColor = '#b095c0';
+                el.style.boxShadow = 'none';
+            });
+        }
+
+        function checkBuildComplete() {
+            const data = ALL_WORDS_POOL[currentWordIndex];
+            const isComplete = buildState.every((val, idx) => val === data.word[idx]);
+            
+            if (isComplete) {
+                isWordBuilt = true;
+                document.getElementById('buildMessage').textContent = '🎉 Отлично! Слово собрано!';
+                document.getElementById('buildMessage').className = 'message success';
+                playSuccessSound();
+            } else {
+                document.getElementById('buildMessage').textContent = '✅ Буква поставлена! Продолжай собирать слово.';
+                document.getElementById('buildMessage').className = 'message';
+            }
+        }
+
+        function resetBuild() {
+            initBuild();
+            playClickSound();
+        }
+
+        function checkBuild() {
+            const data = ALL_WORDS_POOL[currentWordIndex];
+            const isComplete = buildState.every((val, idx) => val === data.word[idx]);
+
+            if (!isComplete) {
+                document.getElementById('buildMessage').textContent = '❌ Слово собрано не полностью!';
+                document.getElementById('buildMessage').className = 'message error';
+                playErrorSound();
+                return;
+            }
+
+            let hasColors = true;
+            const slots = document.querySelectorAll('#buildSlots .build-slot');
+            slots.forEach((slot, idx) => {
+                const letterSpan = slot.querySelector('.letter');
+                if (letterSpan) {
+                    const color = getCorrectColor(buildState[idx], data.word, idx);
+                    if (!letterSpan.classList.contains(color)) {
+                        hasColors = false;
+                    }
+                }
+            });
+
+            if (hasColors) {
+                document.getElementById('buildMessage').textContent = '🌟 Отлично! Слово собрано и раскрашено правильно!';
+                document.getElementById('buildMessage').className = 'message success';
+                document.querySelectorAll('#buildArea .build-slots').forEach(el => {
+                    el.style.borderColor = '#2e9b6e';
+                    el.style.boxShadow = '0 0 20px rgba(46,155,110,0.3)';
+                });
+                playCompleteSound();
+            } else {
+                document.getElementById('buildMessage').textContent = '📝 Слово собрано, но буквы раскрашены не все. Нажми "Раскрасить буквы"!';
+                document.getElementById('buildMessage').className = 'message';
+                document.querySelectorAll('#buildArea .build-slots').forEach(el => {
+                    el.style.borderColor = '#ff0000';
+                    el.style.boxShadow = '0 0 20px rgba(255,0,0,0.2)';
+                });
+                playSuccessSound();
+            }
+        }
+
+        function colorBuild() {
+            const data = ALL_WORDS_POOL[currentWordIndex];
+            const isComplete = buildState.every((val, idx) => val === data.word[idx]);
+
+            if (!isComplete) {
+                document.getElementById('buildMessage').textContent = '❌ Сначала собери слово полностью!';
+                document.getElementById('buildMessage').className = 'message error';
+                playErrorSound();
+                return;
+            }
+
+            const slots = document.querySelectorAll('#buildSlots .build-slot');
+            slots.forEach((slot, idx) => {
+                const letterSpan = slot.querySelector('.letter');
+                if (letterSpan) {
+                    const color = getCorrectColor(buildState[idx], data.word, idx);
+                    letterSpan.className = 'letter ' + color;
+                }
+            });
+
+            document.getElementById('buildMessage').textContent = '🎨 Буквы раскрашены! Нажми "Проверить" для проверки.';
+            document.getElementById('buildMessage').className = 'message success';
+            playSuccessSound();
+        }
+
+        // ============================================================
+        // РАЗДЕЛ 5: ПРОЧИТАЙ СЛОВО (без "Проверить" и "Раскрась слоги")
+        // ============================================================
+        let readWords = [];
+        let readColors = new Map();
+
+        function generateReadWords() {
+            readWords = getRandomWords(5);
+            readColors.clear();
+            renderReadWords();
+            document.getElementById('readMessage').textContent = '🔄 Новые слова! Читай по слогам.';
+            document.getElementById('readMessage').className = 'message';
+        }
+
+        function renderReadWords() {
+            const container = document.getElementById('readGrid');
+            container.innerHTML = '';
+            readColors.clear();
+
+            readWords.forEach((data, wIdx) => {
+                const card = document.createElement('div');
+                card.className = 'read-card';
+                card.dataset.readIndex = wIdx;
+
+                const img = document.createElement('div');
+                img.className = 'read-image';
+                img.textContent = data.emoji;
+                card.appendChild(img);
+
+                const wordDiv = document.createElement('div');
+                wordDiv.className = 'read-word';
+
+                const parts = data.syllables.split('-');
+                parts.forEach((part, pIdx) => {
+                    const partSpan = document.createElement('span');
+                    partSpan.className = 'syllable-part';
+                    
+                    const letters = part.split('');
+                    letters.forEach((letter) => {
+                        const letterSpan = document.createElement('span');
+                        letterSpan.className = 'letter';
+                        letterSpan.textContent = letter.toUpperCase();
+                        letterSpan.dataset.readWord = wIdx;
+                        letterSpan.dataset.readIndex = pIdx * 3 + letters.indexOf(letter);
+                        partSpan.appendChild(letterSpan);
+                    });
+
+                    wordDiv.appendChild(partSpan);
+
+                    if (pIdx < parts.length - 1) {
+                        const hyphen = document.createElement('span');
+                        hyphen.className = 'hyphen';
+                        hyphen.textContent = '—';
+                        wordDiv.appendChild(hyphen);
+                    }
+                });
+
+                card.appendChild(wordDiv);
+                container.appendChild(card);
+            });
+
+            document.querySelectorAll('#readGrid .read-card').forEach(c => {
+                c.style.borderColor = '#dcc7e8';
+                c.style.boxShadow = 'none';
+            });
+        }
+
+        // ============================================================
+        // ВКЛАДКИ
+        // ============================================================
+        function initTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    tabs.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const target = this.dataset.tab;
+                    document.querySelectorAll('.tab-content').forEach(tc => {
+                        tc.classList.remove('active');
+                    });
+                    document.getElementById(target).classList.add('active');
+
+                    if (target === 'tabBuild') {
+                        initBuild();
+                    }
+                    if (target === 'tabLearn') {
+                        generateLearnWords();
+                    }
+                    if (target === 'tabPaint') {
+                        generatePaintWords();
+                    }
+                    if (target === 'tabRead') {
+                        generateReadWords();
+                    }
+
+                    playClickSound();
+                });
+            });
+        }
+
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+        function init() {
+            // Раздел 1: Учим буквы
+            renderLetters();
+
+            // Раздел 2: Учимся
+            generateLearnWords();
+            document.getElementById('newLearnBtn').addEventListener('click', generateLearnWords);
+            document.getElementById('colorLearnBtn').addEventListener('click', colorLearnAll);
+            document.getElementById('resetLearnBtn').addEventListener('click', resetLearn);
+
+            // Раздел 3: Раскрась слово
+            generatePaintWords();
+            document.getElementById('newPaintBtn').addEventListener('click', generatePaintWords);
+            document.getElementById('resetPaintBtn').addEventListener('click', resetPaint);
+            document.getElementById('checkPaintBtn').addEventListener('click', checkPaint);
+            initPalette();
+
+            // Раздел 4: Собери слово
+            document.getElementById('resetBuildBtn').addEventListener('click', resetBuild);
+            document.getElementById('checkBuildBtn').addEventListener('click', checkBuild);
+            document.getElementById('colorBuildBtn').addEventListener('click', colorBuild);
+
+            // Раздел 5: Прочитай слово
+            generateReadWords();
+            document.getElementById('newReadBtn').addEventListener('click', generateReadWords);
+
+            // Вкладки
+            initTabs();
+
+            setTimeout(() => {
+                initBuild();
+            }, 100);
+
+            document.getElementById('paintMessage').textContent = '🎨 Выбери цвет в палитре и нажми на букву, чтобы раскрасить!';
+            document.getElementById('learnMessage').textContent = '👆 Нажми на букву в слове, чтобы увидеть её цвет!';
+            document.getElementById('lettersMessage').textContent = '🔤 Нажми на букву, чтобы узнать её правило!';
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+</script>
+</body>
+</html>
