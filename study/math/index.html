@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Учимся считать · Дошкольный тренажёр</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: #f0f7fb;
+            min-height: 100vh;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 32px 32px 24px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            padding: 20px 18px 28px;
+            transition: all 0.2s;
+        }
+        h1 {
+            font-size: clamp(1.6rem, 5vw, 2.6rem);
+            font-weight: 700;
+            color: #1f4a6b;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dbe4ed;
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            background: #eef4fa;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            font-weight: 600;
+            color: #1f3e57;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            flex: 0 1 auto;
+        }
+        .tab-btn:hover {
+            background: #dce8f2;
+            transform: scale(0.97);
+        }
+        .tab-btn.active {
+            background: #1f4a6b;
+            color: white;
+            box-shadow: 0 4px 12px rgba(26, 67, 113, 0.25);
+        }
+        .section {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fade {
+            0% { opacity: 0.3; transform: translateY(4px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        /* общие сетки */
+        .count-grid, .domik-grid, .ex-grid, .fig-grid, .connect-grid, .task-grid, .logic-grid, .compare-grid {
+            display: grid;
+            gap: 14px;
+            margin: 10px 0;
+        }
+        .count-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .domik-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px 16px; }
+        .ex-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px 18px; }
+        .fig-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px 16px; }
+        .connect-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+        .task-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+        .logic-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+        .compare-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+
+        .count-card {
+            background: #fafdff;
+            border-radius: 24px;
+            padding: 12px 6px 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            border: 1px solid #e2ecf5;
+            text-align: center;
+            transition: 0.15s;
+        }
+        .count-number {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: #124263;
+            line-height: 1.2;
+        }
+        .count-icons {
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            line-height: 1.3;
+            min-height: 2.8rem;
+            letter-spacing: 2px;
+            color: #2f5a7a;
+            word-break: break-all;
+        }
+        /* домики */
+        .house {
+            background: #f6faff;
+            border-radius: 24px 24px 14px 14px;
+            padding: 12px 4px 14px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            border: 2px solid #d2e2f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .roof {
+            background: #bb4d4d;
+            color: white;
+            font-weight: 700;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            width: clamp(48px, 10vw, 60px);
+            height: clamp(48px, 10vw, 60px);
+            border-radius: 50px 50px 14px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -30px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 0 #8f3737;
+            border: 2px solid #a33f3f;
+        }
+        .floor {
+            display: flex;
+            gap: clamp(12px, 3vw, 20px);
+            background: #e7f0f8;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin: 3px 0;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .floor-cell {
+            background: white;
+            border-radius: 24px;
+            width: clamp(38px, 8vw, 48px);
+            height: clamp(38px, 8vw, 48px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 600;
+            color: #003153;
+            border: 2px dashed #97b9d1;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+            flex-shrink: 0;
+        }
+        .floor-cell.filled {
+            border: 2px solid #3e7fa3;
+            background: #f0f9ff;
+        }
+        .floor-cell.missing {
+            border: 3px dashed #f7b731;
+            background: #fcf2d7;
+            color: #a76f0f;
+        }
+        .floor-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            text-align: center;
+            color: #003153;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            outline: none;
+            padding: 0;
+            min-width: 0;
+        }
+        .floor-cell input:focus {
+            background: #fff7e0;
+            border-radius: 24px;
+        }
+        /* последовательность */
+        .seq-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3px 5px;
+            background: #f4faff;
+            border-radius: 40px;
+            padding: 12px 14px;
+            border: 2px solid #cbdde9;
+            margin: 8px 0;
+        }
+        .seq-num {
+            background: white;
+            border-radius: 24px;
+            padding: 4px 10px;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            font-weight: 600;
+            border: 2px solid #bed5e6;
+            color: #003153;
+            min-width: 32px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .seq-num.missing {
+            background: #fcf2d7;
+            border: 3px dashed #f7b731;
+            color: #a76f0f;
+            min-width: 40px;
+        }
+        .seq-num input {
+            width: 100%;
+            min-width: 30px;
+            border: none;
+            background: transparent;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            font-weight: 700;
+            text-align: center;
+            color: #003153;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            outline: none;
+            padding: 0;
+        }
+        .seq-num input:focus {
+            background: #fff7e0;
+            border-radius: 20px;
+        }
+        /* кнопки */
+        .inline-btn {
+            background: #d1e2f0;
+            border: none;
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-weight: 600;
+            color: #1f4a6b;
+            cursor: pointer;
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+            transition: 0.15s;
+            margin: 2px 4px 2px 0;
+            white-space: nowrap;
+        }
+        .inline-btn:hover {
+            background: #b2cbdf;
+        }
+        .check-btn {
+            background: #fcb045;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 24px;
+            font-weight: 700;
+            color: #1d3a4f;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            cursor: pointer;
+            box-shadow: 0 4px 0 #b17d34;
+            transition: 0.07s linear;
+            margin: 4px 0;
+            white-space: nowrap;
+        }
+        .check-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #b17d34;
+        }
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            margin: 10px 0 4px;
+            align-items: center;
+        }
+        /* примеры */
+        .ex-section {
+            margin: 12px 0 6px;
+            padding: 10px 14px;
+            background: #f4faff;
+            border-radius: 24px;
+            border: 2px solid #d2e2ef;
+        }
+        .ex-section-title {
+            font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            color: #1f4a6b;
+            margin-bottom: 8px;
+        }
+        .ex-card {
+            background: #f7fcff;
+            border-radius: 30px;
+            padding: 12px 10px;
+            border: 1px solid #d2e2ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+            font-weight: 600;
+            color: #0b3857;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .ex-card input {
+            width: clamp(48px, 12vw, 60px);
+            height: clamp(40px, 8vw, 50px);
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+            font-weight: 600;
+            text-align: center;
+            border: 3px solid #b3ccdf;
+            border-radius: 24px;
+            background: white;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            color: #003153;
+            outline: none;
+            transition: 0.15s;
+            flex-shrink: 0;
+        }
+        .ex-card input:focus {
+            border-color: #2b7aa0;
+            box-shadow: 0 0 0 4px #c7dff0;
+        }
+        .ex-card input.correct {
+            border-color: #2c9a5e;
+            background: #e6f7ed;
+        }
+        .ex-card input.wrong {
+            border-color: #c44a4a;
+            background: #ffe6e6;
+        }
+        /* фигуры */
+        .fig-card {
+            background: #f8fbfe;
+            border-radius: 30px;
+            padding: 12px 6px 14px;
+            border: 2px solid #d3e3f0;
+            text-align: center;
+        }
+        .fig-svg {
+            font-size: clamp(2.8rem, 7vw, 4rem);
+            line-height: 1.2;
+            margin: 4px 0;
+        }
+        .fig-name {
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: #003153;
+            background: #e7f0f8;
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 24px;
+            margin: 4px 0;
+        }
+        .fig-detail {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 6px 0;
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            flex-wrap: wrap;
+        }
+        .fig-detail input {
+            width: clamp(42px, 10vw, 50px);
+            text-align: center;
+            font-weight: 600;
+            border: 2px solid #b8d0e1;
+            border-radius: 24px;
+            padding: 2px;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+        }
+        /* соедини */
+        .connect-card {
+            background: #fafffe;
+            border-radius: 30px;
+            padding: 12px 6px;
+            border: 2px solid #d3e3f0;
+            text-align: center;
+        }
+        .connect-items {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            letter-spacing: 3px;
+            margin: 4px 0;
+        }
+        .connect-select {
+            margin-top: 6px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 2px solid #b8d0e1;
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            font-weight: 600;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: white;
+            color: #1f4a6b;
+            cursor: pointer;
+            max-width: 100%;
+        }
+        .connect-select.correct {
+            border-color: #2c9a5e;
+            background: #e6f7ed;
+        }
+        .connect-select.wrong {
+            border-color: #c44a4a;
+            background: #ffe6e6;
+        }
+        /* задачи */
+        .task-card {
+            background: #fafffe;
+            border-radius: 30px;
+            padding: 14px 10px;
+            border: 2px solid #d3e3f0;
+            text-align: center;
+        }
+        .task-icons {
+            font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+            letter-spacing: 4px;
+            margin: 4px 0;
+            word-break: break-all;
+        }
+        .task-text {
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+            font-weight: 700;
+            color: #003153;
+            margin: 6px 0;
+        }
+        .task-input {
+            width: clamp(56px, 14vw, 70px);
+            height: clamp(40px, 8vw, 50px);
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+            font-weight: 600;
+            text-align: center;
+            border: 3px solid #b3ccdf;
+            border-radius: 24px;
+            background: white;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            color: #003153;
+            outline: none;
+        }
+        .task-input:focus {
+            border-color: #2b7aa0;
+            box-shadow: 0 0 0 4px #c7dff0;
+        }
+        .task-input.correct {
+            border-color: #2c9a5e;
+            background: #e6f7ed;
+        }
+        .task-input.wrong {
+            border-color: #c44a4a;
+            background: #ffe6e6;
+        }
+        /* логика */
+        .logic-card {
+            background: #fafffe;
+            border-radius: 30px;
+            padding: 16px 12px;
+            border: 2px solid #d3e3f0;
+            text-align: center;
+        }
+        .logic-question {
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            font-weight: 600;
+            color: #003153;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .logic-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 10px;
+            margin: 8px 0;
+        }
+        .logic-btn {
+            background: white;
+            border: 2px solid #b8d0e1;
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            font-weight: 600;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            color: #003153;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .logic-btn:hover {
+            background: #e7f0f8;
+        }
+        .logic-btn.selected {
+            background: #1f4a6b;
+            color: white;
+            border-color: #1f4a6b;
+        }
+        .logic-btn.correct {
+            background: #2c9a5e;
+            color: white;
+            border-color: #2c9a5e;
+        }
+        .logic-btn.wrong {
+            background: #c44a4a;
+            color: white;
+            border-color: #c44a4a;
+        }
+        .logic-btn:disabled {
+            cursor: default;
+            opacity: 0.8;
+        }
+        /* сравни */
+        .compare-card {
+            background: #fafffe;
+            border-radius: 30px;
+            padding: 16px 10px;
+            border: 2px solid #d3e3f0;
+            text-align: center;
+        }
+        .compare-numbers {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px 12px;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: #003153;
+            flex-wrap: wrap;
+        }
+        .compare-select {
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 24px;
+            border: 2px solid #b8d0e1;
+            background: white;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            color: #1f4a6b;
+            cursor: pointer;
+        }
+        .compare-select.correct {
+            border-color: #2c9a5e;
+            background: #e6f7ed;
+        }
+        .compare-select.wrong {
+            border-color: #c44a4a;
+            background: #ffe6e6;
+        }
+        /* общие */
+        .footnote {
+            margin-top: 24px;
+            color: #637e96;
+            font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+            border-top: 1px solid #dde6ef;
+            padding-top: 14px;
+            text-align: center;
+        }
+        .msg-text {
+            font-weight: 500;
+            color: #1f6b4a;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            margin: 4px 0;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #1f4a6b;
+            margin-bottom: 6px;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+        }
+        /* для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .container { padding: 12px 10px 20px; }
+            .tabs { gap: 4px 5px; }
+            .tab-btn { padding: 6px 12px; font-size: 0.75rem; }
+            .floor { gap: 8px; padding: 3px 8px; }
+            .floor-cell { width: 34px; height: 34px; font-size: 0.95rem; }
+            .floor-cell input { font-size: 0.95rem; }
+            .seq-num { padding: 2px 6px; font-size: 0.85rem; min-width: 26px; }
+            .seq-num input { min-width: 24px; font-size: 0.85rem; }
+            .ex-card { font-size: 1rem; padding: 8px 6px; }
+            .ex-card input { width: 40px; height: 34px; font-size: 1rem; }
+            .compare-numbers { font-size: 1.3rem; gap: 4px; }
+            .compare-select { font-size: 1.1rem; padding: 2px 6px; }
+            .roof { width: 40px; height: 40px; font-size: 1.2rem; margin-top: -24px; }
+            .check-btn { padding: 4px 16px; font-size: 0.8rem; }
+            .inline-btn { padding: 4px 14px; font-size: 0.75rem; }
+        }
+        @media (max-width: 380px) {
+            .count-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+            .domik-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+            .ex-grid { grid-template-columns: 1fr; }
+            .fig-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+        }
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container { padding: 24px 22px 32px; }
+            .domik-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+            .ex-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+        }
+        @media (min-width: 1025px) {
+            .container { padding: 28px 32px 40px; }
+            .domik-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+            .ex-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🧸 Учимся считать</h1>
+
+    <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-section="section-count" role="tab">🔢 Счёт</button>
+        <button class="tab-btn" data-section="section-connect" role="tab">🔗 Соедини</button>
+        <button class="tab-btn" data-section="section-houses" role="tab">🏠 Домики</button>
+        <button class="tab-btn" data-section="section-seq" role="tab">🔁 Последовательность</button>
+        <button class="tab-btn" data-section="section-examples" role="tab">🧮 Примеры</button>
+        <button class="tab-btn" data-section="section-compare" role="tab">⚖️ Сравни</button>
+        <button class="tab-btn" data-section="section-figures" role="tab">⬛ Фигуры</button>
+        <button class="tab-btn" data-section="section-tasks" role="tab">📚 Задачи</button>
+        <button class="tab-btn" data-section="section-logic" role="tab">🧠 Логика</button>
+    </div>
+
+    <!-- СЧЁТ -->
+    <div id="section-count" class="section active" role="tabpanel">
+        <div class="count-grid" id="countGrid"></div>
+    </div>
+
+    <!-- СОЕДИНИ -->
+    <div id="section-connect" class="section" role="tabpanel">
+        <div class="section-title">Соотнеси число с количеством предметов</div>
+        <div class="connect-grid" id="connectGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkConnectBtn">✅ Проверить</button>
+            <button class="inline-btn" id="resetConnectBtn">🔄 Новые задания</button>
+        </div>
+        <div id="connectMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ЧИСЛОВЫЕ ДОМИКИ -->
+    <div id="section-houses" class="section" role="tabpanel">
+        <div class="section-title">Вставь пропущенные числа (все варианты состава числа)</div>
+        <div class="domik-grid" id="houseGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkHouseBtn">✅ Проверить домики</button>
+            <button class="inline-btn" id="resetHouseBtn">🔄 Новые домики</button>
+        </div>
+        <div id="houseMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ПОСЛЕДОВАТЕЛЬНОСТЬ -->
+    <div id="section-seq" class="section" role="tabpanel">
+        <div class="section-title">Числовой отрезок 1–20</div>
+        <div class="seq-line" id="seqForwardLine"></div>
+        <div class="section-title" style="margin-top:10px;">Числовой отрезок 20–1</div>
+        <div class="seq-line" id="seqBackwardLine"></div>
+        <div class="section-title" style="margin-top:10px;">🔹 Вставь пропущенные числа (прямой ряд)</div>
+        <div class="seq-line" id="seqMissingForward"></div>
+        <div class="section-title">🔹 Вставь пропущенные числа (обратный ряд)</div>
+        <div class="seq-line" id="seqMissingBackward"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkSeqBtn">✅ Проверить пропуски</button>
+            <button class="inline-btn" id="resetSeqBtn">🔄 Новые задания</button>
+        </div>
+        <div id="seqMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ПРИМЕРЫ -->
+    <div id="section-examples" class="section" role="tabpanel">
+        <div class="ex-section">
+            <div class="ex-section-title">📗 Примеры в пределах 10</div>
+            <div class="ex-grid" id="exGrid10"></div>
+        </div>
+        <div class="ex-section">
+            <div class="ex-section-title">📘 Примеры в пределах 20</div>
+            <div class="ex-grid" id="exGrid20"></div>
+        </div>
+        <div class="action-row">
+            <button class="check-btn" id="checkExBtn">✅ Проверить все примеры</button>
+            <button class="inline-btn" id="resetExBtn">🔄 Новые примеры</button>
+        </div>
+        <div id="exMsg" class="msg-text"></div>
+    </div>
+
+    <!-- СРАВНИ -->
+    <div id="section-compare" class="section" role="tabpanel">
+        <div class="section-title">Сравни числа и поставь знак &gt;, &lt; или =</div>
+        <div class="compare-grid" id="compareGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkCompareBtn">✅ Проверить сравнение</button>
+            <button class="inline-btn" id="resetCompareBtn">🔄 Новые задания</button>
+        </div>
+        <div id="compareMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ГЕОМЕТРИЧЕСКИЕ ФИГУРЫ -->
+    <div id="section-figures" class="section" role="tabpanel">
+        <div class="fig-grid" id="figGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkFigBtn">✅ Проверить углы</button>
+        </div>
+        <div id="figMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ЗАДАЧИ -->
+    <div id="section-tasks" class="section" role="tabpanel">
+        <div class="section-title">Реши задачи на сложение и вычитание в пределах 10</div>
+        <div class="task-grid" id="taskGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkTaskBtn">✅ Проверить задачи</button>
+            <button class="inline-btn" id="resetTaskBtn">🔄 Новые задачи</button>
+        </div>
+        <div id="taskMsg" class="msg-text"></div>
+    </div>
+
+    <!-- ЛОГИКА -->
+    <div id="section-logic" class="section" role="tabpanel">
+        <div class="section-title">Логические задачи для 5–7 лет</div>
+        <div class="logic-grid" id="logicGrid"></div>
+        <div class="action-row">
+            <button class="check-btn" id="checkLogicBtn">✅ Проверить логику</button>
+            <button class="inline-btn" id="resetLogicBtn">🔄 Новые задания</button>
+        </div>
+        <div id="logicMsg" class="msg-text"></div>
+    </div>
+
+    <div class="footnote">👧🧒 Нажимай на кнопки, вписывай ответы — учись с удовольствием!</div>
+</div>
+<script>
+    (function(){
+        // ---------- данные ----------
+        const COUNT_ITEMS = [
+            {num:1, icons:'🐶'}, {num:2, icons:'🐱🐱'}, {num:3, icons:'🐭🐭🐭'}, {num:4, icons:'🐹🐹🐹🐹'},
+            {num:5, icons:'🐰🐰🐰🐰🐰'}, {num:6, icons:'🦊🦊🦊🦊🦊🦊'}, {num:7, icons:'🐻🐻🐻🐻🐻🐻🐻'},
+            {num:8, icons:'🐼🐼🐼🐼🐼🐼🐼🐼'}, {num:9, icons:'🐨🐨🐨🐨🐨🐨🐨🐨🐨'}, {num:10, icons:'🦁🦁🦁🦁🦁🦁🦁🦁🦁🦁'},
+            {num:11, icons:'🐮'.repeat(11)}, {num:12, icons:'🐷'.repeat(12)}, {num:13, icons:'🐸'.repeat(13)},
+            {num:14, icons:'🐵'.repeat(14)}, {num:15, icons:'🐔'.repeat(15)}, {num:16, icons:'🐧'.repeat(16)},
+            {num:17, icons:'🐦'.repeat(17)}, {num:18, icons:'🐤'.repeat(18)}, {num:19, icons:'🐣'.repeat(19)},
+            {num:20, icons:'🐥'.repeat(20)}
+        ];
+
+        const FIGURES = [
+            {name:'Треугольник', symbol:'△', angles:3},
+            {name:'Квадрат', symbol:'◻', angles:4},
+            {name:'Прямоугольник', symbol:'▭', angles:4},
+            {name:'Пятиугольник', symbol:'⬠', angles:5},
+            {name:'Шестиугольник', symbol:'⬡', angles:6},
+            {name:'Круг', symbol:'○', angles:0},
+            {name:'Ромб', symbol:'◇', angles:4}
+        ];
+
+        // ---------- СЧЁТ ----------
+        function renderCount() {
+            const grid = document.getElementById('countGrid');
+            grid.innerHTML = '';
+            COUNT_ITEMS.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'count-card';
+                card.innerHTML = `<div class="count-number">${item.num}</div><div class="count-icons">${item.icons}</div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        // ---------- СОЕДИНИ ----------
+        let connectData = [];
+        function generateConnect() {
+            const items = [
+                {num:1, icons:'🍎'}, {num:2, icons:'🍌🍌'}, {num:3, icons:'🍒🍒🍒'}, {num:4, icons:'🍓🍓🍓🍓'},
+                {num:5, icons:'🍉🍉🍉🍉🍉'}, {num:6, icons:'🍇🍇🍇🍇🍇🍇'}, {num:7, icons:'🍊🍊🍊🍊🍊🍊🍊'},
+                {num:8, icons:'🍋🍋🍋🍋🍋🍋🍋🍋'}, {num:9, icons:'🍑🍑🍑🍑🍑🍑🍑🍑🍑'}, {num:10, icons:'🍍🍍🍍🍍🍍🍍🍍🍍🍍🍍'}
+            ];
+            const shuffled = items.sort(() => Math.random() - 0.5);
+            connectData = shuffled.slice(0, 6);
+            renderConnect();
+        }
+
+        function renderConnect() {
+            const grid = document.getElementById('connectGrid');
+            grid.innerHTML = '';
+            connectData.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'connect-card';
+                const options = [1,2,3,4,5,6,7,8,9,10].sort(() => Math.random() - 0.5).slice(0, 4);
+                if (!options.includes(item.num)) options[0] = item.num;
+                const shuffledOptions = options.sort(() => Math.random() - 0.5);
+                let optsHtml = shuffledOptions.map(v => `<option value="${v}">${v}</option>`).join('');
+                card.innerHTML = `
+                    <div class="connect-items">${item.icons}</div>
+                    <div style="font-size:0.85rem; color:#3f6989; margin:2px 0;">Сколько?</div>
+                    <select class="connect-select" data-answer="${item.num}">
+                        <option value="">—</option>
+                        ${optsHtml}
+                    </select>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('connectMsg').innerHTML = '';
+        }
+
+        function checkConnect() {
+            const selects = document.querySelectorAll('#connectGrid .connect-select');
+            let correct = 0;
+            selects.forEach(sel => {
+                const user = sel.value;
+                const ans = sel.dataset.answer;
+                if (user === ans) { correct++; sel.className = 'connect-select correct'; }
+                else { sel.className = 'connect-select wrong'; }
+            });
+            document.getElementById('connectMsg').innerHTML = `✅ Верно: ${correct} из ${selects.length}`;
+        }
+
+        // ---------- ДОМИКИ ----------
+        let houseData = [];
+        function generateHouses() {
+            const houses = [];
+            for (let sum = 1; sum <= 10; sum++) {
+                const floors = [];
+                for (let i = 0; i <= sum; i++) {
+                    floors.push({a: i, b: sum - i});
+                }
+                houses.push({sum, floors});
+            }
+            houseData = houses;
+            renderHouses();
+        }
+
+        function renderHouses() {
+            const grid = document.getElementById('houseGrid');
+            grid.innerHTML = '';
+            houseData.forEach((h) => {
+                const house = document.createElement('div');
+                house.className = 'house';
+                let floorsHtml = '';
+                h.floors.forEach((floor) => {
+                    const hideLeft = Math.random() > 0.5;
+                    const answer = hideLeft ? floor.a : floor.b;
+                    floorsHtml += `
+                        <div class="floor">
+                            <div class="floor-cell ${hideLeft ? 'missing' : 'filled'}">
+                                ${hideLeft ? `<input type="text" data-answer="${answer}" maxlength="2" placeholder="?">` : floor.a}
+                            </div>
+                            <div class="floor-cell ${!hideLeft ? 'missing' : 'filled'}">
+                                ${!hideLeft ? `<input type="text" data-answer="${answer}" maxlength="2" placeholder="?">` : floor.b}
+                            </div>
+                        </div>
+                    `;
+                });
+                house.innerHTML = `
+                    <div class="roof">${h.sum}</div>
+                    ${floorsHtml}
+                    <div style="margin-top:4px; font-size:0.65rem; color:#3f6989;">все варианты</div>
+                `;
+                grid.appendChild(house);
+            });
+            document.getElementById('houseMsg').innerHTML = '';
+        }
+
+        function checkHouses() {
+            const inputs = document.querySelectorAll('#houseGrid .floor-cell input');
+            let correct = 0;
+            inputs.forEach(inp => {
+                const user = inp.value.trim();
+                const ans = inp.dataset.answer;
+                if (user === ans) { correct++; inp.style.border = '3px solid #2c9a5e'; inp.style.background = '#e6f7ed'; }
+                else { inp.style.border = '3px solid #c44a4a'; inp.style.background = '#ffe6e6'; }
+            });
+            document.getElementById('houseMsg').innerHTML = `✅ Домики: ${correct} из ${inputs.length} верно`;
+        }
+
+        // ---------- ПОСЛЕДОВАТЕЛЬНОСТЬ ----------
+        function renderSeq() {
+            const fwd = Array.from({length:20}, (_,i) => i+1);
+            document.getElementById('seqForwardLine').innerHTML = fwd.map(n => `<span class="seq-num">${n}</span>`).join('');
+            const bwd = Array.from({length:20}, (_,i) => 20-i);
+            document.getElementById('seqBackwardLine').innerHTML = bwd.map(n => `<span class="seq-num">${n}</span>`).join('');
+
+            const missingFwd = generateMissingPositions(20, 5);
+            const htmlFwd = fwd.map((n, i) => {
+                if (missingFwd.includes(i)) {
+                    return `<span class="seq-num missing"><input type="text" data-answer="${n}" maxlength="2" placeholder="?"></span>`;
+                }
+                return `<span class="seq-num">${n}</span>`;
+            }).join('');
+            document.getElementById('seqMissingForward').innerHTML = htmlFwd;
+
+            const missingBwd = generateMissingPositions(20, 5);
+            const htmlBwd = bwd.map((n, i) => {
+                if (missingBwd.includes(i)) {
+                    return `<span class="seq-num missing"><input type="text" data-answer="${n}" maxlength="2" placeholder="?"></span>`;
+                }
+                return `<span class="seq-num">${n}</span>`;
+            }).join('');
+            document.getElementById('seqMissingBackward').innerHTML = htmlBwd;
+
+            document.getElementById('seqMsg').innerHTML = '';
+        }
+
+        function generateMissingPositions(total, count) {
+            const indices = [];
+            while (indices.length < count) {
+                const r = Math.floor(Math.random() * total);
+                if (!indices.includes(r)) indices.push(r);
+            }
+            return indices.sort((a,b) => a-b);
+        }
+
+        function checkSeq() {
+            const inputs = document.querySelectorAll('#seqMissingForward input, #seqMissingBackward input');
+            let correct = 0;
+            inputs.forEach(inp => {
+                const user = inp.value.trim();
+                const ans = inp.dataset.answer;
+                if (user === ans) { correct++; inp.style.border = '3px solid #2c9a5e'; inp.style.background = '#e6f7ed'; }
+                else { inp.style.border = '3px solid #c44a4a'; inp.style.background = '#ffe6e6'; }
+            });
+            document.getElementById('seqMsg').innerHTML = `✅ Пропуски: ${correct} из ${inputs.length} верно`;
+        }
+
+        // ---------- ПРИМЕРЫ ----------
+        let examples10 = [];
+        let examples20 = [];
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generateExamples() {
+            const ex10 = [];
+            for (let i=0; i<6; i++) {
+                let a = Math.floor(Math.random() * 9) + 1;
+                let b = Math.floor(Math.random() * (10 - a)) + 1;
+                if (a + b > 10) { a = Math.floor(Math.random() * 5) + 1; b = Math.floor(Math.random() * (10 - a)) + 1; }
+                ex10.push({type:'sum', a, b, op:'+', res: a+b});
+            }
+            for (let i=0; i<4; i++) {
+                let a = Math.floor(Math.random() * 9) + 2;
+                let b = Math.floor(Math.random() * (a - 1)) + 1;
+                ex10.push({type:'sub', a, b, op:'−', res: a-b});
+            }
+            for (let i=0; i<3; i++) {
+                let a = Math.floor(Math.random() * 8) + 1;
+                let b = Math.floor(Math.random() * (9 - a)) + 1;
+                if (a + b > 10) { a = Math.floor(Math.random() * 4) + 1; b = Math.floor(Math.random() * (9 - a)) + 1; }
+                const r = a + b;
+                ex10.push({type:'unknown_sum', a: null, b, op:'+', res: r, unknown: 'a', answer: r - b});
+            }
+            for (let i=0; i<3; i++) {
+                let a = Math.floor(Math.random() * 9) + 2;
+                let b = Math.floor(Math.random() * (a - 1)) + 1;
+                const r = a - b;
+                ex10.push({type:'unknown_sub', a, b:null, op:'−', res: r, unknown: 'b', answer: a - r});
+            }
+            examples10 = shuffleArray(ex10).slice(0, 12);
+
+            const ex20 = [];
+            for (let i=0; i<6; i++) {
+                let a = Math.floor(Math.random() * 11) + 1;
+                let b = Math.floor(Math.random() * 11) + 1;
+                if (a + b > 20) { a = Math.floor(Math.random() * 9) + 1; b = Math.floor(Math.random() * (20 - a)) + 1; }
+                ex20.push({type:'sum', a, b, op:'+', res: a+b});
+            }
+            for (let i=0; i<4; i++) {
+                let a = Math.floor(Math.random() * 12) + 5;
+                let b = Math.floor(Math.random() * 9) + 1;
+                if (a - b < 1) { a = Math.floor(Math.random() * 10) + 10; b = Math.floor(Math.random() * 5) + 1; }
+                ex20.push({type:'sub', a, b, op:'−', res: a-b});
+            }
+            for (let i=0; i<3; i++) {
+                let a = Math.floor(Math.random() * 10) + 2;
+                let b = Math.floor(Math.random() * 8) + 1;
+                if (a + b > 20) { a = Math.floor(Math.random() * 8) + 2; b = Math.floor(Math.random() * 6) + 1; }
+                const r = a + b;
+                ex20.push({type:'unknown_sum', a: null, b, op:'+', res: r, unknown: 'a', answer: r - b});
+            }
+            for (let i=0; i<3; i++) {
+                let a = Math.floor(Math.random() * 12) + 6;
+                let b = Math.floor(Math.random() * 7) + 1;
+                if (a - b < 1) { a = Math.floor(Math.random() * 10) + 12; b = Math.floor(Math.random() * 4) + 1; }
+                const r = a - b;
+                ex20.push({type:'unknown_sub', a, b:null, op:'−', res: r, unknown: 'b', answer: a - r});
+            }
+            examples20 = shuffleArray(ex20).slice(0, 12);
+
+            renderExamples();
+        }
+
+        function renderExamples() {
+            renderExampleGrid('exGrid10', examples10);
+            renderExampleGrid('exGrid20', examples20);
+            document.getElementById('exMsg').innerHTML = '';
+        }
+
+        function renderExampleGrid(gridId, examples) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = '';
+            examples.forEach((ex) => {
+                const card = document.createElement('div');
+                card.className = 'ex-card';
+                let html = '';
+                if (ex.type === 'sum' || ex.type === 'sub') {
+                    html = `${ex.a} ${ex.op} ${ex.b} = <input type="text" data-answer="${ex.res}" maxlength="3">`;
+                } else if (ex.type === 'unknown_sum') {
+                    html = `? ${ex.op} ${ex.b} = ${ex.res}  → <input type="text" data-answer="${ex.answer}" maxlength="3">`;
+                } else if (ex.type === 'unknown_sub') {
+                    html = `${ex.a} ${ex.op} ? = ${ex.res}  → <input type="text" data-answer="${ex.answer}" maxlength="3">`;
+                }
+                card.innerHTML = html;
+                grid.appendChild(card);
+            });
+        }
+
+        function checkExamples() {
+            const inputs = document.querySelectorAll('#exGrid10 input, #exGrid20 input');
+            let correct = 0;
+            inputs.forEach(inp => {
+                const user = inp.value.trim();
+                const ans = inp.dataset.answer;
+                if (user === ans) { correct++; inp.className = 'correct'; }
+                else { inp.className = 'wrong'; }
+            });
+            document.getElementById('exMsg').innerHTML = `✅ Примеры: ${correct} из ${inputs.length} верно`;
+        }
+
+        // ---------- СРАВНИ ----------
+        let compareData = [];
+        function generateCompare() {
+            const items = [];
+            for (let i = 0; i < 8; i++) {
+                let a = Math.floor(Math.random() * 10) + 1;
+                let b = Math.floor(Math.random() * 10) + 1;
+                items.push({a, b});
+            }
+            compareData = items;
+            renderCompare();
+        }
+
+        function renderCompare() {
+            const grid = document.getElementById('compareGrid');
+            grid.innerHTML = '';
+            compareData.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'compare-card';
+                const correctSign = item.a > item.b ? '>' : (item.a < item.b ? '<' : '=');
+                card.innerHTML = `
+                    <div class="compare-numbers">
+                        <span>${item.a}</span>
+                        <select class="compare-select" data-answer="${correctSign}">
+                            <option value="">?</option>
+                            <option value=">">&gt;</option>
+                            <option value="<">&lt;</option>
+                            <option value="=">=</option>
+                        </select>
+                        <span>${item.b}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('compareMsg').innerHTML = '';
+        }
+
+        function checkCompare() {
+            const selects = document.querySelectorAll('#compareGrid .compare-select');
+            let correct = 0;
+            selects.forEach(sel => {
+                const user = sel.value;
+                const ans = sel.dataset.answer;
+                if (user === ans) { correct++; sel.className = 'compare-select correct'; }
+                else { sel.className = 'compare-select wrong'; }
+            });
+            document.getElementById('compareMsg').innerHTML = `✅ Сравнение: ${correct} из ${selects.length} верно`;
+        }
+
+        // ---------- ГЕОМЕТРИЯ ----------
+        function renderFigures() {
+            const grid = document.getElementById('figGrid');
+            grid.innerHTML = '';
+            FIGURES.forEach(f => {
+                const card = document.createElement('div');
+                card.className = 'fig-card';
+                card.innerHTML = `
+                    <div class="fig-svg">${f.symbol}</div>
+                    <div class="fig-name">${f.name}</div>
+                    <div class="fig-detail"><span>🔺 углов: <input type="text" data-answer="${f.angles}" maxlength="2" placeholder="?"></span></div>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('figMsg').innerHTML = '';
+        }
+
+        function checkFigures() {
+            const inputs = document.querySelectorAll('#figGrid input');
+            let correct = 0;
+            inputs.forEach(inp => {
+                const user = inp.value.trim();
+                const ans = inp.dataset.answer;
+                if (user === ans) { correct++; inp.style.border='3px solid #2c9a5e'; inp.style.background='#e6f7ed'; }
+                else { inp.style.border='3px solid #c44a4a'; inp.style.background='#ffe6e6'; }
+            });
+            document.getElementById('figMsg').innerHTML = `✅ Углы: ${correct} из ${inputs.length} верно`;
+        }
+
+        // ---------- ЗАДАЧИ ----------
+        let tasks = [];
+        function generateTasks() {
+            const newTasks = [];
+            const emojis = ['🍎', '🍌', '🍒', '🍓', '🍉', '🍇', '🍊', '🍋', '🍑', '🍍', '🐶', '🐱', '🐭', '🐹', '🐰'];
+            for (let i = 0; i < 6; i++) {
+                const isAdd = Math.random() > 0.5;
+                let a, b, result, emoji;
+                if (isAdd) {
+                    a = Math.floor(Math.random() * 5) + 1;
+                    b = Math.floor(Math.random() * (10 - a)) + 1;
+                    result = a + b;
+                    emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    newTasks.push({
+                        type: 'add',
+                        a, b, result,
+                        emoji,
+                        text: `Сколько всего?`,
+                        display: `${emoji.repeat(a)} + ${emoji.repeat(b)}`
+                    });
+                } else {
+                    a = Math.floor(Math.random() * 9) + 2;
+                    b = Math.floor(Math.random() * (a - 1)) + 1;
+                    result = a - b;
+                    emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    newTasks.push({
+                        type: 'sub',
+                        a, b, result,
+                        emoji,
+                        text: `Сколько осталось?`,
+                        display: `${emoji.repeat(a)} — ${emoji.repeat(b)}`
+                    });
+                }
+            }
+            tasks = newTasks;
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const grid = document.getElementById('taskGrid');
+            grid.innerHTML = '';
+            tasks.forEach((task) => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.innerHTML = `
+                    <div class="task-icons">${task.display}</div>
+                    <div class="task-text">${task.text}</div>
+                    <div><input class="task-input" type="text" data-answer="${task.result}" maxlength="2" placeholder="?"></div>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('taskMsg').innerHTML = '';
+        }
+
+        function checkTasks() {
+            const inputs = document.querySelectorAll('#taskGrid .task-input');
+            let correct = 0;
+            inputs.forEach(inp => {
+                const user = inp.value.trim();
+                const ans = inp.dataset.answer;
+                if (user === ans) { correct++; inp.className = 'task-input correct'; }
+                else { inp.className = 'task-input wrong'; }
+            });
+            document.getElementById('taskMsg').innerHTML = `✅ Задачи: ${correct} из ${inputs.length} верно`;
+        }
+
+        // ---------- ЛОГИКА ----------
+        let logicData = [];
+        function generateLogic() {
+            const tasks = [
+                { question: 'У Саши 3 яблока, а у Пети на 2 больше. Сколько яблок у Пети?', options: [3, 5, 6, 4], answer: 5 },
+                { question: 'На дереве сидело 7 ворон. 3 улетело. Сколько ворон осталось?', options: [4, 5, 3, 6], answer: 4 },
+                { question: 'Какое число больше: 8 или 5?', options: [8, 5, 10, 3], answer: 8 },
+                { question: 'У Маши было 6 конфет, она съела 2. Сколько конфет осталось?', options: [4, 5, 3, 6], answer: 4 },
+                { question: 'Сколько лап у двух кошек?', options: [4, 6, 8, 10], answer: 8 },
+                { question: 'На поляне было 5 зайцев, прибежало ещё 3. Сколько зайцев стало?', options: [6, 7, 8, 9], answer: 8 },
+                { question: 'Какое число на 2 меньше, чем 7?', options: [4, 5, 6, 7], answer: 5 },
+                { question: 'В вазе 9 груш, взяли 4. Сколько груш осталось?', options: [5, 6, 4, 7], answer: 5 }
+            ];
+            const shuffled = tasks.sort(() => Math.random() - 0.5);
+            logicData = shuffled.slice(0, 4);
+            renderLogic();
+        }
+
+        function renderLogic() {
+            const grid = document.getElementById('logicGrid');
+            grid.innerHTML = '';
+            logicData.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = 'logic-card';
+                let optionsHtml = item.options.map((opt, oi) => `
+                    <button class="logic-btn" data-optidx="${oi}" data-value="${opt}" data-taskidx="${idx}">${opt}</button>
+                `).join('');
+                card.innerHTML = `
+                    <div class="logic-question">${item.question}</div>
+                    <div class="logic-options">${optionsHtml}</div>
+                    <div style="margin-top:4px; font-size:0.75rem; color:#3f6989;">выбери ответ</div>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('logicMsg').innerHTML = '';
+            document.querySelectorAll('.logic-btn').forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'wrong');
+                btn.disabled = false;
+            });
+        }
+
+        function checkLogic() {
+            const buttons = document.querySelectorAll('.logic-btn');
+            let correct = 0;
+            const tasksMap = {};
+            buttons.forEach(btn => {
+                const idx = btn.dataset.taskidx;
+                if (!tasksMap[idx]) tasksMap[idx] = [];
+                tasksMap[idx].push(btn);
+            });
+
+            Object.keys(tasksMap).forEach(idx => {
+                const btns = tasksMap[idx];
+                const task = logicData[parseInt(idx)];
+                let selected = null;
+                btns.forEach(btn => {
+                    if (btn.classList.contains('selected')) {
+                        selected = btn;
+                    }
+                });
+                if (selected) {
+                    const val = parseInt(selected.dataset.value);
+                    if (val === task.answer) {
+                        selected.classList.add('correct');
+                        correct++;
+                    } else {
+                        selected.classList.add('wrong');
+                        btns.forEach(b => {
+                            if (parseInt(b.dataset.value) === task.answer) {
+                                b.classList.add('correct');
+                            }
+                        });
+                    }
+                    btns.forEach(b => b.disabled = true);
+                } else {
+                    btns.forEach(b => {
+                        if (parseInt(b.dataset.value) === task.answer) {
+                            b.classList.add('correct');
+                        }
+                        b.disabled = true;
+                    });
+                }
+            });
+
+            document.getElementById('logicMsg').innerHTML = `✅ Логика: ${correct} из ${logicData.length} верно`;
+        }
+
+        // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+        function init() {
+            renderCount();
+            generateConnect();
+            generateHouses();
+            renderSeq();
+            generateExamples();
+            generateCompare();
+            renderFigures();
+            generateTasks();
+            generateLogic();
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(this.dataset.section).classList.add('active');
+                });
+            });
+
+            document.getElementById('checkConnectBtn').addEventListener('click', checkConnect);
+            document.getElementById('resetConnectBtn').addEventListener('click', generateConnect);
+
+            document.getElementById('checkHouseBtn').addEventListener('click', checkHouses);
+            document.getElementById('resetHouseBtn').addEventListener('click', generateHouses);
+
+            document.getElementById('checkSeqBtn').addEventListener('click', checkSeq);
+            document.getElementById('resetSeqBtn').addEventListener('click', renderSeq);
+
+            document.getElementById('checkExBtn').addEventListener('click', checkExamples);
+            document.getElementById('resetExBtn').addEventListener('click', generateExamples);
+
+            document.getElementById('checkCompareBtn').addEventListener('click', checkCompare);
+            document.getElementById('resetCompareBtn').addEventListener('click', generateCompare);
+
+            document.getElementById('checkFigBtn').addEventListener('click', checkFigures);
+
+            document.getElementById('checkTaskBtn').addEventListener('click', checkTasks);
+            document.getElementById('resetTaskBtn').addEventListener('click', generateTasks);
+
+            document.getElementById('checkLogicBtn').addEventListener('click', checkLogic);
+            document.getElementById('resetLogicBtn').addEventListener('click', generateLogic);
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('logic-btn') && !e.target.disabled) {
+                    const parent = e.target.closest('.logic-card');
+                    if (parent) {
+                        const btns = parent.querySelectorAll('.logic-btn');
+                        btns.forEach(b => b.classList.remove('selected'));
+                        e.target.classList.add('selected');
+                    }
+                }
+            });
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>

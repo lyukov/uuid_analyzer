@@ -787,6 +787,131 @@
             align-items: center;
         }
 
+        /* ===== РАЗДЕЛ "РАЗБЕРИ СЛОВО" ===== */
+        .analyze-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 35px;
+            border: 2px dashed #b095c0;
+            margin-bottom: 14px;
+        }
+        .analyze-word-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .analyze-word-display .word-image {
+            font-size: 4rem;
+        }
+        .analyze-word-display .word-letters {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .analyze-word-display .word-letters .letter {
+            width: 60px;
+            height: 60px;
+            font-size: 2.4rem;
+            cursor: default;
+        }
+        .analyze-word-display .word-letters .letter:hover {
+            transform: none;
+            box-shadow: 0 5px 0 #9a81ab, 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .analyze-questions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 40px;
+            width: 100%;
+        }
+        .analyze-question {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-width: 80px;
+        }
+        .analyze-question .question-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3d2a4d;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+        .analyze-question .options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .analyze-question .options .option-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 3px solid #b095c0;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c1e38;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 #8e749e;
+        }
+        .analyze-question .options .option-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0px 0 #8e749e;
+        }
+        .analyze-question .options .option-btn.selected {
+            background: #dcc7e8;
+            border-color: #6d4f82;
+            box-shadow: 0 3px 0 #6d4f82;
+        }
+        .analyze-question .options .option-btn.correct {
+            background: #2e9b6e;
+            border-color: #1a6e4d;
+            color: white;
+            box-shadow: 0 3px 0 #0d5739;
+        }
+        .analyze-question .options .option-btn.wrong {
+            background: #e74c5e;
+            border-color: #a13242;
+            color: white;
+            box-shadow: 0 3px 0 #8a2a38;
+        }
+        .analyze-question .options .option-btn:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+        .analyze-question .options .option-btn.correct:disabled,
+        .analyze-question .options .option-btn.wrong:disabled {
+            opacity: 1;
+        }
+        .analyze-result {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c1e38;
+            min-height: 2.5rem;
+            text-align: center;
+        }
+        .analyze-result.success {
+            color: #2e9b6e;
+        }
+        .analyze-result.error {
+            color: #e74c5e;
+        }
+
         /* ----- Адаптивность ----- */
         @media (max-width: 768px) {
             .container { padding: 20px 15px 30px; border-radius: 30px; }
@@ -814,6 +939,9 @@
             .legend-item { font-size: 0.75rem; }
             .color-box { width: 18px; height: 18px; }
             .message { font-size: 1rem; padding: 6px 12px; min-height: 2.4rem; }
+            .analyze-word-display .word-image { font-size: 3rem; }
+            .analyze-word-display .word-letters .letter { width: 48px; height: 48px; font-size: 2rem; }
+            .analyze-question .options .option-btn { width: 38px; height: 38px; font-size: 1.2rem; }
         }
 
         @media (max-width: 480px) {
@@ -857,6 +985,12 @@
             .controls { gap: 6px 12px; margin-top: 6px; }
             .subtitle { font-size: 0.9rem; padding: 4px 14px; margin-bottom: 10px; }
             .read-grid { gap: 10px 16px; }
+            .analyze-container { padding: 14px; gap: 14px; }
+            .analyze-word-display .word-image { font-size: 2.4rem; }
+            .analyze-word-display .word-letters .letter { width: 40px; height: 40px; font-size: 1.6rem; }
+            .analyze-question .options .option-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .analyze-questions { gap: 14px 20px; }
+            .analyze-result { font-size: 1rem; }
         }
 
         @media (max-width: 380px) {
@@ -871,6 +1005,8 @@
             .read-card .read-word .syllable-part .letter { font-size: 1.1rem; }
             .syllables-panel .syl-item { font-size: 0.95rem; padding: 2px 6px; }
             .syllables-panel .syl-item .syl-letter { font-size: 0.95rem; }
+            .analyze-word-display .word-letters .letter { width: 34px; height: 34px; font-size: 1.2rem; }
+            .analyze-question .options .option-btn { width: 30px; height: 30px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -890,6 +1026,7 @@
         <button class="tab-btn" data-tab="tabPaint">🎨 Раскрась</button>
         <button class="tab-btn" data-tab="tabBuild">🧩 Собери</button>
         <button class="tab-btn" data-tab="tabRead">📖 Читай</button>
+        <button class="tab-btn" data-tab="tabAnalyze">🔍 Разбери</button>
     </div>
 
     <!-- ===== РАЗДЕЛ 1: УЧИМ БУКВЫ ===== -->
@@ -1004,12 +1141,55 @@
         </div>
         <div class="message" id="readMessage">📖 Читай слова по слогам!</div>
     </div>
+
+    <!-- ===== РАЗДЕЛ 6: РАЗБЕРИ СЛОВО ===== -->
+    <div id="tabAnalyze" class="tab-content">
+        <div class="legend">
+            <span class="legend-item"><span class="color-box red"></span> Гласные</span>
+            <span class="legend-item"><span class="color-box blue"></span> Согласные</span>
+        </div>
+
+        <div class="analyze-container" id="analyzeContainer">
+            <div class="analyze-word-display" id="analyzeWordDisplay">
+                <span class="word-image" id="analyzeImage">🐱</span>
+                <div class="word-letters" id="analyzeLetters"></div>
+            </div>
+
+            <div class="analyze-questions" id="analyzeQuestions">
+                <!-- Слоги -->
+                <div class="analyze-question">
+                    <div class="question-label">📊 Слоги</div>
+                    <div class="options" id="syllableOptions"></div>
+                </div>
+                <!-- Гласные -->
+                <div class="analyze-question">
+                    <div class="question-label">🔴 Гласные</div>
+                    <div class="options" id="vowelOptions"></div>
+                </div>
+                <!-- Согласные -->
+                <div class="analyze-question">
+                    <div class="question-label">🔵 Согласные</div>
+                    <div class="options" id="consonantOptions"></div>
+                </div>
+            </div>
+
+            <div class="analyze-result" id="analyzeResult">Выбери ответы и нажми "Проверить"</div>
+
+            <div class="controls">
+                <button class="btn new-words" id="newAnalyzeBtn">🔄 Новое слово</button>
+                <button class="btn check" id="checkAnalyzeBtn">✅ Проверить</button>
+                <button class="btn reset" id="resetAnalyzeBtn">🔄 Сбросить</button>
+            </div>
+        </div>
+
+        <div class="message" id="analyzeMessage">🔍 Разбери слово: определи количество слогов, гласных и согласных!</div>
+    </div>
 </div>
 
 <script>
     (function() {
         // ============================================================
-        // ДАННЫЕ
+        // ДАННЫЕ (буквы и большой пул слов)
         // ============================================================
         const ALL_LETTERS = [
             { letter: 'А', emoji: '🍉', word: 'арбуз', color: 'red', rule: 'Гласная. Даёт звук [а]' },
@@ -1047,11 +1227,8 @@
             { letter: 'Я', emoji: '🍎', word: 'яблоко', color: 'green-red', rule: 'Гласная. После согласной — [а]; после гласной или Ъ/Ь — [йа]' }
         ];
 
-        // ============================================================
-        // БОЛЬШОЙ ПУЛ СЛОВ (более 100)
-        // ============================================================
+        // Большой пул слов (более 100)
         const ALL_WORDS_POOL = [
-            // Короткие слова (3-4 буквы)
             { word: ['к', 'о', 'т'], emoji: '🐱', display: 'КОТ', syllables: 'кот' },
             { word: ['м', 'я', 'ч'], emoji: '⚽', display: 'МЯЧ', syllables: 'мяч' },
             { word: ['с', 'о', 'н'], emoji: '🌙', display: 'СОН', syllables: 'сон' },
@@ -1082,7 +1259,6 @@
             { word: ['ю', 'л', 'а'], emoji: '🪀', display: 'ЮЛА', syllables: 'ю-ла' },
             { word: ['з', 'у', 'б', 'ы'], emoji: '🦷', display: 'ЗУБЫ', syllables: 'зу-бы' },
             { word: ['п', 'е', 'н', 'ь'], emoji: '🪵', display: 'ПЕНЬ', syllables: 'пень' },
-            // Слова с 4-5 буквами
             { word: ['м', 'о', 'р', 'е'], emoji: '🌊', display: 'МОРЕ', syllables: 'мо-ре' },
             { word: ['г', 'о', 'р', 'а'], emoji: '🏔️', display: 'ГОРА', syllables: 'го-ра' },
             { word: ['р', 'е', 'к', 'а'], emoji: '🏞️', display: 'РЕКА', syllables: 'ре-ка' },
@@ -1331,7 +1507,6 @@
                 let capitalColor = colorClass;
                 let lowercaseColor = colorClass;
                 
-                // Для зелено-синих: и заглавная, и строчная — зелено-синие
                 if (colorClass === 'blue-green') {
                     capitalColor = 'blue-green';
                     lowercaseColor = 'blue-green';
@@ -1348,7 +1523,6 @@
                 label.textContent = data.word;
                 card.appendChild(label);
 
-                // Плашка с правилом
                 const rulePopup = document.createElement('div');
                 rulePopup.className = 'rule-popup';
                 const colorStyle = data.color === 'red' ? '#e74c5e' : 
@@ -2062,6 +2236,175 @@
         }
 
         // ============================================================
+        // РАЗДЕЛ 6: РАЗБЕРИ СЛОВО
+        // ============================================================
+        let analyzeWord = null;
+        let analyzeAnswers = { syllables: null, vowels: null, consonants: null };
+        let analyzeChecked = false;
+
+        // Функция для подсчета слогов, гласных и согласных
+        function analyzeWordStats(wordArray) {
+            let vowelsCount = 0;
+            let consonantsCount = 0;
+            const lowerWord = wordArray.map(l => l.toLowerCase());
+            lowerWord.forEach(letter => {
+                if (VOWELS.has(letter)) {
+                    vowelsCount++;
+                } else if (!NO_SOUND.has(letter)) {
+                    // Считаем согласными все, кроме гласных и ь/ъ
+                    consonantsCount++;
+                }
+            });
+            // Количество слогов = количество гласных (упрощенно)
+            const syllablesCount = vowelsCount;
+            return { syllables: syllablesCount, vowels: vowelsCount, consonants: consonantsCount };
+        }
+
+        function generateAnalyzeWord() {
+            const randomIndex = Math.floor(Math.random() * ALL_WORDS_POOL.length);
+            analyzeWord = ALL_WORDS_POOL[randomIndex];
+            analyzeAnswers = { syllables: null, vowels: null, consonants: null };
+            analyzeChecked = false;
+            renderAnalyzeWord();
+            document.getElementById('analyzeResult').textContent = 'Выбери ответы и нажми "Проверить"';
+            document.getElementById('analyzeResult').className = 'analyze-result';
+            document.getElementById('analyzeMessage').textContent = '🔍 Разбери слово: определи количество слогов, гласных и согласных!';
+            document.getElementById('analyzeMessage').className = 'message';
+            // Активируем все кнопки
+            document.querySelectorAll('#analyzeQuestions .option-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('selected', 'correct', 'wrong');
+            });
+        }
+
+        function renderAnalyzeWord() {
+            if (!analyzeWord) return;
+            // Картинка
+            document.getElementById('analyzeImage').textContent = analyzeWord.emoji;
+            // Буквы
+            const lettersContainer = document.getElementById('analyzeLetters');
+            lettersContainer.innerHTML = '';
+            analyzeWord.word.forEach(letter => {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = letter.toUpperCase();
+                // Цвет не применяем, просто печатные буквы
+                lettersContainer.appendChild(span);
+            });
+
+            // Опции для каждого вопроса
+            const stats = analyzeWordStats(analyzeWord.word);
+            const maxSyllables = Math.max(stats.syllables, 1);
+            const maxVowels = Math.max(stats.vowels, 1);
+            const maxConsonants = Math.max(stats.consonants, 1);
+            const maxAll = Math.max(maxSyllables, maxVowels, maxConsonants, 5); // минимум 5
+
+            function createOptions(containerId, correctAnswer, maxVal) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                // Создаем кнопки от 0 до maxVal (но не меньше 1 и не больше 10)
+                const max = Math.min(Math.max(maxVal, 3), 10);
+                for (let i = 0; i <= max; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = i;
+                    btn.dataset.value = i;
+                    btn.addEventListener('click', function() {
+                        if (analyzeChecked) return;
+                        // Снимаем выделение со всех в этой группе
+                        container.querySelectorAll('.option-btn').forEach(b => {
+                            b.classList.remove('selected');
+                        });
+                        this.classList.add('selected');
+                        // Сохраняем ответ
+                        const question = containerId === 'syllableOptions' ? 'syllables' :
+                                         containerId === 'vowelOptions' ? 'vowels' : 'consonants';
+                        analyzeAnswers[question] = i;
+                    });
+                    container.appendChild(btn);
+                }
+            }
+
+            createOptions('syllableOptions', stats.syllables, maxSyllables);
+            createOptions('vowelOptions', stats.vowels, maxVowels);
+            createOptions('consonantOptions', stats.consonants, maxConsonants);
+        }
+
+        function checkAnalyze() {
+            if (!analyzeWord) return;
+            if (analyzeChecked) {
+                // Если уже проверено, можно сбросить и проверить заново? Лучше сбросить сначала.
+                // Но сделаем так: если уже проверено, то просто подсветим правильно/неправильно без изменения.
+                // Но чтобы было удобно, разрешим повторную проверку после сброса.
+                // Поэтому если уже checked, ничего не делаем.
+                return;
+            }
+            const stats = analyzeWordStats(analyzeWord.word);
+            let allCorrect = true;
+            const questions = [
+                { id: 'syllableOptions', key: 'syllables', correct: stats.syllables },
+                { id: 'vowelOptions', key: 'vowels', correct: stats.vowels },
+                { id: 'consonantOptions', key: 'consonants', correct: stats.consonants }
+            ];
+
+            questions.forEach(q => {
+                const container = document.getElementById(q.id);
+                const buttons = container.querySelectorAll('.option-btn');
+                buttons.forEach(btn => {
+                    const val = parseInt(btn.dataset.value);
+                    btn.classList.remove('correct', 'wrong');
+                    if (val === q.correct) {
+                        btn.classList.add('correct');
+                    } else if (analyzeAnswers[q.key] !== null && val === analyzeAnswers[q.key] && val !== q.correct) {
+                        btn.classList.add('wrong');
+                    }
+                    btn.disabled = true;
+                });
+                // Подсветим правильный ответ
+                // Уже сделано выше
+                // Проверим, что пользователь выбрал правильный ответ
+                if (analyzeAnswers[q.key] !== q.correct) {
+                    allCorrect = false;
+                }
+            });
+
+            analyzeChecked = true;
+
+            const resultEl = document.getElementById('analyzeResult');
+            if (allCorrect) {
+                resultEl.textContent = '🎉 Всё верно! Молодец!';
+                resultEl.className = 'analyze-result success';
+                playCompleteSound();
+                document.getElementById('analyzeMessage').textContent = '✅ Отлично! Ты правильно разобрал слово!';
+                document.getElementById('analyzeMessage').className = 'message success';
+            } else {
+                resultEl.textContent = '❌ Есть ошибки. Попробуй снова! (нажми "Сбросить")';
+                resultEl.className = 'analyze-result error';
+                playErrorSound();
+                document.getElementById('analyzeMessage').textContent = '❌ Не все ответы верны. Нажми "Сбросить" и попробуй ещё раз!';
+                document.getElementById('analyzeMessage').className = 'message error';
+            }
+        }
+
+        function resetAnalyze() {
+            if (!analyzeWord) return;
+            analyzeAnswers = { syllables: null, vowels: null, consonants: null };
+            analyzeChecked = false;
+            // Сброс кнопок
+            document.querySelectorAll('#analyzeQuestions .option-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('selected', 'correct', 'wrong');
+            });
+            document.getElementById('analyzeResult').textContent = 'Выбери ответы и нажми "Проверить"';
+            document.getElementById('analyzeResult').className = 'analyze-result';
+            document.getElementById('analyzeMessage').textContent = '🔄 Сброшено. Попробуй снова!';
+            document.getElementById('analyzeMessage').className = 'message';
+            // Удаляем выбор
+            // Также можно перерисовать слово, чтобы сбросить все
+            // Но проще просто сбросить состояние
+        }
+
+        // ============================================================
         // ВКЛАДКИ
         // ============================================================
         function initTabs() {
@@ -2088,6 +2431,9 @@
                     }
                     if (target === 'tabRead') {
                         generateReadWords();
+                    }
+                    if (target === 'tabAnalyze') {
+                        generateAnalyzeWord();
                     }
 
                     playClickSound();
@@ -2123,6 +2469,12 @@
             // Раздел 5: Прочитай слово
             generateReadWords();
             document.getElementById('newReadBtn').addEventListener('click', generateReadWords);
+
+            // Раздел 6: Разбери слово
+            generateAnalyzeWord();
+            document.getElementById('newAnalyzeBtn').addEventListener('click', generateAnalyzeWord);
+            document.getElementById('checkAnalyzeBtn').addEventListener('click', checkAnalyze);
+            document.getElementById('resetAnalyzeBtn').addEventListener('click', resetAnalyze);
 
             // Вкладки
             initTabs();
