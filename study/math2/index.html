@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математика легко — тренажёр для начальной школы</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(145deg, #f9f3e6 0%, #ffe9d4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .card {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 247, 235, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 56px;
+            padding: 24px 20px 32px;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.35), 0 4px 18px rgba(255, 215, 150, 0.3);
+            border: 2px solid #ffffff88;
+        }
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #4b2e1b;
+            text-align: center;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        h1 small {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1rem;
+            background: #d9b382;
+            color: #2d1c0e;
+            padding: 0 16px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .tabs {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 6px 0 18px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ebd5c0;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #3d2a19;
+            box-shadow: 0 4px 0 #b48a6a;
+            cursor: pointer;
+            transition: all 0.08s linear;
+            flex: 1 0 auto;
+            min-width: 60px;
+            border: 2px solid #f7e3d0;
+        }
+        .tab-btn.active {
+            background: #fde5c9;
+            box-shadow: 0 4px 0 #a77b5a;
+            transform: translateY(2px);
+            border-color: #c9a887;
+            background: #ffdbb5;
+        }
+        .tab-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #9d744f;
+        }
+        .section {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fade {
+            0% { opacity: 0.4; transform: scale(0.97); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== ТАБЛИЦА ===== */
+        .table-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            background: #dcc4b2;
+            padding: 8px;
+            border-radius: 32px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .col {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fcf3e8;
+            border-radius: 20px;
+            padding: 4px 0;
+            text-align: center;
+            box-shadow: 0 3px 0 #b49278;
+            border: 1px solid #efe0d0;
+        }
+        .col-header {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dbbfaa;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #25190f;
+            box-shadow: 0 3px 0 #9f7c62;
+            border-radius: 16px 16px 6px 6px;
+            padding: 3px 0;
+            margin: -2px -1px 3px -1px;
+        }
+        .col-item {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 2px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2d1a0a;
+            border-bottom: 1px dashed #dac2ae;
+        }
+        .col-item:last-child { border-bottom: none; }
+        .col-item.highlight { background: #fad6b3; border-radius: 10px; font-weight: 700; }
+
+        .hacks {
+            margin-top: 14px;
+            background: #f7ede2;
+            border-radius: 32px;
+            padding: 14px 18px;
+            border: 2px solid #fff3e0;
+        }
+        .hacks h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3d2819;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .hacks ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 12px;
+            justify-content: center;
+        }
+        .hacks li {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #e7d3c0;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #2c1c0e;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 0 #b3927a;
+        }
+
+        /* ===== ГЕОМЕТРИЯ ===== */
+        .geo-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .geo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+        }
+        .geo-card {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7ede2;
+            border-radius: 28px;
+            padding: 10px 4px;
+            text-align: center;
+            border: 2px solid #fff3e0;
+            box-shadow: 0 4px 0 #be9d82;
+        }
+        .geo-card svg {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 130px;
+            height: auto;
+        }
+        .geo-card .fig-name {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #3d2819;
+            margin-bottom: 2px;
+        }
+        .geo-theory {
+            background: #f7ede2;
+            border-radius: 32px;
+            padding: 14px 18px;
+            border: 2px solid #fff3e0;
+        }
+        .geo-theory h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3d2819;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .geo-theory table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .geo-theory th, .geo-theory td {
+            padding: 4px 10px;
+            border: 1px solid #dcc4b2;
+            text-align: left;
+            background: #fcf3e8;
+        }
+        .geo-theory th {
+            background: #dbbfaa;
+            font-weight: 600;
+        }
+
+        /* ===== ВЕЛИЧИНЫ ===== */
+        .units-section {
+            background: #f7ede2;
+            border-radius: 32px;
+            padding: 14px 18px;
+            border: 2px solid #fff3e0;
+            margin-bottom: 14px;
+        }
+        .units-section h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3d2819;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .units-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 10px;
+        }
+        .units-table th, .units-table td {
+            padding: 4px 10px;
+            border: 1px solid #dcc4b2;
+            text-align: left;
+            background: #fcf3e8;
+        }
+        .units-table th { background: #dbbfaa; font-weight: 600; }
+
+        .compare-task-block {
+            background: #fcf3e8;
+            border-radius: 24px;
+            padding: 12px 14px;
+            margin-top: 10px;
+            border: 2px solid #e7d3c0;
+        }
+        .compare-task-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d1a0a;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .compare-task-line .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d1a0a;
+            min-width: 40px;
+            text-align: center;
+        }
+        .compare-task-line .sign-place {
+            display: inline-flex;
+            gap: 4px;
+            background: #e7d3c0;
+            border-radius: 32px;
+            padding: 3px 6px;
+            border: 2px solid #dbbdab;
+        }
+        .compare-task-line .sign-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fef4e7;
+            border: 2px solid #dbbdab;
+            border-radius: 24px;
+            padding: 2px 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d1b0c;
+            cursor: pointer;
+            transition: all 0.06s linear;
+            min-width: 40px;
+            box-shadow: 0 2px 0 #a98167;
+        }
+        .compare-task-line .sign-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #9b765c;
+        }
+        .compare-task-line .sign-btn:disabled {
+            opacity: 0.6;
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #9b765c;
+            pointer-events: none;
+        }
+        .compare-task-line .sign-btn.selected {
+            background: #dac2ae;
+            border-color: #b48a6a;
+        }
+        .compare-task-line .sign-btn.correct {
+            background: #a8d6b0;
+            border-color: #2f7a3b;
+            box-shadow: 0 2px 0 #1f5a29;
+        }
+        .compare-task-line .sign-btn.wrong {
+            background: #f5b7b7;
+            border-color: #b33f3f;
+            box-shadow: 0 2px 0 #792b2b;
+        }
+        .compare-feedback {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 8px;
+            padding: 4px;
+            border-radius: 32px;
+            min-height: 2.4rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .compare-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .compare-ctrl-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dac2ae;
+            border: none;
+            border-radius: 60px;
+            padding: 6px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2b1c0e;
+            box-shadow: 0 4px 0 #9b7b63;
+            cursor: pointer;
+            transition: 0.08s linear;
+            border: 2px solid #f0ddcc;
+            min-width: 100px;
+        }
+        .compare-ctrl-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #8d6f57;
+        }
+
+        /* ===== СКОРОСТЬ — обновлённые схемы ===== */
+        .speed-theory {
+            background: #f7ede2;
+            border-radius: 32px;
+            padding: 14px 18px;
+            border: 2px solid #fff3e0;
+            margin-bottom: 14px;
+        }
+        .speed-theory h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3d2819;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .speed-theory table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 10px;
+        }
+        .speed-theory th, .speed-theory td {
+            padding: 4px 10px;
+            border: 1px solid #dcc4b2;
+            text-align: left;
+            background: #fcf3e8;
+        }
+        .speed-theory th { background: #dbbfaa; font-weight: 600; }
+        .speed-formula-block {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .speed-formula-card {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fcf3e8;
+            border-radius: 24px;
+            padding: 10px 12px;
+            text-align: center;
+            box-shadow: 0 3px 0 #b3927a;
+            border: 2px solid #e7d3c0;
+            font-weight: 500;
+        }
+        .speed-formula-card svg {
+            display: block;
+            margin: 0 auto 4px;
+            max-width: 100%;
+            height: auto;
+        }
+        .speed-formula-card .formula-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2d1a0a;
+            line-height: 1.5;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .speed-formula-card .formula-text .formula-line {
+            display: block;
+        }
+
+        /* ===== ЗАДАЧИ ===== */
+        .task-block {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7ede2;
+            border-radius: 32px;
+            padding: 14px 16px 12px;
+            margin-bottom: 14px;
+            border: 2px solid #fff3e0;
+            box-shadow: 0 4px 0 #be9d82;
+        }
+        .task-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2f1e10;
+            margin-bottom: 8px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .task-input-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+        }
+        .task-input-row label {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            color: #3d2819;
+        }
+        .task-input-row input {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fffbf5;
+            border: 2px solid #dbbdab;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.9rem;
+            width: 80px;
+            font-weight: 500;
+            color: #2d1a0a;
+            outline: none;
+        }
+        .task-input-row input:focus {
+            border-color: #b48a6a;
+            box-shadow: 0 0 0 3px #e7d3c0;
+        }
+        .task-check-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dac2ae;
+            border: none;
+            border-radius: 60px;
+            padding: 4px 14px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 0 #9b7b63;
+            cursor: pointer;
+            transition: 0.06s linear;
+            border: 2px solid #f0ddcc;
+            color: #2b1c0e;
+        }
+        .task-check-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #8d6f57;
+        }
+        .task-result {
+            margin-top: 8px;
+            padding: 6px 12px;
+            border-radius: 32px;
+            font-weight: 500;
+            display: none;
+            background: #eadace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .task-result.show { display: block; }
+        .task-result.correct { background: #a8d6b0; color: #1d4a27; }
+        .task-result.wrong { background: #f5b7b7; color: #792b2b; }
+        .task-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .task-ctrl-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dac2ae;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2b1c0e;
+            box-shadow: 0 4px 0 #9b7b63;
+            cursor: pointer;
+            transition: 0.08s linear;
+            border: 2px solid #f0ddcc;
+            min-width: 100px;
+        }
+        .task-ctrl-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #8d6f57;
+        }
+
+        /* ===== ТРЕНАЖЁР ===== */
+        .quiz-box {
+            background: #f7ede2;
+            border-radius: 48px;
+            padding: 22px 18px 26px;
+            box-shadow: inset 0 2px 10px rgba(94, 57, 27, 0.08), 0 12px 20px -10px rgba(0,0,0,0.2);
+            border: 2px solid #fff3e0;
+        }
+        .question {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: #3b2516;
+            background: #fffbf5;
+            padding: 14px 10px;
+            border-radius: 60px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 0 #be9d82;
+            border: 2px solid #e7d2be;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fef4e7;
+            border: 3px solid #dbbdab;
+            border-radius: 60px;
+            padding: 12px 0;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2d1b0c;
+            box-shadow: 0 5px 0 #a98167;
+            cursor: pointer;
+            transition: all 0.06s linear;
+            text-align: center;
+        }
+        .option-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #9b765c;
+        }
+        .option-btn.correct { background: #a8d6b0; border-color: #2f7a3b; box-shadow: 0 5px 0 #1f5a29; }
+        .option-btn.wrong { background: #f5b7b7; border-color: #b33f3f; box-shadow: 0 5px 0 #792b2b; }
+        .option-btn:disabled {
+            opacity: 0.6;
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #9b765c;
+            pointer-events: none;
+        }
+        .feedback {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-height: 2.8rem;
+            padding: 8px;
+            background: #eadace;
+            border-radius: 60px;
+            margin-bottom: 16px;
+            color: #2d1c0e;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .control-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .ctrl-btn {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dac2ae;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2b1c0e;
+            box-shadow: 0 5px 0 #9b7b63;
+            cursor: pointer;
+            transition: 0.08s linear;
+            border: 2px solid #f0ddcc;
+            flex: 1 0 auto;
+            min-width: 100px;
+        }
+        .ctrl-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #8d6f57;
+        }
+        .ctrl-btn.reset { background: #d6b69b; }
+        .score-badge {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #402e1d;
+            color: #f6e3d0;
+            padding: 6px 16px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: inset 0 -3px 0 #1a1109;
+            margin-top: 8px;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 768px) {
+            .card { padding: 18px 14px 24px; border-radius: 40px; }
+            h1 { font-size: 1.8rem; }
+            h1 small { font-size: 0.85rem; padding: 0 12px; }
+            .tab-btn { font-size: 0.8rem; padding: 6px 10px; min-width: 50px; }
+            .table-row { grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 6px; }
+            .col-item { font-size: 0.75rem; }
+            .col-header { font-size: 0.85rem; }
+            .options { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .question { font-size: 2rem; padding: 12px 8px; }
+            .option-btn { font-size: 1.4rem; padding: 10px 0; }
+            .geo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .speed-formula-block { grid-template-columns: 1fr; }
+            .compare-task-line { font-size: 1rem; gap: 4px; }
+            .compare-task-line .value { font-size: 1.1rem; min-width: 30px; }
+            .compare-task-line .sign-btn { font-size: 1rem; padding: 2px 8px; min-width: 32px; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .card { padding: 14px 10px 18px; border-radius: 32px; }
+            h1 { font-size: 1.4rem; }
+            h1 small { font-size: 0.75rem; padding: 0 10px; }
+            .tab-btn { font-size: 0.7rem; padding: 4px 8px; min-width: 40px; }
+            .table-row { grid-template-columns: repeat(2, 1fr); gap: 3px; padding: 4px; }
+            .col-item { font-size: 0.65rem; padding: 1px 0; }
+            .col-header { font-size: 0.75rem; }
+            .geo-grid { grid-template-columns: 1fr; }
+            .question { font-size: 1.6rem; padding: 10px 6px; }
+            .options { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .option-btn { font-size: 1.2rem; padding: 8px 0; }
+            .feedback { font-size: 1rem; min-height: 2.2rem; padding: 6px; }
+            .ctrl-btn { font-size: 0.9rem; padding: 8px 16px; min-width: 70px; }
+            .task-text { font-size: 0.9rem; }
+            .task-input-row input { width: 60px; font-size: 0.8rem; }
+            .compare-task-line { font-size: 0.9rem; }
+            .compare-task-line .value { font-size: 1rem; min-width: 24px; }
+            .compare-task-line .sign-btn { font-size: 0.9rem; padding: 2px 6px; min-width: 28px; }
+            .geo-theory table { font-size: 0.7rem; }
+            .geo-theory th, .geo-theory td { padding: 2px 6px; }
+            .units-table { font-size: 0.7rem; }
+            .units-table th, .units-table td { padding: 2px 6px; }
+            .speed-theory table { font-size: 0.7rem; }
+            .speed-theory th, .speed-theory td { padding: 2px 6px; }
+            .speed-formula-card .formula-text { font-size: 0.8rem; }
+            .score-badge { font-size: 0.85rem; padding: 4px 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        🧮 Математика легко
+        <small>1–4 класс</small>
+    </h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="table">📊 Таблица</button>
+        <button class="tab-btn" data-tab="practice">✏️ Тренажёр</button>
+        <button class="tab-btn" data-tab="geometry">📐 Геометрия</button>
+        <button class="tab-btn" data-tab="units">📏 Величины</button>
+        <button class="tab-btn" data-tab="speed">🚀 Скорость</button>
+        <button class="tab-btn" data-tab="tasks">🧩 Задачи</button>
+    </div>
+
+    <!-- ====== ТАБЛИЦА ====== -->
+    <div id="table-section" class="section active">
+        <div class="table-rows">
+            <div class="table-row" id="tableRow1"></div>
+            <div class="table-row" id="tableRow2"></div>
+        </div>
+        <div class="hacks">
+            <h3>💡 Лайфхаки для запоминания</h3>
+            <ul>
+                <li>🔹 На 1 — число не меняется</li>
+                <li>🔹 На 10 — допиши 0</li>
+                <li>🔹 На 2 — сложи число с собой</li>
+                <li>🔹 На 5 — умножь на 10 и раздели на 2</li>
+                <li>🔹 На 9 — **ладошки**: загни палец с номером числа, слева — десятки, справа — единицы</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ====== ТРЕНАЖЁР ====== -->
+    <div id="practice-section" class="section">
+        <div class="quiz-box">
+            <div class="question" id="questionDisplay">3 × 7 = ?</div>
+            <div class="options" id="optionsContainer">
+                <button class="option-btn">21</button>
+                <button class="option-btn">24</button>
+                <button class="option-btn">18</button>
+                <button class="option-btn">27</button>
+            </div>
+            <div class="feedback" id="feedbackMessage">👉 Выбери ответ</div>
+            <div class="control-row">
+                <button class="ctrl-btn" id="newQuestionBtn">🔄 Новый</button>
+                <button class="ctrl-btn reset" id="resetScoreBtn">♻️ Сброс</button>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 12px;">
+                <span class="score-badge" id="scoreDisplay">✅ 0</span>
+                <span class="score-badge" id="attemptDisplay">📋 0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ГЕОМЕТРИЯ ====== -->
+    <div id="geometry-section" class="section">
+        <div class="geo-wrapper">
+            <div class="geo-grid" id="geoGrid"></div>
+            <div class="geo-theory">
+                <h3>📖 Теория: периметр и площадь</h3>
+                <table>
+                    <tr><th>Фигура</th><th>Периметр (P)</th><th>Площадь (S)</th></tr>
+                    <tr><td>Квадрат</td><td>P = 4 · a</td><td>S = a · a</td></tr>
+                    <tr><td>Прямоугольник</td><td>P = 2 · (a + b)</td><td>S = a · b</td></tr>
+                    <tr><td>Треугольник</td><td>P = a + b + c</td><td>S = (a · h) / 2</td></tr>
+                    <tr><td>Трапеция</td><td>P = a + b + c + d</td><td>S = (a + b) · h / 2</td></tr>
+                    <tr><td>Параллелограмм</td><td>P = 2 · (a + b)</td><td>S = a · h</td></tr>
+                </table>
+                <div style="margin-top: 6px; font-size: 0.8rem; color: #3d2819; font-family: Arial, Helvetica, sans-serif;">
+                    a, b, c, d — стороны, h — высота, основание — a (для треугольника, трапеции, параллелограмма)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ВЕЛИЧИНЫ ====== -->
+    <div id="units-section" class="section">
+        <div class="units-section">
+            <h3>📏 Меры длины</h3>
+            <table class="units-table">
+                <tr><th>Единица</th><th>Обозначение</th><th>Соотношение</th></tr>
+                <tr><td>Миллиметр</td><td>мм</td><td>1 см = 10 мм</td></tr>
+                <tr><td>Сантиметр</td><td>см</td><td>1 дм = 10 см</td></tr>
+                <tr><td>Дециметр</td><td>дм</td><td>1 м = 10 дм</td></tr>
+                <tr><td>Метр</td><td>м</td><td>1 км = 1000 м</td></tr>
+                <tr><td>Километр</td><td>км</td><td>—</td></tr>
+            </table>
+
+            <h3 style="margin-top: 12px;">⚖️ Меры массы</h3>
+            <table class="units-table">
+                <tr><th>Единица</th><th>Обозначение</th><th>Соотношение</th></tr>
+                <tr><td>Грамм</td><td>г</td><td>1 кг = 1000 г</td></tr>
+                <tr><td>Килограмм</td><td>кг</td><td>1 ц = 100 кг</td></tr>
+                <tr><td>Центнер</td><td>ц</td><td>1 т = 10 ц</td></tr>
+                <tr><td>Тонна</td><td>т</td><td>—</td></tr>
+            </table>
+
+            <h3 style="margin-top: 12px;">🧮 Задания на сравнение</h3>
+            <div id="compareTaskContainer">
+                <div class="compare-task-block">
+                    <div class="compare-task-line" id="compareLine">
+                        <span class="value" id="leftValue">5</span>
+                        <span class="value" id="leftUnit">м</span>
+                        <span class="sign-place" id="signPlace">
+                            <button class="sign-btn" data-sign=">">&gt;</button>
+                            <button class="sign-btn" data-sign="<">&lt;</button>
+                            <button class="sign-btn" data-sign="=">=</button>
+                        </span>
+                        <span class="value" id="rightValue">4</span>
+                        <span class="value" id="rightUnit">м</span>
+                    </div>
+                    <div class="compare-feedback" id="compareFeedback">👉 Выбери знак сравнения</div>
+                </div>
+            </div>
+            <div class="compare-controls">
+                <button class="compare-ctrl-btn" id="newCompareTask">🔄 Новое задание</button>
+                <button class="compare-ctrl-btn" id="checkCompareTask">✅ Проверить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== СКОРОСТЬ — 4 варианта ====== -->
+    <div id="speed-section" class="section">
+        <div class="speed-theory">
+            <h3>🚀 Скорость, время, расстояние</h3>
+            <table>
+                <tr><th>Величина</th><th>Формула</th><th>Обозначение</th></tr>
+                <tr><td>Скорость</td><td>v = S / t</td><td>км/ч, м/с</td></tr>
+                <tr><td>Время</td><td>t = S / v</td><td>ч, мин, с</td></tr>
+                <tr><td>Расстояние</td><td>S = v · t</td><td>км, м</td></tr>
+            </table>
+            <h3 style="margin-top: 12px;">🚦 Формулы для движения</h3>
+            <div class="speed-formula-block">
+                <!-- 1. Встречное движение -->
+                <div class="speed-formula-card">
+                    <svg viewBox="0 0 120 70"><rect x="10" y="20" width="100" height="30" fill="#e7d3c0" rx="8"/><text x="25" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">→ v₁</text><text x="75" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">v₂ ←</text><text x="60" y="62" text-anchor="middle" font-size="8" fill="#3d2819" font-family="Arial, sans-serif">встречное движение</text></svg>
+                    <div class="formula-text">
+                        <span class="formula-line">Vсбл. = v₁ + v₂</span>
+                        <span class="formula-line">S = (v₁ + v₂) · t</span>
+                    </div>
+                </div>
+                <!-- 2. Движение вдогонку -->
+                <div class="speed-formula-card">
+                    <svg viewBox="0 0 120 70"><rect x="10" y="20" width="100" height="30" fill="#e7d3c0" rx="8"/><text x="30" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">v₁ →</text><text x="70" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">→ v₂</text><text x="60" y="62" text-anchor="middle" font-size="8" fill="#3d2819" font-family="Arial, sans-serif">вдогонку (v₁ > v₂)</text></svg>
+                    <div class="formula-text">
+                        <span class="formula-line">Vсбл. = v₁ − v₂</span>
+                        <span class="formula-line">S = (v₁ − v₂) · t</span>
+                    </div>
+                </div>
+                <!-- 3. Противоположные направления -->
+                <div class="speed-formula-card">
+                    <svg viewBox="0 0 120 70"><rect x="10" y="20" width="100" height="30" fill="#e7d3c0" rx="8"/><text x="20" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">v₁ →</text><text x="80" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">← v₂</text><text x="60" y="62" text-anchor="middle" font-size="8" fill="#3d2819" font-family="Arial, sans-serif">противоположные направления</text></svg>
+                    <div class="formula-text">
+                        <span class="formula-line">Vуд. = v₁ + v₂</span>
+                        <span class="formula-line">S = (v₁ + v₂) · t</span>
+                    </div>
+                </div>
+                <!-- 4. Движение с отставанием -->
+                <div class="speed-formula-card">
+                    <svg viewBox="0 0 120 70"><rect x="10" y="20" width="100" height="30" fill="#e7d3c0" rx="8"/><text x="30" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">v₁ →</text><text x="70" y="40" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">→ v₂</text><text x="60" y="62" text-anchor="middle" font-size="8" fill="#3d2819" font-family="Arial, sans-serif">с отставанием (v₁ &lt; v₂)</text></svg>
+                    <div class="formula-text">
+                        <span class="formula-line">Vуд. = v₂ − v₁</span>
+                        <span class="formula-line">S = (v₂ − v₁) · t</span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 8px; font-size: 0.8rem; color: #3d2819; text-align: center; font-family: Arial, Helvetica, sans-serif;">
+                S — расстояние между объектами, t — время движения, v₁, v₂ — скорости
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ЗАДАЧИ ====== -->
+    <div id="tasks-section" class="section">
+        <div id="tasksContainer"></div>
+        <div class="task-controls">
+            <button class="task-ctrl-btn" id="newTasksBtn">🔄 Новые задания</button>
+            <button class="task-ctrl-btn" id="checkAllTasksBtn">✅ Проверить всё</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ============================================================
+        // 1. ТАБЛИЦА УМНОЖЕНИЯ
+        // ============================================================
+        function renderTable() {
+            const row1 = document.getElementById('tableRow1');
+            const row2 = document.getElementById('tableRow2');
+            if (!row1 || !row2) return;
+            function buildColumns(start, end) {
+                let html = '';
+                for (let j = start; j <= end; j++) {
+                    html += `<div class="col"><div class="col-header">× ${j}</div>`;
+                    for (let i = 1; i <= 10; i++) {
+                        const val = i * j;
+                        const highlight = (i === j) ? ' highlight' : '';
+                        html += `<div class="col-item${highlight}">${i}×${j}=${val}</div>`;
+                    }
+                    html += `</div>`;
+                }
+                return html;
+            }
+            row1.innerHTML = buildColumns(1, 5);
+            row2.innerHTML = buildColumns(6, 10);
+        }
+
+        // ============================================================
+        // 2. ГЕОМЕТРИЯ
+        // ============================================================
+        function renderGeometry() {
+            const container = document.getElementById('geoGrid');
+            if (!container) return;
+            const figures = [
+                { name: 'Квадрат', svg: `<svg viewBox="0 0 140 120"><rect x="15" y="10" width="90" height="90" fill="#fcf3e8" stroke="#3d2819" stroke-width="2"/><text x="60" y="70" text-anchor="middle" font-size="13" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">P=4·a</text><text x="60" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">S=a·a</text></svg>` },
+                { name: 'Прямоугольник', svg: `<svg viewBox="0 0 140 120"><rect x="15" y="20" width="100" height="65" fill="#fcf3e8" stroke="#3d2819" stroke-width="2"/><text x="65" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">P=2·(a+b)</text><text x="65" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">S=a·b</text></svg>` },
+                { name: 'Треугольник', svg: `<svg viewBox="0 0 140 120"><polygon points="70,15 20,100 120,100" fill="#fcf3e8" stroke="#3d2819" stroke-width="2"/><text x="70" y="65" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">P=a+b+c</text><text x="70" y="85" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">S=(a·h)/2</text></svg>` },
+                { name: 'Трапеция', svg: `<svg viewBox="0 0 140 120"><polygon points="30,25 110,25 125,100 15,100" fill="#fcf3e8" stroke="#3d2819" stroke-width="2"/><text x="70" y="65" text-anchor="middle" font-size="11" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">P=a+b+c+d</text><text x="70" y="85" text-anchor="middle" font-size="11" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">S=(a+b)·h/2</text></svg>` },
+                { name: 'Параллелограмм', svg: `<svg viewBox="0 0 140 120"><polygon points="35,20 125,20 105,100 15,100" fill="#fcf3e8" stroke="#3d2819" stroke-width="2"/><text x="70" y="65" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">P=2·(a+b)</text><text x="70" y="85" text-anchor="middle" font-size="12" font-weight="600" fill="#2d1a0a" font-family="Arial, sans-serif">S=a·h</text></svg>` }
+            ];
+            container.innerHTML = figures.map(f => `
+                <div class="geo-card">
+                    <div class="fig-name">${f.name}</div>
+                    ${f.svg}
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // 3. ВЕЛИЧИНЫ: задания на сравнение
+        // ============================================================
+        let currentCompareTask = null;
+
+        function generateCompareTask() {
+            const templates = [
+                { a: 5, u1: 'м', b: 4, u2: 'м', sign: '>' },
+                { a: 3, u1: 'см', b: 30, u2: 'мм', sign: '=' },
+                { a: 2, u1: 'кг', b: 2000, u2: 'г', sign: '=' },
+                { a: 1, u1: 'км', b: 100, u2: 'м', sign: '>' },
+                { a: 500, u1: 'г', b: 5, u2: 'кг', sign: '<' },
+                { a: 10, u1: 'дм', b: 1, u2: 'м', sign: '=' },
+                { a: 7, u1: 'т', b: 700, u2: 'кг', sign: '>' },
+                { a: 3, u1: 'ц', b: 300, u2: 'кг', sign: '=' },
+                { a: 8, u1: 'м', b: 80, u2: 'дм', sign: '=' },
+                { a: 4, u1: 'кг', b: 4000, u2: 'г', sign: '=' },
+                { a: 2, u1: 'км', b: 1500, u2: 'м', sign: '>' },
+                { a: 600, u1: 'г', b: 1, u2: 'кг', sign: '<' },
+                { a: 15, u1: 'дм', b: 1, u2: 'м', sign: '>' },
+                { a: 3, u1: 'т', b: 30, u2: 'ц', sign: '=' },
+                { a: 50, u1: 'см', b: 5, u2: 'дм', sign: '=' }
+            ];
+            const t = templates[Math.floor(Math.random() * templates.length)];
+            currentCompareTask = {
+                left: t.a,
+                leftUnit: t.u1,
+                right: t.b,
+                rightUnit: t.u2,
+                sign: t.sign
+            };
+            return currentCompareTask;
+        }
+
+        function renderCompareTask() {
+            const task = generateCompareTask();
+            document.getElementById('leftValue').textContent = task.left;
+            document.getElementById('leftUnit').textContent = task.leftUnit;
+            document.getElementById('rightValue').textContent = task.right;
+            document.getElementById('rightUnit').textContent = task.rightUnit;
+
+            const feedback = document.getElementById('compareFeedback');
+            feedback.textContent = '👉 Выбери знак сравнения';
+            feedback.style.background = 'transparent';
+
+            const btns = document.querySelectorAll('.sign-btn');
+            btns.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('correct', 'wrong', 'selected');
+                btn.dataset.selected = 'false';
+            });
+        }
+
+        function checkCompare() {
+            if (!currentCompareTask) return;
+            const btns = document.querySelectorAll('.sign-btn');
+            const feedback = document.getElementById('compareFeedback');
+            let chosenSign = null;
+            btns.forEach(btn => {
+                if (btn.dataset.selected === 'true') {
+                    chosenSign = btn.dataset.sign;
+                }
+            });
+            if (!chosenSign) {
+                feedback.textContent = '⚠️ Сначала выбери знак!';
+                feedback.style.background = '#f5e6d0';
+                return;
+            }
+            const isCorrect = (chosenSign === currentCompareTask.sign);
+            btns.forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.sign === currentCompareTask.sign) {
+                    btn.classList.add('correct');
+                }
+                if (btn.dataset.sign === chosenSign && !isCorrect) {
+                    btn.classList.add('wrong');
+                }
+            });
+            if (isCorrect) {
+                feedback.textContent = '✅ Правильно! ' + currentCompareTask.left + ' ' + currentCompareTask.leftUnit + ' ' +
+                    currentCompareTask.sign + ' ' + currentCompareTask.right + ' ' + currentCompareTask.rightUnit;
+                feedback.style.background = '#a8d6b0';
+            } else {
+                feedback.textContent = '❌ Неверно. Правильно: ' + currentCompareTask.left + ' ' + currentCompareTask.leftUnit + ' ' +
+                    currentCompareTask.sign + ' ' + currentCompareTask.right + ' ' + currentCompareTask.rightUnit;
+                feedback.style.background = '#f5b7b7';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('sign-btn') && !e.target.disabled) {
+                const btns = document.querySelectorAll('.sign-btn');
+                btns.forEach(btn => {
+                    btn.dataset.selected = 'false';
+                    btn.classList.remove('selected');
+                });
+                e.target.dataset.selected = 'true';
+                e.target.classList.add('selected');
+                btns.forEach(btn => {
+                    btn.classList.remove('correct', 'wrong');
+                });
+                document.getElementById('compareFeedback').textContent = '👉 Нажми "Проверить"';
+                document.getElementById('compareFeedback').style.background = 'transparent';
+            }
+        });
+
+        // ============================================================
+        // 4. ЗАДАЧИ (геометрия + скорость)
+        // ============================================================
+        let currentTasks = [];
+
+        function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+        function generateTasks() {
+            const geoTemplates = [
+                { fig: 'Квадрат', desc: 'Сторона квадрата {a} см. Найди периметр и площадь.', getP: (p) => 4*p.a, getS: (p) => p.a*p.a, params: ['a'], type: 'geo' },
+                { fig: 'Прямоугольник', desc: 'Стороны прямоугольника {a} см и {b} см. Найди периметр и площадь.', getP: (p) => 2*(p.a+p.b), getS: (p) => p.a*p.b, params: ['a','b'], type: 'geo' },
+                { fig: 'Треугольник', desc: 'Стороны треугольника {a} см, {b} см, {c} см, высота к стороне {a} равна {h} см. Найди периметр и площадь.', getP: (p) => p.a+p.b+p.c, getS: (p) => (p.a*p.h)/2, params: ['a','b','c','h'], type: 'geo' },
+                { fig: 'Трапеция', desc: 'Основания трапеции {a} см и {b} см, высота {h} см, боковые стороны {c} см и {d} см. Найди периметр и площадь.', getP: (p) => p.a+p.b+p.c+p.d, getS: (p) => (p.a+p.b)*p.h/2, params: ['a','b','c','d','h'], type: 'geo' },
+                { fig: 'Параллелограмм', desc: 'Стороны параллелограмма {a} см и {b} см, высота к стороне {a} равна {h} см. Найди периметр и площадь.', getP: (p) => 2*(p.a+p.b), getS: (p) => p.a*p.h, params: ['a','b','h'], type: 'geo' }
+            ];
+
+            const speedTemplates = [
+                { fig: 'Скорость', desc: 'Автомобиль проехал {S} км за {t} ч. Найди скорость.', getAnswer: (p) => p.S / p.t, params: ['S','t'], type: 'speed', label: 'v = км/ч', solutionTemplate: (p, ans) => `v = ${p.S} / ${p.t} = ${ans} км/ч` },
+                { fig: 'Время', desc: 'Поезд двигался со скоростью {v} км/ч и проехал {S} км. Найди время.', getAnswer: (p) => p.S / p.v, params: ['v','S'], type: 'speed', label: 't = ч', solutionTemplate: (p, ans) => `t = ${p.S} / ${p.v} = ${ans} ч` },
+                { fig: 'Расстояние', desc: 'Велосипедист ехал со скоростью {v} км/ч в течение {t} ч. Найди расстояние.', getAnswer: (p) => p.v * p.t, params: ['v','t'], type: 'speed', label: 'S = км', solutionTemplate: (p, ans) => `S = ${p.v} · ${p.t} = ${ans} км` }
+            ];
+
+            const shuffledGeo = geoTemplates.sort(() => Math.random() - 0.5);
+            const shuffledSpeed = speedTemplates.sort(() => Math.random() - 0.5);
+
+            let selected = [];
+            for (let i = 0; i < 2 && i < shuffledGeo.length; i++) selected.push(shuffledGeo[i]);
+            if (shuffledSpeed.length > 0) selected.push(shuffledSpeed[0]);
+            while (selected.length < 3 && shuffledGeo.length > selected.length) {
+                selected.push(shuffledGeo[selected.length]);
+            }
+
+            return selected.map((t) => {
+                const p = {};
+                t.params.forEach(key => {
+                    if (key === 'a' || key === 'b' || key === 'c' || key === 'd') p[key] = randomInt(3, 10);
+                    else if (key === 'h') p[key] = randomInt(2, 6);
+                    else if (key === 'S') p[key] = randomInt(20, 100);
+                    else if (key === 't') p[key] = randomInt(2, 8);
+                    else if (key === 'v') p[key] = randomInt(10, 60);
+                });
+                let desc = t.desc;
+                t.params.forEach(key => { desc = desc.replace(new RegExp(`\\{${key}\\}`, 'g'), p[key]); });
+
+                let correctAnswer, solutionText;
+                if (t.type === 'geo') {
+                    const correctP = Math.round(t.getP(p) * 10) / 10;
+                    const correctS = Math.round(t.getS(p) * 10) / 10;
+                    correctAnswer = { P: correctP, S: correctS };
+                    if (t.fig === 'Квадрат') solutionText = `P = 4·${p.a} = ${correctP} см, S = ${p.a}·${p.a} = ${correctS} см²`;
+                    else if (t.fig === 'Прямоугольник') solutionText = `P = 2·(${p.a}+${p.b}) = ${correctP} см, S = ${p.a}·${p.b} = ${correctS} см²`;
+                    else if (t.fig === 'Треугольник') solutionText = `P = ${p.a}+${p.b}+${p.c} = ${correctP} см, S = (${p.a}·${p.h})/2 = ${correctS} см²`;
+                    else if (t.fig === 'Трапеция') solutionText = `P = ${p.a}+${p.b}+${p.c}+${p.d} = ${correctP} см, S = (${p.a}+${p.b})·${p.h}/2 = ${correctS} см²`;
+                    else if (t.fig === 'Параллелограмм') solutionText = `P = 2·(${p.a}+${p.b}) = ${correctP} см, S = ${p.a}·${p.h} = ${correctS} см²`;
+                    return {
+                        fig: t.fig,
+                        desc: desc,
+                        correctAnswer: correctAnswer,
+                        solution: solutionText,
+                        type: 'geo',
+                        id: Date.now() + '_' + Math.random() + '_' + t.fig
+                    };
+                } else {
+                    const ans = Math.round(t.getAnswer(p) * 10) / 10;
+                    correctAnswer = { value: ans };
+                    const solutionText = t.solutionTemplate(p, ans);
+                    return {
+                        fig: t.fig,
+                        desc: desc,
+                        correctAnswer: correctAnswer,
+                        solution: solutionText,
+                        type: 'speed',
+                        label: t.label || 'Ответ',
+                        id: Date.now() + '_' + Math.random() + '_' + t.fig
+                    };
+                }
+            });
+        }
+
+        function renderTasks(tasks) {
+            const container = document.getElementById('tasksContainer');
+            if (!container) return;
+            currentTasks = tasks;
+            let html = '';
+            tasks.forEach((t, idx) => {
+                let inputsHtml = '';
+                if (t.type === 'geo') {
+                    inputsHtml = `
+                        <label>P =</label>
+                        <input type="text" class="task-input-p" placeholder="периметр" data-idx="${idx}">
+                        <label>S =</label>
+                        <input type="text" class="task-input-s" placeholder="площадь" data-idx="${idx}">
+                    `;
+                } else {
+                    inputsHtml = `
+                        <label>${t.label || 'Ответ'} =</label>
+                        <input type="text" class="task-input-speed" placeholder="ответ" data-idx="${idx}">
+                    `;
+                }
+                html += `
+                    <div class="task-block" data-taskid="${t.id}">
+                        <div class="task-text">📌 ${t.fig}: ${t.desc}</div>
+                        <div class="task-input-row">
+                            ${inputsHtml}
+                            <button class="task-check-btn" data-idx="${idx}">🔍 Проверить</button>
+                        </div>
+                        <div class="task-result" id="taskResult${idx}"></div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.querySelectorAll('.task-check-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.idx);
+                    checkTask(idx);
+                });
+            });
+        }
+
+        function checkTask(idx) {
+            const task = currentTasks[idx];
+            if (!task) return;
+            const resultDiv = document.getElementById(`taskResult${idx}`);
+            if (!resultDiv) return;
+
+            if (task.type === 'geo') {
+                const pInput = document.querySelector(`.task-input-p[data-idx="${idx}"]`);
+                const sInput = document.querySelector(`.task-input-s[data-idx="${idx}"]`);
+                if (!pInput || !sInput) return;
+                const userP = parseFloat(pInput.value.replace(',', '.'));
+                const userS = parseFloat(sInput.value.replace(',', '.'));
+                const correctP = task.correctAnswer.P;
+                const correctS = task.correctAnswer.S;
+                const pOk = !isNaN(userP) && Math.abs(userP - correctP) < 0.01;
+                const sOk = !isNaN(userS) && Math.abs(userS - correctS) < 0.01;
+                let msg = '';
+                if (pOk && sOk) {
+                    msg = `✅ Отлично! ${task.solution}`;
+                    resultDiv.className = 'task-result show correct';
+                } else {
+                    let errors = [];
+                    if (!pOk) errors.push(`P: ${correctP}`);
+                    if (!sOk) errors.push(`S: ${correctS}`);
+                    msg = `❌ Неверно. Правильно: ${errors.join(', ')}. Решение: ${task.solution}`;
+                    resultDiv.className = 'task-result show wrong';
+                }
+                resultDiv.textContent = msg;
+            } else {
+                const input = document.querySelector(`.task-input-speed[data-idx="${idx}"]`);
+                if (!input) return;
+                const userVal = parseFloat(input.value.replace(',', '.'));
+                const correctVal = task.correctAnswer.value;
+                const ok = !isNaN(userVal) && Math.abs(userVal - correctVal) < 0.01;
+                let msg = '';
+                if (ok) {
+                    msg = `✅ Отлично! ${task.solution}`;
+                    resultDiv.className = 'task-result show correct';
+                } else {
+                    msg = `❌ Неверно. Правильно: ${correctVal}. Решение: ${task.solution}`;
+                    resultDiv.className = 'task-result show wrong';
+                }
+                resultDiv.textContent = msg;
+            }
+        }
+
+        function checkAllTasks() {
+            document.querySelectorAll('.task-block').forEach((_, idx) => checkTask(idx));
+        }
+
+        function generateAndRenderTasks() {
+            renderTasks(generateTasks());
+        }
+
+        // ============================================================
+        // 5. ТРЕНАЖЁР
+        // ============================================================
+        const state = {
+            currentQuestion: { text: '', answer: 0 },
+            score: 0,
+            attempts: 0,
+            isAnswered: false,
+        };
+
+        const questionDisplay = document.getElementById('questionDisplay');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const attemptDisplay = document.getElementById('attemptDisplay');
+        const newQuestionBtn = document.getElementById('newQuestionBtn');
+        const resetScoreBtn = document.getElementById('resetScoreBtn');
+
+        function generateQuestion() {
+            const isMultiply = Math.random() < 0.7;
+            let a, b, answer, text;
+            if (isMultiply) {
+                a = randomInt(1, 10);
+                b = randomInt(1, 10);
+                answer = a * b;
+                text = `${a} × ${b} = ?`;
+            } else {
+                b = randomInt(1, 10);
+                const c = randomInt(1, 10);
+                a = b * c;
+                answer = c;
+                text = `${a} ÷ ${b} = ?`;
+            }
+            return { text, answer };
+        }
+
+        function generateOptions(correct) {
+            let opts = new Set([correct]);
+            let attempts = 0;
+            while (opts.size < 4 && attempts < 200) {
+                let offset = randomInt(-5, 5);
+                let candidate = correct + offset;
+                if (candidate >= 1 && candidate <= 100 && candidate !== correct) opts.add(candidate);
+                attempts++;
+            }
+            const fallbacks = [correct+1, correct-1, correct+2, correct-2];
+            for (let fb of fallbacks) {
+                if (opts.size >= 4) break;
+                if (fb >= 1 && fb <= 100 && fb !== correct && !opts.has(fb)) opts.add(fb);
+            }
+            while (opts.size < 4) {
+                let extra = randomInt(1, 20);
+                if (!opts.has(extra) && extra !== correct) opts.add(extra);
+            }
+            let arr = Array.from(opts);
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = randomInt(0, i);
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function renderNewQuestion() {
+            const q = generateQuestion();
+            state.currentQuestion = q;
+            state.isAnswered = false;
+            questionDisplay.textContent = q.text;
+            const options = generateOptions(q.answer);
+            optionsContainer.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.dataset.value = opt;
+                btn.addEventListener('click', onOptionClick);
+                optionsContainer.appendChild(btn);
+            });
+            feedbackMessage.textContent = '🤔 Какой ответ?';
+            document.querySelectorAll('.option-btn').forEach(b => {
+                b.classList.remove('correct', 'wrong');
+                b.disabled = false;
+            });
+            updateScoreDisplay();
+        }
+
+        function onOptionClick(e) {
+            if (state.isAnswered) return;
+            const btn = e.currentTarget;
+            const selected = parseInt(btn.dataset.value, 10);
+            const correct = state.currentQuestion.answer;
+            state.attempts++;
+            const isCorrect = (selected === correct);
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            document.querySelectorAll('.option-btn').forEach(b => {
+                const val = parseInt(b.dataset.value, 10);
+                if (val === correct) b.classList.add('correct');
+                if (val === selected && !isCorrect) b.classList.add('wrong');
+            });
+            if (isCorrect) { state.score++; feedbackMessage.textContent = '✅ Отлично! 👍'; }
+            else { feedbackMessage.textContent = `❌ Правильно: ${correct}`; }
+            state.isAnswered = true;
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = `✅ ${state.score}`;
+            attemptDisplay.textContent = `📋 ${state.attempts}`;
+        }
+
+        function resetScore() {
+            state.score = 0;
+            state.attempts = 0;
+            updateScoreDisplay();
+            renderNewQuestion();
+            feedbackMessage.textContent = '🔄 Счёт сброшен!';
+        }
+
+        // ============================================================
+        // 6. ВКЛАДКИ
+        // ============================================================
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const sections = {
+                table: document.getElementById('table-section'),
+                practice: document.getElementById('practice-section'),
+                geometry: document.getElementById('geometry-section'),
+                units: document.getElementById('units-section'),
+                speed: document.getElementById('speed-section'),
+                tasks: document.getElementById('tasks-section')
+            };
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    Object.values(sections).forEach(sec => sec.classList.remove('active'));
+                    if (tabId === 'table') sections.table.classList.add('active');
+                    else if (tabId === 'practice') sections.practice.classList.add('active');
+                    else if (tabId === 'geometry') sections.geometry.classList.add('active');
+                    else if (tabId === 'units') sections.units.classList.add('active');
+                    else if (tabId === 'speed') sections.speed.classList.add('active');
+                    else if (tabId === 'tasks') sections.tasks.classList.add('active');
+                });
+            });
+        }
+
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+        function init() {
+            renderTable();
+            renderGeometry();
+            generateAndRenderTasks();
+            renderNewQuestion();
+            renderCompareTask();
+            setupTabs();
+
+            newQuestionBtn.addEventListener('click', renderNewQuestion);
+            resetScoreBtn.addEventListener('click', resetScore);
+            document.getElementById('newTasksBtn').addEventListener('click', generateAndRenderTasks);
+            document.getElementById('checkAllTasksBtn').addEventListener('click', checkAllTasks);
+            document.getElementById('newCompareTask').addEventListener('click', function() {
+                renderCompareTask();
+            });
+            document.getElementById('checkCompareTask').addEventListener('click', function() {
+                checkCompare();
+            });
+        }
+        init();
+    })();
+</script>
+</body>
+</html>
