@@ -256,7 +256,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        /* Для зелено-синих: и заглавная, и строчная — зелено-синие */
         .letter-card .letter-display .capital.blue-green {
             background: linear-gradient(to right, #3b7bc9 50%, #2e9b6e 50%);
             -webkit-background-clip: text;
@@ -270,7 +269,7 @@
             background-clip: text;
         }
 
-        /* Плашка с правилом (всплывающая над буквой) */
+        /* Плашка с правилом */
         .rule-popup {
             position: absolute;
             bottom: 100%;
@@ -1042,7 +1041,6 @@
 
         <div class="grid-container" id="lettersGrid"></div>
 
-        <!-- Плашка со слогами внизу -->
         <div class="syllables-panel" id="syllablesPanel">
             <div class="syl-panel-title">
                 Слоги с буквой <span class="highlight-letter" id="panelLetter">А</span>
@@ -1068,7 +1066,7 @@
             <button class="btn primary" id="colorLearnBtn">🎨 Раскрасить всё</button>
             <button class="btn reset" id="resetLearnBtn">🔄 Сбросить</button>
         </div>
-        <div class="message" id="learnMessage">👆 Нажми на букву, чтобы увидеть её цвет!</div>
+        <div class="message" id="learnMessage">👆 Нажми на букву, чтобы увидеть её цвет и услышать название!</div>
     </div>
 
     <!-- ===== РАЗДЕЛ 3: РАСКРАСЬ СЛОВО ===== -->
@@ -1156,17 +1154,14 @@
             </div>
 
             <div class="analyze-questions" id="analyzeQuestions">
-                <!-- Слоги -->
                 <div class="analyze-question">
                     <div class="question-label">📊 Слоги</div>
                     <div class="options" id="syllableOptions"></div>
                 </div>
-                <!-- Гласные -->
                 <div class="analyze-question">
                     <div class="question-label">🔴 Гласные</div>
                     <div class="options" id="vowelOptions"></div>
                 </div>
-                <!-- Согласные -->
                 <div class="analyze-question">
                     <div class="question-label">🔵 Согласные</div>
                     <div class="options" id="consonantOptions"></div>
@@ -1351,6 +1346,30 @@
         const ALWAYS_SOFT = new Set(['й', 'ч', 'щ']);
         const NO_SOUND = new Set(['ь', 'ъ']);
         const RED_VOWELS = new Set(['а', 'о', 'у', 'э', 'ы']);
+        const SYLLABLES = {
+            'ш': ['а', 'о', 'у', 'е', 'ё', 'и'],
+            'б': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'в': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'г': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'д': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'ж': ['а', 'о', 'у', 'е', 'ё', 'и', 'ю'],
+            'з': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'к': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'л': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'м': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'н': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'п': ['а', 'о', 'у', 'ы', 'е', 'ё', 'и', 'ю', 'я'],
+            'р': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'с': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'т': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'ф': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'х': ['а', 'о', 'у', 'ы', 'э', 'е', 'ё', 'и', 'ю', 'я'],
+            'ц': ['а', 'о', 'у', 'ы', 'е', 'ё', 'и', 'ю', 'я'],
+            'ч': ['а', 'о', 'у', 'е', 'ё', 'и'],
+            'ш': ['а', 'о', 'у', 'е', 'и'],
+            'щ': ['а', 'о', 'у', 'е', 'ё', 'и'],
+            'й': ['а', 'о', 'у', 'е', 'ё', 'и'],
+        }
 
         function getLetterColor(letter) {
             const l = letter.toLowerCase();
@@ -1417,10 +1436,23 @@
         }
 
         // ============================================================
-        // ЗВУКИ (только для обратной связи)
+        // ЗВУКОВОЕ СОПРОВОЖДЕНИЕ (Web Speech API + Web Audio)
         // ============================================================
         let soundEnabled = true;
         let audioCtx = null;
+        let speechSynthesisSupported = false;
+
+        try {
+            if (window.speechSynthesis) {
+                speechSynthesisSupported = true;
+                window.speechSynthesis.getVoices();
+                window.speechSynthesis.onvoiceschanged = function() {
+                    window.speechSynthesis.getVoices();
+                };
+            }
+        } catch (e) {
+            speechSynthesisSupported = false;
+        }
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -1449,27 +1481,68 @@
             } catch (e) {}
         }
 
-        function playClickSound() {
+        function speakText(text, rate = 0.85, pitch = 1.0) {
             if (!soundEnabled) return;
-            playTone(800, 0.06, 'sine', 0.15);
+            
+            if (speechSynthesisSupported) {
+                try {
+                    window.speechSynthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'ru-RU';
+                    utterance.rate = rate;
+                    utterance.pitch = pitch;
+                    utterance.volume = 1;
+                    
+                    const voices = window.speechSynthesis.getVoices();
+                    const ruVoice = voices.find(v => v.lang.startsWith('ru'));
+                    if (ruVoice) {
+                        utterance.voice = ruVoice;
+                    }
+                    
+                    window.speechSynthesis.speak(utterance);
+                    return;
+                } catch (e) {}
+            }
+            
+            try {
+                const letters = text.split('');
+                letters.forEach((char, idx) => {
+                    const freq = (char.charCodeAt(0) * 2 + 300);
+                    setTimeout(() => {
+                        playTone(freq, 0.12, 'sine', 0.12);
+                    }, idx * 150);
+                });
+                setTimeout(() => {
+                    playTone(600, 0.15, 'sine', 0.1);
+                }, letters.length * 150 + 100);
+            } catch (e) {}
         }
-        function playSuccessSound() {
-            if (!soundEnabled) return;
-            playTone(523, 0.15);
-            setTimeout(() => playTone(659, 0.15), 150);
-            setTimeout(() => playTone(784, 0.25), 300);
+
+        // ✅ Озвучивание ТОЛЬКО буквы - БЕЗ ЛИШНИХ СЛОВ!
+        // ✅ Никаких "Заглавная буква", "Буква" - только сама буква!
+        function speakLetter(letter) {
+            const letterNames = {
+                'А': 'а', 'Б': 'б', 'В': 'в', 'Г': 'г', 'Д': 'Дэ',
+                'Е': 'е', 'Ё': 'ё', 'Ж': 'ж', 'З': 'з', 'И': 'и',
+                'Й': 'йййй', 'К': 'к', 'Л': 'л', 'М': 'м',
+                'Н': 'н', 'О': 'о', 'П': 'п', 'Р': 'ррр', 'С': 'с',
+                'Т': 'т', 'У': 'у', 'Ф': 'ф', 'Х': 'х', 'Ц': 'ццц',
+                'Ч': 'чч', 'Ш': 'шш', 'Щ': 'щь', 'Ъ': 'ъ',
+                'Ы': 'ы', 'Ь': 'Мягкий знак', 'Э': 'э', 'Ю': 'ю', 'Я': 'я'
+            };
+            const name = letterNames[letter] || letter;
+            // ✅ ВАЖНО: здесь НЕТ слова "Буква", только сама буква!
+            speakText(name, 0.8, 1.0);
         }
-        function playErrorSound() {
-            if (!soundEnabled) return;
-            playTone(400, 0.2, 'sawtooth', 0.2);
-            setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
+
+        function speakWord(wordArray) {
+            const word = wordArray.join('');
+            speakText(word, 0.7, 1.0);
         }
-        function playCompleteSound() {
-            if (!soundEnabled) return;
-            playTone(523, 0.2);
-            setTimeout(() => playTone(659, 0.2), 150);
-            setTimeout(() => playTone(784, 0.2), 300);
-            setTimeout(() => playTone(1047, 0.4), 450);
+
+        function speakNumber(num) {
+            speakText(num.toString(), 0.9, 1.0);
         }
 
         // ============================================================
@@ -1480,7 +1553,15 @@
             soundEnabled = !soundEnabled;
             this.textContent = soundEnabled ? '🔊' : '🔇';
             this.classList.toggle('muted', !soundEnabled);
-            if (soundEnabled) setTimeout(() => playClickSound(), 100);
+            
+            if (soundEnabled) {
+                setTimeout(() => playTone(800, 0.06, 'sine', 0.15), 100);
+                setTimeout(() => speakText('Звук включён'), 300);
+            } else {
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                }
+            }
         });
 
         // ============================================================
@@ -1539,7 +1620,7 @@
 
                 card.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    playClickSound();
+                    playTone(800, 0.06, 'sine', 0.15);
                     
                     document.querySelectorAll('.rule-popup.show').forEach(el => {
                         el.classList.remove('show');
@@ -1561,6 +1642,9 @@
                                          'согласная (твердая/мягкая)';
                     document.getElementById('lettersMessage').textContent = `🔤 Буква «${letter}» — ${colorNameText}. Слово: ${dataObj.word}`;
                     document.getElementById('lettersMessage').className = 'message success';
+                    
+                    // ✅ Озвучиваем ТОЛЬКО букву (без "Заглавная", "Буква")
+                    speakLetter(letter);
                 });
 
                 container.appendChild(card);
@@ -1588,7 +1672,9 @@
             if (!VOWELS.has(lower) && !NO_SOUND.has(lower)) {
                 panel.classList.add('show');
                 
-                const vowels = ['а', 'о', 'у', 'ы', 'я', 'ю', 'е', 'ё', 'и'];
+                // const vowels = ['а', 'о', 'у', 'ы', 'я', 'ю', 'е', 'ё', 'и'];
+                const vowels = SYLLABLES[lower];
+
                 vowels.forEach(v => {
                     const sylDiv = document.createElement('div');
                     sylDiv.className = 'syl-item';
@@ -1617,7 +1703,7 @@
             learnWords = getRandomWords(6);
             learnState.clear();
             renderLearnWords();
-            document.getElementById('learnMessage').textContent = '🔄 Новые слова! Нажми на букву, чтобы увидеть её цвет!';
+            document.getElementById('learnMessage').textContent = '🔄 Новые слова! Нажми на букву, чтобы увидеть её цвет и услышать название!';
             document.getElementById('learnMessage').className = 'message';
         }
 
@@ -1667,7 +1753,7 @@
             const word = learnWords[wIdx].word;
             const letter = word[lIdx];
             
-            playClickSound();
+            playTone(800, 0.06, 'sine', 0.15);
 
             if (learnState.has(key)) {
                 const els = document.querySelectorAll(`#learnWordsGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
@@ -1690,6 +1776,9 @@
             const colorName = color === 'red' ? 'гласный' : color === 'blue' ? 'твёрдый согласный' : color === 'green' ? 'мягкий согласный' : 'без звука';
             document.getElementById('learnMessage').textContent = `✅ «${letter.toUpperCase()}» → ${colorName}`;
             document.getElementById('learnMessage').className = 'message success';
+            
+            // ✅ Озвучиваем ТОЛЬКО букву
+            speakLetter(letter);
         }
 
         function colorLearnAll() {
@@ -1708,7 +1797,9 @@
             });
             document.getElementById('learnMessage').textContent = '🌟 Все буквы раскрашены! Молодец!';
             document.getElementById('learnMessage').className = 'message success';
-            playSuccessSound();
+            playTone(523, 0.15);
+            setTimeout(() => playTone(659, 0.15), 150);
+            setTimeout(() => playTone(784, 0.25), 300);
         }
 
         function resetLearn() {
@@ -1784,7 +1875,7 @@
             const word = paintWords[wIdx].word;
             const letter = word[lIdx];
             
-            playClickSound();
+            playTone(800, 0.06, 'sine', 0.15);
 
             const els = document.querySelectorAll(`#paintGrid .letter[data-word="${wIdx}"][data-index="${lIdx}"]`);
             
@@ -1882,7 +1973,10 @@
                 });
                 msg.innerHTML = `🎉✨ Отлично! Все ${total} букв раскрашены правильно! ✨🎉`;
                 msg.className = 'message success';
-                playCompleteSound();
+                playTone(523, 0.15);
+                setTimeout(() => playTone(659, 0.15), 150);
+                setTimeout(() => playTone(784, 0.25), 300);
+                setTimeout(() => playTone(1047, 0.4), 450);
             } else if (correct === 0) {
                 document.querySelectorAll('#paintGrid .word-card').forEach(card => {
                     card.style.borderColor = 'rgba(255,255,255,0.6)';
@@ -1890,7 +1984,8 @@
                 });
                 msg.innerHTML = `😅 Попробуй раскрасить буквы, а потом проверь!`;
                 msg.className = 'message';
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
+                setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
             } else {
                 document.querySelectorAll('#paintGrid .word-card').forEach(card => {
                     if (hasErrors) {
@@ -1903,7 +1998,8 @@
                 });
                 msg.innerHTML = `📝 Правильно: ${correct} из ${total}. Неправильные буквы подсвечены красным!`;
                 msg.className = 'message error';
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
+                setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
             }
 
             setTimeout(() => { isCheckingPaint = false; }, 1000);
@@ -1923,7 +2019,7 @@
                                  'ластик 🧹';
                     document.getElementById('paintMessage').textContent = `🖌️ Выбран ${name}`;
                     document.getElementById('paintMessage').className = 'message';
-                    playClickSound();
+                    playTone(800, 0.06, 'sine', 0.15);
                 });
             });
         }
@@ -2025,7 +2121,7 @@
             const slotIndex = parseInt(this.dataset.index, 10);
 
             if (buildState[slotIndex] !== null) {
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
                 document.getElementById('buildMessage').textContent = '⚠️ В этой ячейке уже есть буква!';
                 document.getElementById('buildMessage').className = 'message error';
                 return;
@@ -2044,7 +2140,7 @@
             });
 
             if (!found) {
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
                 document.getElementById('buildMessage').textContent = '⚠️ Такой буквы нет в наборе!';
                 document.getElementById('buildMessage').className = 'message error';
                 return;
@@ -2053,7 +2149,7 @@
             targetEl.remove();
             buildState[slotIndex] = letter;
             updateBuildSlots();
-            playClickSound();
+            playTone(800, 0.06, 'sine', 0.15);
 
             checkBuildComplete();
         }
@@ -2075,7 +2171,7 @@
             lettersContainer.appendChild(span);
 
             updateBuildSlots();
-            playClickSound();
+            playTone(800, 0.06, 'sine', 0.15);
             document.getElementById('buildMessage').textContent = `↩️ Буква «${letter.toUpperCase()}» возвращена`;
             document.getElementById('buildMessage').className = 'message';
             isWordBuilt = false;
@@ -2094,7 +2190,9 @@
                 isWordBuilt = true;
                 document.getElementById('buildMessage').textContent = '🎉 Отлично! Слово собрано!';
                 document.getElementById('buildMessage').className = 'message success';
-                playSuccessSound();
+                playTone(523, 0.15);
+                setTimeout(() => playTone(659, 0.15), 150);
+                setTimeout(() => playTone(784, 0.25), 300);
             } else {
                 document.getElementById('buildMessage').textContent = '✅ Буква поставлена! Продолжай собирать слово.';
                 document.getElementById('buildMessage').className = 'message';
@@ -2103,7 +2201,7 @@
 
         function resetBuild() {
             initBuild();
-            playClickSound();
+            playTone(800, 0.06, 'sine', 0.15);
         }
 
         function checkBuild() {
@@ -2113,7 +2211,8 @@
             if (!isComplete) {
                 document.getElementById('buildMessage').textContent = '❌ Слово собрано не полностью!';
                 document.getElementById('buildMessage').className = 'message error';
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
+                setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
                 return;
             }
 
@@ -2136,7 +2235,10 @@
                     el.style.borderColor = '#2e9b6e';
                     el.style.boxShadow = '0 0 20px rgba(46,155,110,0.3)';
                 });
-                playCompleteSound();
+                playTone(523, 0.15);
+                setTimeout(() => playTone(659, 0.15), 150);
+                setTimeout(() => playTone(784, 0.25), 300);
+                setTimeout(() => playTone(1047, 0.4), 450);
             } else {
                 document.getElementById('buildMessage').textContent = '📝 Слово собрано, но буквы раскрашены не все. Нажми "Раскрасить буквы"!';
                 document.getElementById('buildMessage').className = 'message';
@@ -2144,7 +2246,9 @@
                     el.style.borderColor = '#ff0000';
                     el.style.boxShadow = '0 0 20px rgba(255,0,0,0.2)';
                 });
-                playSuccessSound();
+                playTone(523, 0.15);
+                setTimeout(() => playTone(659, 0.15), 150);
+                setTimeout(() => playTone(784, 0.25), 300);
             }
         }
 
@@ -2155,7 +2259,8 @@
             if (!isComplete) {
                 document.getElementById('buildMessage').textContent = '❌ Сначала собери слово полностью!';
                 document.getElementById('buildMessage').className = 'message error';
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
+                setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
                 return;
             }
 
@@ -2170,7 +2275,9 @@
 
             document.getElementById('buildMessage').textContent = '🎨 Буквы раскрашены! Нажми "Проверить" для проверки.';
             document.getElementById('buildMessage').className = 'message success';
-            playSuccessSound();
+            playTone(523, 0.15);
+            setTimeout(() => playTone(659, 0.15), 150);
+            setTimeout(() => playTone(784, 0.25), 300);
         }
 
         // ============================================================
@@ -2242,7 +2349,6 @@
         let analyzeAnswers = { syllables: null, vowels: null, consonants: null };
         let analyzeChecked = false;
 
-        // Функция для подсчета слогов, гласных и согласных
         function analyzeWordStats(wordArray) {
             let vowelsCount = 0;
             let consonantsCount = 0;
@@ -2251,11 +2357,9 @@
                 if (VOWELS.has(letter)) {
                     vowelsCount++;
                 } else if (!NO_SOUND.has(letter)) {
-                    // Считаем согласными все, кроме гласных и ь/ъ
                     consonantsCount++;
                 }
             });
-            // Количество слогов = количество гласных (упрощенно)
             const syllablesCount = vowelsCount;
             return { syllables: syllablesCount, vowels: vowelsCount, consonants: consonantsCount };
         }
@@ -2270,7 +2374,6 @@
             document.getElementById('analyzeResult').className = 'analyze-result';
             document.getElementById('analyzeMessage').textContent = '🔍 Разбери слово: определи количество слогов, гласных и согласных!';
             document.getElementById('analyzeMessage').className = 'message';
-            // Активируем все кнопки
             document.querySelectorAll('#analyzeQuestions .option-btn').forEach(btn => {
                 btn.disabled = false;
                 btn.classList.remove('selected', 'correct', 'wrong');
@@ -2279,30 +2382,25 @@
 
         function renderAnalyzeWord() {
             if (!analyzeWord) return;
-            // Картинка
             document.getElementById('analyzeImage').textContent = analyzeWord.emoji;
-            // Буквы
             const lettersContainer = document.getElementById('analyzeLetters');
             lettersContainer.innerHTML = '';
             analyzeWord.word.forEach(letter => {
                 const span = document.createElement('span');
                 span.className = 'letter';
                 span.textContent = letter.toUpperCase();
-                // Цвет не применяем, просто печатные буквы
                 lettersContainer.appendChild(span);
             });
 
-            // Опции для каждого вопроса
             const stats = analyzeWordStats(analyzeWord.word);
             const maxSyllables = Math.max(stats.syllables, 1);
             const maxVowels = Math.max(stats.vowels, 1);
             const maxConsonants = Math.max(stats.consonants, 1);
-            const maxAll = Math.max(maxSyllables, maxVowels, maxConsonants, 5); // минимум 5
+            const maxAll = Math.max(maxSyllables, maxVowels, maxConsonants, 5);
 
             function createOptions(containerId, correctAnswer, maxVal) {
                 const container = document.getElementById(containerId);
                 container.innerHTML = '';
-                // Создаем кнопки от 0 до maxVal (но не меньше 1 и не больше 10)
                 const max = Math.min(Math.max(maxVal, 3), 10);
                 for (let i = 0; i <= max; i++) {
                     const btn = document.createElement('button');
@@ -2311,15 +2409,14 @@
                     btn.dataset.value = i;
                     btn.addEventListener('click', function() {
                         if (analyzeChecked) return;
-                        // Снимаем выделение со всех в этой группе
                         container.querySelectorAll('.option-btn').forEach(b => {
                             b.classList.remove('selected');
                         });
                         this.classList.add('selected');
-                        // Сохраняем ответ
                         const question = containerId === 'syllableOptions' ? 'syllables' :
                                          containerId === 'vowelOptions' ? 'vowels' : 'consonants';
                         analyzeAnswers[question] = i;
+                        speakNumber(i);
                     });
                     container.appendChild(btn);
                 }
@@ -2332,13 +2429,8 @@
 
         function checkAnalyze() {
             if (!analyzeWord) return;
-            if (analyzeChecked) {
-                // Если уже проверено, можно сбросить и проверить заново? Лучше сбросить сначала.
-                // Но сделаем так: если уже проверено, то просто подсветим правильно/неправильно без изменения.
-                // Но чтобы было удобно, разрешим повторную проверку после сброса.
-                // Поэтому если уже checked, ничего не делаем.
-                return;
-            }
+            if (analyzeChecked) return;
+            
             const stats = analyzeWordStats(analyzeWord.word);
             let allCorrect = true;
             const questions = [
@@ -2360,9 +2452,6 @@
                     }
                     btn.disabled = true;
                 });
-                // Подсветим правильный ответ
-                // Уже сделано выше
-                // Проверим, что пользователь выбрал правильный ответ
                 if (analyzeAnswers[q.key] !== q.correct) {
                     allCorrect = false;
                 }
@@ -2374,13 +2463,18 @@
             if (allCorrect) {
                 resultEl.textContent = '🎉 Всё верно! Молодец!';
                 resultEl.className = 'analyze-result success';
-                playCompleteSound();
+                playTone(523, 0.15);
+                setTimeout(() => playTone(659, 0.15), 150);
+                setTimeout(() => playTone(784, 0.25), 300);
+                setTimeout(() => playTone(1047, 0.4), 450);
                 document.getElementById('analyzeMessage').textContent = '✅ Отлично! Ты правильно разобрал слово!';
                 document.getElementById('analyzeMessage').className = 'message success';
+                speakWord(analyzeWord.word);
             } else {
                 resultEl.textContent = '❌ Есть ошибки. Попробуй снова! (нажми "Сбросить")';
                 resultEl.className = 'analyze-result error';
-                playErrorSound();
+                playTone(400, 0.2, 'sawtooth', 0.2);
+                setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.2), 200);
                 document.getElementById('analyzeMessage').textContent = '❌ Не все ответы верны. Нажми "Сбросить" и попробуй ещё раз!';
                 document.getElementById('analyzeMessage').className = 'message error';
             }
@@ -2390,7 +2484,6 @@
             if (!analyzeWord) return;
             analyzeAnswers = { syllables: null, vowels: null, consonants: null };
             analyzeChecked = false;
-            // Сброс кнопок
             document.querySelectorAll('#analyzeQuestions .option-btn').forEach(btn => {
                 btn.disabled = false;
                 btn.classList.remove('selected', 'correct', 'wrong');
@@ -2399,9 +2492,6 @@
             document.getElementById('analyzeResult').className = 'analyze-result';
             document.getElementById('analyzeMessage').textContent = '🔄 Сброшено. Попробуй снова!';
             document.getElementById('analyzeMessage').className = 'message';
-            // Удаляем выбор
-            // Также можно перерисовать слово, чтобы сбросить все
-            // Но проще просто сбросить состояние
         }
 
         // ============================================================
@@ -2436,7 +2526,7 @@
                         generateAnalyzeWord();
                     }
 
-                    playClickSound();
+                    playTone(800, 0.06, 'sine', 0.15);
                 });
             });
         }
@@ -2445,38 +2535,30 @@
         // ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         function init() {
-            // Раздел 1: Учим буквы
             renderLetters();
-
-            // Раздел 2: Учимся
             generateLearnWords();
             document.getElementById('newLearnBtn').addEventListener('click', generateLearnWords);
             document.getElementById('colorLearnBtn').addEventListener('click', colorLearnAll);
             document.getElementById('resetLearnBtn').addEventListener('click', resetLearn);
 
-            // Раздел 3: Раскрась слово
             generatePaintWords();
             document.getElementById('newPaintBtn').addEventListener('click', generatePaintWords);
             document.getElementById('resetPaintBtn').addEventListener('click', resetPaint);
             document.getElementById('checkPaintBtn').addEventListener('click', checkPaint);
             initPalette();
 
-            // Раздел 4: Собери слово
             document.getElementById('resetBuildBtn').addEventListener('click', resetBuild);
             document.getElementById('checkBuildBtn').addEventListener('click', checkBuild);
             document.getElementById('colorBuildBtn').addEventListener('click', colorBuild);
 
-            // Раздел 5: Прочитай слово
             generateReadWords();
             document.getElementById('newReadBtn').addEventListener('click', generateReadWords);
 
-            // Раздел 6: Разбери слово
             generateAnalyzeWord();
             document.getElementById('newAnalyzeBtn').addEventListener('click', generateAnalyzeWord);
             document.getElementById('checkAnalyzeBtn').addEventListener('click', checkAnalyze);
             document.getElementById('resetAnalyzeBtn').addEventListener('click', resetAnalyze);
 
-            // Вкладки
             initTabs();
 
             setTimeout(() => {
@@ -2484,7 +2566,7 @@
             }, 100);
 
             document.getElementById('paintMessage').textContent = '🎨 Выбери цвет в палитре и нажми на букву, чтобы раскрасить!';
-            document.getElementById('learnMessage').textContent = '👆 Нажми на букву в слове, чтобы увидеть её цвет!';
+            document.getElementById('learnMessage').textContent = '👆 Нажми на букву в слове, чтобы увидеть её цвет и услышать название!';
             document.getElementById('lettersMessage').textContent = '🔤 Нажми на букву, чтобы узнать её правило!';
         }
 
